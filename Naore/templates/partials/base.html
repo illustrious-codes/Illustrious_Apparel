@@ -1,0 +1,198 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NAORE LUXE APPAREL</title>
+    <!-- <link rel="stylesheet" href="{% static 'static/assets/css/style.css' %}" /> -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,200,0,0" />
+    <script src="https://kit.fontawesome.com/a84998a1d7.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="head">
+            <nav class="header">
+                <ul>
+                    <!-- <span class="mySpan"><img src="{% static './images/jumia-icon.png ' %}" width="15px" /> -->
+                    <span class="mySpan"><img src="{% static './images/naore3.jpeg' %}" width="15px" />
+                        Sell
+                        on Naor&eacute;</span>
+                    <div class="main">
+                        <li>
+                            <a href="#">
+                                <!-- <img src="{% static './images/Jumia-Logo.png' %}" width="55px" /> -->
+                                <b>Naor&eacute;</b>
+                                <img src="{% static './images/naore3.jpeg' %}" width="15px" />
+                            </a>
+                        </li>
+                        <li><a href="#">PAY</a></li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="main-header ">
+
+        <!-- <img src="{% static './images/Jumia-Logo.png' %}" width="140px" /> -->
+        <img src="{% static './images/naore1.jpeg' %}" width="140px" />
+        <div class="search-container">
+            <form id="search-form">
+                <img src="{% static './images/search.png' %}" width="1px" alt="">
+                <input type="text" placeholder="Search Products, Brands and Categories" />
+            </form>
+            <button>SEARCH</button>
+        </div>
+        <div class="icon">
+            <ul>
+                <li> <a href="#"><i class="fa-regular fa-user"></i>Account</li>
+                <img src="{% static './images/drop2.png' %}" width="20px" alt="image" />
+
+                <li>
+                    <a href="#"><i class="fa-regular fa-circle-question"></i>Help</a>
+                </li>
+                <img src="{% static './images/drop2.png' %}" width="20px" alt="image" />
+                <li>
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+                </li>
+            </ul>
+        </div>
+
+    </section>
+
+        {% block content %}
+
+        {% endblock content %}
+
+
+        <section class="footer">
+            <!-- <div class="footer-img"><img src="{% static './images/jumia-whitel.jpeg' %}" width="180px"></div> -->
+            <div class="footer-img"><img src="{% static './images/naore5.png' %}" width="180px"></div>
+            <div class="subscription-form">
+                <h3>NEW TO NAOR&Eacute;?</h3>
+                <p>Subscribe to our newsletter to get updates on our latest offers!</p>
+                <input type="email" placeholder="Enter E-mail Address">
+                <button class="gender-btn male"> MALE</button>
+                <button class="gender-btn female">FEMALE</button>
+            </div>
+            <Div><img src="{% static './images/jumia-two.jpeg' %}" width="">
+
+            </Div>
+        </section>
+        <section class="footer-container">
+            <div class="main-footer">
+                <div>
+                    <h3>NEED HELP?</h3>
+                    <li>Chat with us </li>
+                    <li>Help Center</li>
+                    <li>Contact Us</li>
+                    <h3>USEFUL LINKS</h3>
+                    <li>Service Center</li>
+                    <li> How to shop on Naor&eacute;?</li>
+                    <li> Delivery options and timelines</li>
+                    <li>How to return a product on Jumia?</li>
+                    <li> Corporate and bulk purchases</li>
+                    <li> Report a Product</li>
+                    <li> Dispute Resolution Policy</li>
+                    <li>Returns & Refund Timeline</li>
+                    <li> Return Policy</li>
+                </div>
+                <div>
+                    <h3> ABOUT NAOR&Eacute;</h3>
+                    <li>About us</li>
+                    <li>Naor&eacute; careers</li>
+                    <li>Naor&eacute; Express</li>
+                    <li>Terms and Conditions</li>
+                    <li>Privacy Notice</li>
+                    <li>Naor&eacute; Store Credit Terms & Conditions</li>
+                    <li>Naor&eacute; Payment Information Guidelines</li>
+                    <li>Cookie Notice</li>
+                    <li>Naor&eacute; Global</li>
+                    <li>Official Stores</li>
+                    <li>Flash Sales</li>
+                </div>
+                <div>
+                    <h3>MAKE MONEY WITH NAOR&Eacute;</h3>
+                    <li>Sell on Naor&eacute;</li>
+                    <li>Vendor hub</li>
+                    <li>Become a Sales Consultant</li>
+                    <li>Become a Logistics Service Partner</li>
+                    <li>Join the Naor&eacute; DA Academy</li>
+                    <li>Join the Naor&eacute; KOL Program</li>
+                </div>
+                <div>
+                    <h3>JUMIA INTERNATIONAL</h3>
+                    <div class="country-footer">
+                        <div>
+                            <li> Algeria</li>
+                            <li>Egypt</li>
+                            <li>Ghana</li>
+                            <li>Ivory Coast</li>
+                            <li>Kenya</li>
+                        </div>
+                        <div>
+                            <li> Morocco</li>
+                            <li>Senegal</li>
+                            <li>Tunisia</li>
+                            <li>Uganda</li>
+                            <li>Zando
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sub-footer max-width">
+                <div>
+                    <h3>JOIN US ON</h3>
+                    <i class="fa-brands fa-facebook-f" style="color: #ffffff;"></i>
+                    <i class="fa-brands fa-youtube" style="color: #ffffff;"></i>
+                    <i class="fa-brands fa-instagram" style="color: #ffffff;"></i>
+                    <i class="fa-brands fa-twitter" style="color: #ffffff;"></i>
+                </div>
+                <!-- <div>
+                    <h3>
+                        PAYMENT METHODS & DELIVERY PARTNERS</h3>
+                    <img src="{% static './images/icons.png' %}" alt="">
+                </div> -->
+                <div class="ft_3_1">
+                        <div class="ft_social">
+                            <h3>PAYMENT METHODS & DELIVERY PARTNERS</h3>
+                        </div>
+                        <div class="ft_soc">
+                            <a href="#">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                            <a href="#" >
+                                <i class="fa fa-cc-mastercard"></i>
+                            </a>
+                            <a href="#" >
+                                <i class="fa fa-cc-visa"></i>
+                            </a>
+                            <a href="#" >
+                                <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                <i class="fa-brands fa-dhl"></i>
+                            </a>
+                            <!-- <a href="#" class="ft_a">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="ft_svg"  viewBox="0 0 640 512"><path d="M238 301.2h58.7L319 271h-58.7L238 301.2zM0 282.9v6.4h81.8l4.7-6.4H0zM172.9 271c-8.7 0-6-3.6-4.6-5.5 2.8-3.8 7.6-10.4 10.4-14.1 2.8-3.7 2.8-5.9-2.8-5.9h-51l-41.1 55.8h100.1c33.1 0 51.5-22.5 57.2-30.3h-68.2zm317.5-6.9l39.3-53.4h-62.2l-39.3 53.4h62.2zM95.3 271H0v6.4h90.6l4.7-6.4zm111-26.6c-2.8 3.8-7.5 10.4-10.3 14.2-1.4 2-4.1 5.5 4.6 5.5h45.6s7.3-10 13.5-18.4c8.4-11.4.7-35-29.2-35H112.6l-20.4 27.8h111.4c5.6 0 5.5 2.2 2.7 5.9zM0 301.2h73.1l4.7-6.4H0v6.4zm323 0h58.7L404 271h-58.7c-.1 0-22.3 30.2-22.3 30.2zm222 .1h95v-6.4h-90.3l-4.7 6.4zm22.3-30.3l-4.7 6.4H640V271h-72.7zm-13.5 18.3H640v-6.4h-81.5l-4.7 6.4zm-164.2-78.6l-22.5 30.6h-26.2l22.5-30.6h-58.7l-39.3 53.4H409l39.3-53.4h-58.7zm33.5 60.3s-4.3 5.9-6.4 8.7c-7.4 10-.9 21.6 23.2 21.6h94.3l22.3-30.3H423.1z"/></svg>
+                            </a> -->
+                            
+                        </div>
+                    </div>
+                </div>
+
+            <div class="long-line"></div>
+            <div class="ft_2">  
+                <div style="width: 200vh; display: flex; justify-content: center; align-items: center;">
+                    <h3 style="color: white;">DESIGNED BY &rAarr; ILLUSTRIOUS CODES</h3>
+                </div>
+            </div>
+
+        </section>
+        <script src="{% static 'js/script.js' %}"></script>
+        </body>
+
+        </html>
