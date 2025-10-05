@@ -1,7 +1,16 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-# Create your views here.
+from core.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages,ProductReview,wishlist, Address 
+
 
 def index(request):
-    return render(request, 'core/index.html')
+    # products = Product.objects.all().order_by("-id")
+    # products = Product.objects.filter(featured=True).order_by("-id")
+    products = Product.objects.filter(product_status="published", featured=True)
+
+
+    context = {
+        "products":products
+    }
+    return render(request, 'core/index.html', context)

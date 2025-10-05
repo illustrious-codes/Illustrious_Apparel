@@ -3,6 +3,98 @@
 
 {% block content %}
 
+
+<style>
+        /* Container for the product card */
+.product-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: white;
+    transition: box-shadow 0.2s ease;
+    width: 240px;  /* adjust as needed */
+    margin: 10px;
+}
+
+.product-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+    /* The link wraps image + info */
+.product-card .product-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+    /* Image container */
+.product-card .product-image {
+    width: 100%;
+    padding-top: 100%; /* square ratio: maintain aspect ratio */
+    position: relative;
+    overflow: hidden;
+    background-color: #fafafa;
+}
+
+.product-card .product-image img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 100%;
+    max-height: 100%;
+    transform: translate(-50%, -50%);
+}
+
+    /* Info below the image */
+.product-card .product-info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+    /* Product name */
+.product-card .product-name {
+    font-size: 1rem;
+    line-height: 1.2;
+    margin: 0 0 8px 0;
+    color: #333;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+    /* Prices */
+.product-card .product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.product-card .product-price .price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #e91e63; /* pink / highlight color – change to your theme’s primary */
+}
+
+.product-card .product-price .old-price {
+    font-size: 0.9rem;
+    color: #999;
+    text-decoration: line-through;
+}
+
+    /* Rating */
+.product-card .product-rating {
+    margin-top: 6px;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+</style>
+
         <div class="main-body"></div>
         <div class="boxes-container">
             <div class="box-1">
@@ -101,11 +193,40 @@
         </div>
         <section class="cards">
             <div class="flex-container">
-                <div class="img-hover">
-                    <img src="{% static './images/Pressing_Iron.png' %}" alt="image">
-                    <h4 class="text-img">Clearance sale</h4>
+                {% for p in products %}
+
+                <div class="product-card">
+                    <a href="/product/{{ product.slug }}" class="product-link">
+                        <div class="product-image">
+                        <img src="{{ p.image.url }}" alt="{{ product.name }}">
+                        </div>
+                        <div class="product-info">
+                        <p class="product-name">{{ p.category.title }}</p>
+                        <b class="product-name">{{ p.title }}</b>
+                        <small class="product-name">By: {{ p.vendor.title }}</small>
+                        <div class="product-price">
+                            <span class="price">₦{{ p.price }}</span>
+                            {% if p.old_price %}
+                            <span class="old-price">₦{{ p.old_price }}</span>
+                            <b style="background-color: red; color: white; padding: 4px; font-size: medium;">-{{ p.get_percentage|floatformat:0 }}%</b>
+                            {% endif %}
+                        </div>
+                        <div class="product-rating">
+                            <!-- You could show stars etc. -->
+                            <span>{{ p.get_rating|default:"2" }}/5</span>
+                        </div>
+                        </div>
+                    </a>
                 </div>
-                <div class="img-hover"><img
+
+
+
+                <!-- <div class="img-hover">
+                    <img src="{{ p.image.url }}" alt="image">
+                    <h4 class="text-img">Clearance sale</h4>
+                </div> -->
+                {% endfor %}
+                <!-- <div class="img-hover"><img
                         src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Electronic.jpg"
                         alt="image">
                     <h4 class="text-img">Best deals</h4>
@@ -136,7 +257,7 @@
                 <div class="img-hover"><img
                         src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/home.png" alt="image">
                     <h4 class="text-img">Official Store Deals</h4>
-                </div>
+                </div> -->
             </div>
         </section>
 
