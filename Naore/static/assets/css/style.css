@@ -233,7 +233,7 @@ input[type="text"]::placeholder {
   flex: 1;
 }
 
-.cards {
+/* .cards {
   max-width: 1200px;
   margin: auto;
   overflow: hidden;
@@ -241,7 +241,7 @@ input[type="text"]::placeholder {
 
 .flex-container {
   width: 100%;
-  background-color: #f1f1f2;
+  background-color: red;
   padding: 10px;
   box-sizing: border-box;
   display: grid;
@@ -262,7 +262,7 @@ input[type="text"]::placeholder {
 
 .flex-container h4 {
   margin: 0px;
-}
+} */
 
 .box-3 ul {
   background-color: white;
@@ -675,4 +675,3 @@ img {
   height: auto;
   width: auto;
 } */
-

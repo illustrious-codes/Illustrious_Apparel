@@ -5,14 +5,21 @@
 
 
 <style>
-        /* Container for the product card */
+
+/* *{
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
 .product-card {
+    background-color: red;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     overflow: hidden;
-    background-color: white;
     transition: box-shadow 0.2s ease;
-    width: 240px;  /* adjust as needed */
+    width: 240px;  
     margin: 10px;
 }
 
@@ -20,7 +27,6 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-    /* The link wraps image + info */
 .product-card .product-link {
     text-decoration: none;
     color: inherit;
@@ -29,10 +35,10 @@
     height: 100%;
 }
 
-    /* Image container */
+
 .product-card .product-image {
     width: 100%;
-    padding-top: 100%; /* square ratio: maintain aspect ratio */
+    padding-top: 100%;
     position: relative;
     overflow: hidden;
     background-color: #fafafa;
@@ -47,7 +53,6 @@
     transform: translate(-50%, -50%);
 }
 
-    /* Info below the image */
 .product-card .product-info {
     padding: 10px;
     display: flex;
@@ -55,7 +60,6 @@
     flex-grow: 1;
 }
 
-    /* Product name */
 .product-card .product-name {
     font-size: 1rem;
     line-height: 1.2;
@@ -67,7 +71,7 @@
     white-space: nowrap;
 }
 
-    /* Prices */
+
 .product-card .product-price {
     display: flex;
     align-items: baseline;
@@ -77,7 +81,7 @@
 .product-card .product-price .price {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #e91e63; /* pink / highlight color – change to your theme’s primary */
+    color: #e91e63; 
 }
 
 .product-card .product-price .old-price {
@@ -86,12 +90,154 @@
     text-decoration: line-through;
 }
 
-    /* Rating */
 .product-card .product-rating {
     margin-top: 6px;
     font-size: 0.9rem;
     color: #777;
+} */
+
+
+/* ----------------------------------------------------------------------------- */
+
+
+/* Container for all product cards */
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  margin-left: 85px;
+  margin-right: 85px;
 }
+
+/* Individual product card */
+.product-card {
+  width: calc(20% - 16px); /* 5 per row, with gap adjustment */
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+}
+
+.product-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 10px;
+}
+
+.product-image {
+  position: relative;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: red;
+  color: white;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.product-image img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.product-info {
+  padding: 10px 0;
+}
+
+.product-name {
+  font-size: 14px;
+  color: #555;
+  margin: 4px 0;
+}
+
+.product-price {
+  margin-top: 8px;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 16px;
+  color: green;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-left: 10px;
+}
+
+.discount {
+  background-color: red;
+  color: white;
+  padding: 3px 6px;
+  margin-left: 10px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.product-rating {
+margin-top: 5px;
+  font-size: 13px;
+  color: #999;
+}
+
+.cart-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.cart-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive: stack fewer per row on smaller screens */
+@media (max-width: 1024px) {
+  .product-card {
+    width: calc(25% - 16px); /* 4 per row */
+  }
+}
+@media (max-width: 768px) {
+  .product-card {
+    width: calc(33.33% - 16px); /* 3 per row */
+  }
+}
+@media (max-width: 480px) {
+  .product-card {
+    width: calc(50% - 16px); /* 2 per row */
+  }
+}
+
+
+
+
+
+
+
 
 </style>
 
@@ -101,45 +247,54 @@
                 <ul>
                     <li>
                         <span class="material-symbols-outlined">
-                            home
-                        </span>Supermarket
+                            <i class="fa-solid fa-user-tie"></i>
+                        </span>Men's Wear
                     </li>
                     <li><span class="material-symbols-outlined">
-                            health_and_beauty
-                        </span>Health and beauty</li>
+                            <i class="fa-solid fa-vest"></i>
+                        </span>Women's Fashion</li>
                     <li>
                         <span class="material-symbols-outlined">
-                            home
+                            <i class="fa-solid fa-shirt"></i>
                         </span>
-                        Home &
-                        office
+                        Unisex Fashion
                     </li>
                     <li><span class="material-symbols-outlined">
                             <span class="material-symbols-outlined">
-                                stockpot
+                                <i class="fa-solid fa-shoe-prints"></i>
                             </span>
-                        </span>Appliances</li>
+                        </span>Children's Fashion</li>
                     <li><span class="material-symbols-outlined">
-                            phone_iphone
-                        </span>Phone & Tablets</li>
+                            <i class="fa-solid fa-keyboard"></i>
+                        </span>Accessories</li>
                     <li><span class="material-symbols-outlined">
-                            assistant_device
-                        </span>Electronics</li>
+                            <i class="fa-solid fa-gem"></i>
+                        </span>Jewelry</li>
                     <li><span class="material-symbols-outlined">
-                            apparel
-                        </span>Fashion</li>
+                            <i class="fa-solid fa-socks"></i>
+                        </span>Footwear</li>
                     <li><span class="material-symbols-outlined">
-                            child_care
-                        </span>Baby products</li>
+                            <i class="fa-solid fa-clock"></i>
+                        </span>Watches</li>
                     <li><span class="material-symbols-outlined">
-                            stadia_controller
-                        </span>Gaming</li>
+                            <i class="fa-solid fa-suitcase-rolling"></i>
+                        </span>Bags</li>
+                    <li><span class="material-symbols-outlined"></span>
+                            <i class="fa-solid fa-person-skiing-nordic"></i>
+                        </span>Skincare Products</li>
+                    <li><span class="material-symbols-outlined"></span>
+                            <i class="fa-brands fa-artstation"></i>
+                        </span>Art, Design & Crafts</li>
+                    <li><span class="material-symbols-outlined"></span>
+                            <i class="fa-solid fa-holly-berry"></i>
+                        </span>Interior Decoration</li>
                     <li><span class="material-symbols-outlined">
-                            exercise
-                        </span>Sporting Goods</li>
-                    <li><span class="material-symbols-outlined">
+                            <i class="fa-solid fa-wallet"></i>
+                        </span>Purses & Wallets</li>
+                    
+                    <!-- <li><span class="material-symbols-outlined">
                             more_horiz
-                        </span>Other categories</li>
+                        </span>Other categories</li> -->
                 </ul>
             </div>
 
@@ -191,40 +346,52 @@
                 <img src="https://ng.jumia.is/cms/0-1-initiatives/jforce/2024/shop_earn.png" alt="images" />
             </div>
         </div>
-        <section class="cards">
-            <div class="flex-container">
+        <section >
+            <div class="products-container">
                 {% for p in products %}
 
                 <div class="product-card">
                     <a href="/product/{{ product.slug }}" class="product-link">
                         <div class="product-image">
-                        <img src="{{ p.image.url }}" alt="{{ product.name }}">
+                            <div class="discount-badge">{{ p.get_percentage|floatformat:0 }}%</div>
+                            <img src="{{ p.image.url }}" alt="{{ p.title }}">
+                            
+
                         </div>
                         <div class="product-info">
-                        <p class="product-name">{{ p.category.title }}</p>
-                        <b class="product-name">{{ p.title }}</b>
-                        <small class="product-name">By: {{ p.vendor.title }}</small>
-                        <div class="product-price">
-                            <span class="price">₦{{ p.price }}</span>
-                            {% if p.old_price %}
-                            <span class="old-price">₦{{ p.old_price }}</span>
-                            <b style="background-color: red; color: white; padding: 4px; font-size: medium;">-{{ p.get_percentage|floatformat:0 }}%</b>
-                            {% endif %}
+                            <p class="product-name">{{ p.category.title }}</p>
+                            <b class="product-name">{{ p.title }}</b>
+                            <small class="product-name">By: {{ p.vendor.title }}</small>
+                            <div class="product-price">
+                                <span class="price">₦{{ p.price }}</span>
+                                {% if p.old_price %}
+                                <span class="old-price">₦{{ p.old_price }}</span>
+                                {% endif %}
                         </div>
-                        <div class="product-rating">
-                            <!-- You could show stars etc. -->
+                        <!-- <div class="product-rating">
                             <span>{{ p.get_rating|default:"2" }}/5</span>
-                        </div>
+                        </div> -->
+                        <button type="submit" class="cart-btn">Add to Cart</button>
+
+                        <!-- <div class="add-to-cart"></div>
+                            <form method="post" action="">
+                                <button type="submit" class="cart-btn">Add to Cart</button>
+                            </form>
+                        </div> -->
                         </div>
                     </a>
                 </div>
 
+                
 
 
-                <!-- <div class="img-hover">
-                    <img src="{{ p.image.url }}" alt="image">
-                    <h4 class="text-img">Clearance sale</h4>
-                </div> -->
+
+
+            
+
+
+                
+               
                 {% endfor %}
                 <!-- <div class="img-hover"><img
                         src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Electronic.jpg"
