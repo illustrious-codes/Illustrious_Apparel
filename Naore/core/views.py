@@ -30,7 +30,7 @@ def category_list_view(request):
     # categories = Category.objects.filter(product_status="published")
     categories = Category.objects.all()
 
-
+# nnndndndndndndn
     context = {
         "categories":categories
     }
