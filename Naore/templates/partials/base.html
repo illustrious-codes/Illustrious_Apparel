@@ -46,9 +46,10 @@
         <!-- <img src="{% static './images/Jumia-Logo.png' %}" width="140px" /> -->
         <img src="{% static './images/naore1.jpeg' %}" width="140px" />
         <div class="search-container">
-            <form id="search-form">
+            <form id="search-form" action="{% url 'core:search' %}" method="GET">
                 <img src="{% static './images/search.png' %}" width="1px" alt="">
-                <input type="text" placeholder="Search Products, Brands and Categories" />
+                <input type="text" placeholder="Search Products, Brands and Categories" name="q" />
+                <button class="fas fa-search" type="submit" ></button>
             </form>
             <button>SEARCH</button>
         </div>

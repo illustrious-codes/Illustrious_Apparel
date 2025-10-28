@@ -30,8 +30,29 @@ def category_list_view(request):
     # categories = Category.objects.filter(product_status="published")
     categories = Category.objects.all()
 
-# nnndndndndndndn
+
     context = {
         "categories":categories
     }
     return render(request, 'core/category-list.html', context)
+
+def category_product_list_view(request, cid):
+    category = Category.objects.get(cid=cid)
+    products = Product.objects.filter(product_status="published", category=category)
+
+    context = {
+        "category":category,
+        "products":products,
+    }
+    return render(request, "core/category-product-list.html", context)
+
+def search_view(request):
+    query = request.GET.get("q")
+
+    products = Product.objects.filter(title__icontains=query).order_by("-date")
+    context = {
+        "products": products,
+        "query": query,
+
+    }
+    return render(request, "core/search.html", context)
