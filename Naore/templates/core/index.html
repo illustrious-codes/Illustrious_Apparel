@@ -215,6 +215,63 @@ margin-top: 5px;
   background-color: #0056b3;
 }
 
+
+
+/* for Category */
+.category-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 250px;
+  background: #fff;
+  border: 0.5px solid #eee;
+  border-radius: 4px;
+}
+
+.category-item {
+  border-bottom: 0.5px solid #f2f2f2;
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+.category-link {
+  display: flex;
+  align-items: center;
+  padding: 3px 15px;
+  color: #333;
+  text-decoration: none;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.category-link:hover {
+  background-color: #f5f5f5;
+  color: blue; 
+  border-left: 3px solid blue;
+}
+
+.category-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  margin-right: 10px;
+}
+
+.category-title {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+.category-count {
+  color: #999;
+  font-size: 12px;
+  margin-left: 55px;
+}
+
+
+
 /* Responsive: stack fewer per row on smaller screens */
 @media (max-width: 1024px) {
   .product-card {
@@ -245,57 +302,78 @@ margin-top: 5px;
         <div class="boxes-container">
             <div class="box-1">
                 <ul>
+                    <b style="font-size: 24px; color: blue; ">Categories</b>
+                    {% for c in categories %}
+                    <li class="category-item">
+                        <a href="{% url 'core:category-product-list' c.cid %}" class="category-link">
+                        <img src="{{ c.image.url }}" alt="{{ c.title }}" class="category-icon">
+                        <span class="category-title">{{ c.title }}</span>
+                        <small class="category-count">({{ c.category.count }})</small>
+                        </a>
+                    </li>
+                    {% endfor %}
+
+                    <!-- {% for c in categories %}
                     <li>
                         <span class="material-symbols-outlined">
+                        <img src="{{ c.image.url }}" alt="" height="15px" width="15px">
+                        </span><a href="">{{ c.title }}</a>
+                        <small>({{ c.category.count }})</small>
+                    </li>
+                    {% endfor %} -->
+                    <!-- <h1>{{categories.count}}</h1> -->
+
+
+                    <!-- <li>
+                        <span class="material-symbols-outlined">
                             <i class="fa-solid fa-user-tie"></i>
-                        </span>Men's Wear
+                        </span><a href="#">Men's Wear</a>
                     </li>
                     <li><span class="material-symbols-outlined">
                             <i class="fa-solid fa-vest"></i>
-                        </span>Women's Fashion</li>
+                        </span><a href="">Women's Fashion</a></li>
                     <li>
                         <span class="material-symbols-outlined">
                             <i class="fa-solid fa-shirt"></i>
                         </span>
-                        Unisex Fashion
+                        <a href="">Unisex Fashion</a>
                     </li>
                     <li><span class="material-symbols-outlined">
                             <span class="material-symbols-outlined">
                                 <i class="fa-solid fa-shoe-prints"></i>
                             </span>
-                        </span>Children's Fashion</li>
+                        </span><a href="">Children's Fashion</a></li>
                     <li><span class="material-symbols-outlined">
                             <i class="fa-solid fa-keyboard"></i>
-                        </span>Accessories</li>
+                        </span><a href="">Accessories</a></li>
                     <li><span class="material-symbols-outlined">
                             <i class="fa-solid fa-gem"></i>
-                        </span>Jewelry</li>
+                        </span><a href="">Jewelry</a></li>
                     <li><span class="material-symbols-outlined">
                             <i class="fa-solid fa-socks"></i>
-                        </span>Footwear</li>
+                        </span><a href="">Footwear</a></li>
                     <li><span class="material-symbols-outlined">
                             <i class="fa-solid fa-clock"></i>
-                        </span>Watches</li>
+                        </span><a href="">Watches</a></li>
                     <li><span class="material-symbols-outlined">
                             <i class="fa-solid fa-suitcase-rolling"></i>
-                        </span>Bags</li>
+                        </span><a href="">Bags</a></li>
                     <li><span class="material-symbols-outlined"></span>
                             <i class="fa-solid fa-person-skiing-nordic"></i>
-                        </span>Skincare Products</li>
+                        </span><a href="">Skincare Products</a></li>
                     <li><span class="material-symbols-outlined"></span>
                             <i class="fa-brands fa-artstation"></i>
-                        </span>Art, Design & Crafts</li>
+                        </span><a href="">Art, Design & Crafts</a></li>
                     <li><span class="material-symbols-outlined"></span>
                             <i class="fa-solid fa-holly-berry"></i>
-                        </span>Interior Decoration</li>
+                        </span><a href="">Interior Decoration</a></li>
                     <li><span class="material-symbols-outlined">
                             <i class="fa-solid fa-wallet"></i>
-                        </span>Purses & Wallets</li>
-                    
-                    <!-- <li><span class="material-symbols-outlined">
-                            more_horiz
-                        </span>Other categories</li> -->
+                        </span><a href="">Purses & Wallets</a></li> -->
+
                 </ul>
+
+                
             </div>
 
             <div class="slideshow-container">
