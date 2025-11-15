@@ -384,6 +384,23 @@ body {
 
 
 
+.inline-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.inline-list li {
+  white-space: nowrap;   /* prevents wrapping */
+  align-items: center;
+}
+
+
+
+
+
+
+
 
 /*-----------------------------------*\
   #MEDIA QUERIES
@@ -535,6 +552,9 @@ body {
 
 }
 
+
+
+
 </style>
 
 
@@ -559,7 +579,10 @@ body {
 
               {% for p in p_image %}
               <figure class="product-banner">
-                <img src="{{ p.images.url }}" width="600" height="600" alt="Product" class="img-cover">
+              <a href="{% url 'core:product-detail' p.id %}">
+                <img src="{{ p.images.url }}" width="600" height="600" alt="Product" class="img-cover"
+              </a>
+
               </figure>
               {% endfor %}
 
@@ -583,7 +606,7 @@ body {
             <h1 class="h1 product-title">{{ p.title }}</h1>
 
             <p class="product-text">
-              {{ p.description }}
+              {{ p.description|truncatechars:10 }}
             </p>
 
             <div class="wrapper">
@@ -615,12 +638,305 @@ body {
               <button class="cart-btn">
                 <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
 
+                <input type="text" value="p.id" name="" id="">
+
                 <span class="span">Add to cart</span>
               </button>
+
+              <div>
+                <ul class="inline-list" style="display: flex; flex-direction: column; gap: 20px;">
+                  <li style="display: flex; flex-direction: row;">Type: <span style="color:#555; padding-left: 15px;">{{ p.type }}</span></li>
+                  <li style="display: flex; flex-direction: row;">MFG: <span style="color:#555; padding-left: 15px;">{{ p.mfd|date:"d M, Y" }}</span></li>
+                  <li style="display: flex; flex-direction: row;">LIFE: <span style="color:#555; padding-left: 15px;">{{ p.life }}</span></li>
+                  <li style="display: flex; flex-direction: row;">SKU: <span style="color:#555; padding-left: 15px;">{{ p.sku }}</span></li>
+                  <li style="display: flex; flex-direction: row;">Stock: <span style="color:#555; padding-left: 15px;">{{ p.stock_count }}</span></li>
+                </ul>
+              </div>
+
 
             </div>
 
           </div>
+
+            <section class="mt-50">
+                    <div class="product-detail-review">
+                        <div class="row">
+                            <div class="col-md-12">
+                              <ul class="nav nav-pills" id="myTab" role="tablist">
+                                <!-- nav item -->
+                                <li class="nav-item">
+                                    <!-- btn -->
+                                    <a class="nav-link active" id="product-tab" data-toggle="tab" href="#product-tab-panel-1" role="tab" aria-controls="product-tab-pane" aria-selected="true">
+                                        Product Details
+                                    </a>
+                                </li>
+                                <!-- nav item -->
+                                <li class="nav-item">
+                                  <!-- btn -->
+                                  <a class="nav-link" id="product-tab" data-toggle="tab" href="#product-tab-panel-2" role="tab" aria-controls="product-tab-pane" aria-selected="true">
+                                    More Information
+                                </a>
+                              </li>
+                            </ul>
+                            <!-- tab content -->
+                            <div class="tab-content" id="myTabContent">
+                                <!-- tab pane -->
+                                <div class="tab-pane fade show active" id="product-tab-panel-1" role="tabpanel" aria-labelledby="product-tab" tabindex="0">
+                                    <div class="my-4">
+                                        <p>{{ p.description }}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                  <b>
+                                    {{ p.address }}
+                                  </b>
+                                </div>
+                                 <!-- tab pane -->
+                                 <div class="tab-pane fade" id="product-tab-panel-2" role="tabpanel" aria-labelledby="product-tab" tabindex="0">
+                                  <div class="my-4">
+                                    <div class="row">
+                                      <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                                        <table class="table table-striped">
+                                          <!-- table -->
+                                          <tbody>
+                                              <tr>
+                                                  <th>Weight</th>
+                                                  <td>150 Grams</td>
+                                              </tr>
+                                              <tr>
+                                                  <th>Type</th>
+                                                  <td>Gold</td>
+                                              </tr>
+                                              <tr>
+                                                  <th>Brand</th>
+                                                  <td>Bhima Jewellers</td>
+                                              </tr>
+                                              <tr>
+                                                  <th>Package Quantity</th>
+                                                  <td>1</td>
+                                              </tr>
+                                              <tr>
+                                                  <th>Manufacturer</th>
+                                                  <td>Bhima Jewellers</td>
+                                              </tr>
+                                              <tr>
+                                                  <th>Net Quantity</th>
+                                                  <td>340.0 Gram</td>
+                                              </tr>
+                                              <tr>
+                                                  <th>Product Dimensions</th>
+                                                  <td>9.6 x 7.49 x 18.49 cm</td>
+                                              </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+
+            <section class="my-5">
+                    <div class="related-product">
+                        <div class="row">Add to car
+                            <div class="col-12">
+                                <div>
+                                    <h3 class="h4 font-weight-bold text-secondary position-relative pb-2 mb-0">Related Items</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product mt-4">
+                            <div class="owl-carousel product-slider">
+                                <div class="card product-card">
+                                        <div class="card-image position-relative">
+                                            <a href="shop-single.html">
+                                                <img src="./assets/images/product/1.png" class="first-image" alt="eCommerce Template">
+                                                <img src="./assets/images/product/2.png" class="second-image" alt="eCommerce Template">
+                                            </a>
+                                            <div class="product-action d-flex justify-content-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="wishlist.html" class="btn rounded-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist"><i class="far fa-heart"></i></a>
+                                                    <a href="cart.html" class="btn rounded-0 d-flex" data-bs-toggle="tooltip" data-bs-placement="top" title="Cart"><i class="fas fa-shopping-cart mt-1"></i><span class="ml-2 d-none d-sm-none d-md-none d-lg-block">Add to cart</span></a>
+                                                    <a href="shop-single.html" class="btn rounded-0" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="fas fa-eye"></i></a>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="product-contain px-3 pt-2 pb-4">
+                                            <span class="discount-title">Sale</span>
+                                            <span class="discount-badge">20% OFF</span>
+                                            <div class="product-rating mb-3">
+                                            <small class="text-warning">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                            </small>
+                                        </div>
+                                            <div class="product-title mb-2">
+                                            <a href="shop-single.html">24K Gold Plated Jewellery Set</a>
+                                            </div>
+                                            <div class="product-price">
+                                            <div class="d-block">
+                                                <span class="sell-price">$13.00</span>
+                                                <span class="text-muted strike-through ml-2"><s>$15.00</s></span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="card product-card">
+                                        <div class="card-image position-relative">
+                                            <a href="shop-single.html">
+                                                <img src="./assets/images/product/3.png" class="first-image" alt="eCommerce Template">
+                                                <img src="./assets/images/product/4.png" class="second-image" alt="eCommerce Template">
+                                            </a>
+                                            <div class="product-out-stock d-flex justify-content-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <span>Out Of Stock</span>
+                                                    <a href="wishlist.html" class="btn rounded-0 ml-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist"><i class="far fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-contain px-3 pt-2 pb-4">
+                                            <div class="product-rating mb-3">
+                                            <small class="text-warning">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                            </small>
+                                        </div>
+                                            <div class="product-title mb-2">
+                                            <a href="shop-single.html">Gold-Plated Jewellery Set</a>
+                                            </div>
+                                            <div class="product-price">
+                                            <div class="d-block">
+                                                <span class="sell-price">$13.00</span>
+                                                <span class="text-muted strike-through ml-2"><s>$15.00</s></span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="card product-card">
+                                        <div class="card-image position-relative">
+                                            <a href="shop-single.html">
+                                                <img src="./assets/images/product/5.png" class="first-image" alt="eCommerce Template">
+                                                <img src="./assets/images/product/6.png" class="second-image" alt="eCommerce Template">
+                                            </a>
+                                            <div class="product-action d-flex justify-content-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="wishlist.html" class="btn rounded-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist"><i class="far fa-heart"></i></a>
+                                                    <a href="cart.html" class="btn rounded-0 d-flex" data-bs-toggle="tooltip" data-bs-placement="top" title="Cart"><i class="fas fa-shopping-cart mt-1"></i><span class="ml-2 d-none d-sm-none d-md-none d-lg-block">Add to cart</span></a>
+                                                    <a href="shop-single.html" class="btn rounded-0" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="fas fa-eye"></i></a>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="product-contain px-3 pt-2 pb-4">
+                                            <span class="discount-title">Sale</span>
+                                            <span class="discount-badge">20% OFF</span>
+                                            <div class="product-rating mb-3">
+                                            <small class="text-warning">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                            </small>
+                                        </div>
+                                            <div class="product-title mb-2">
+                                            <a href="shop-single.html">Handcrafted jewellery Set</a>
+                                            </div>
+                                            <div class="product-price">
+                                            <div class="d-block">
+                                                <span class="sell-price">$13.00</span>
+                                                <span class="text-muted strike-through ml-2"><s>$15.00</s></span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="card product-card">
+                                        <div class="card-image position-relative">
+                                            <a href="shop-single.html">
+                                                <img src="./assets/images/product/7.png" class="first-image" alt="eCommerce Template">
+                                                <img src="./assets/images/product/8.png" class="second-image" alt="eCommerce Template">
+                                            </a>
+                                            <div class="product-action d-flex justify-content-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="wishlist.html" class="btn rounded-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist"><i class="far fa-heart"></i></a>
+                                                    <a href="cart.html" class="btn rounded-0 d-flex" data-bs-toggle="tooltip" data-bs-placement="top" title="Cart"><i class="fas fa-shopping-cart mt-1"></i><span class="ml-2 d-none d-sm-none d-md-none d-lg-block">Add to cart</span></a>
+                                                    <a href="shop-single.html" class="btn rounded-0" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="fas fa-eye"></i></a>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="product-contain px-3 pt-2 pb-4">
+                                            <span class="discount-title">Sale</span>
+                                            <span class="discount-badge">20% OFF</span>
+                                            <div class="product-rating mb-3">
+                                            <small class="text-warning">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                            </small>
+                                        </div>
+                                            <div class="product-title mb-2">
+                                            <a href="shop-single.html">Gold-Plated Jewellery Set</a>
+                                            </div>
+                                            <div class="product-price">
+                                            <div class="d-block">
+                                                <span class="sell-price">$13.00</span>
+                                                <span class="text-muted strike-through ml-2"><s>$15.00</s></span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="card product-card">
+                                        <div class="card-image position-relative">
+                                            <a href="shop-single.html">
+                                                <img src="./assets/images/product/9.png" class="first-image" alt="eCommerce Template">
+                                                <img src="./assets/images/product/10.png" class="second-image" alt="eCommerce Template">
+                                            </a>
+                                            <div class="product-action d-flex justify-content-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="wishlist.html" class="btn rounded-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist"><i class="far fa-heart"></i></a>
+                                                    <a href="cart.html" class="btn rounded-0 d-flex" data-bs-toggle="tooltip" data-bs-placement="top" title="Cart"><i class="fas fa-shopping-cart mt-1"></i><span class="ml-2 d-none d-sm-none d-md-none d-lg-block">Add to cart</span></a>
+                                                    <a href="shop-single.html" class="btn rounded-0" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="fas fa-eye"></i></a>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="product-contain px-3 pt-2 pb-4">
+                                            <span class="discount-title">Sale</span>
+                                            <span class="discount-badge">20% OFF</span>
+                                            <div class="product-rating mb-3">
+                                            <small class="text-warning">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                            </small>
+                                        </div>
+                                            <div class="product-title mb-2">
+                                            <a href="shop-single.html">Women Gold-Plated & Pink Stone & Pearl CZ Studded Embellished Jewellery Set</a>
+                                            </div>
+                                            <div class="product-price">
+                                            <div class="d-block">
+                                                <span class="sell-price">$13.00</span>
+                                                <span class="text-muted strike-through ml-2"><s>$15.00</s></span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+
 
         </div>
       </section>

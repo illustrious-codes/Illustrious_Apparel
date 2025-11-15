@@ -66,13 +66,27 @@ def product_detail_view(request, pid):
     return render(request, 'core/product-detail.html', context)
 
 
+# def search_view(request):
+#     query = request.GET.get("q")
+
+#     products = Product.objects.filter(title__icontains=query).order_by("-date")
+#     context = {
+#         "products": products,
+#         "query": query,
+#     }
+#     return render(request, "core/search.html", context)
+
+
 def search_view(request):
-    query = request.GET.get("q")
+    query = request.GET.get("q", "").strip()  # Always returns a clean string
 
     products = Product.objects.filter(title__icontains=query).order_by("-date")
+    categories = Category.objects.all()
+    
     context = {
         "products": products,
         "query": query,
+        "categories": categories,
 
     }
     return render(request, "core/search.html", context)
