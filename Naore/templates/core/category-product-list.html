@@ -206,6 +206,7 @@
         <span class="category-title">{{ c.title }}</span>
         <small class="category-count">({{ c.category.count }})</small>
         </a>
+        
     </li>
     {% endfor %}
   </ul>
@@ -213,26 +214,61 @@
   <!-- ====== PRODUCTS SECTION ====== -->
   <div class="products-section">
     <div class="products-grid">
-      {% for product in products %}
+
+
+
+      <!-- {% for product in products %}
       <div class="product-card">
+
         <img
           src="{{ product.image.url }}"
           alt="{{ product.title }}"
           class="product-image"
         />
         <div class="product-info">
-          <h3 class="product-title">{{ product.title }}</h3>
+
+          <h3 class="product-title" >{{ product.title }}</h3>
+
+
           <div class="product-price">
             <span class="price">₦{{ product.price }}</span>
             {% if product.old_price %}
             <span class="old-price">₦{{ product.old_price }}</span>
             {% endif %}
           </div>
-          <!-- <p class="product-price">${{ product.price }}</p> -->
+          <p class="product-price">${{ product.price }}</p>
           <button class="add-to-cart-btn">Add to Cart</button>
+
         </div>
+      </div>       
+      {% endfor %} -->
+      {% for product in products %}
+      <div class="product-card">
+      <a href="{% url 'core:product-detail' product.pid %}">
+
+      <img
+        src="{{ product.image.url }}"
+        alt="{{ product.title }}"
+        class="product-image"
+      />
+      <div class="product-info">
+
+        <h3 class="product-title">{{ product.title }}</h3>
+
+        <div class="product-price">
+          <span class="price">₦{{ product.price }}</span>
+          {% if product.old_price %}
+            <span class="old-price">₦{{ product.old_price }}</span>
+          {% endif %}
+        </div>
+
+      </a>
+        <button class="add-to-cart-btn">Add to Cart</button>
+
       </div>
-      {% endfor %}
+    </div>
+{% endfor %}
+
     </div>
   </div>
 </div>

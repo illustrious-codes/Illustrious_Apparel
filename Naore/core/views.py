@@ -42,11 +42,14 @@ def category_product_list_view(request, cid):
     category = Category.objects.get(cid=cid)
     products = Product.objects.filter(product_status="published", category=category)
     categories = Category.objects.all()
+    
 
+    
     context = {
         "category":category,
         "products":products,
-        "categories":categories
+        "categories":categories,
+
     }
     return render(request, "core/category-product-list.html", context)
 
