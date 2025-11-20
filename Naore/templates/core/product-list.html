@@ -1,2 +1,18 @@
       <!-- <a href="{% url 'core:product-detail' p.id %}"></a> -->
               <a href="{% url 'core:product-detail' p.pid %}">Davido</a>
+$.ajax({
+    url: '/add-to-cart',
+    data: {
+      'id': product_id,
+      'qty': quantity,
+      'title': product-title,
+      'price': product-price,
+    },
+    dataType: 'json',
+    beforeSend: function(){
+      console.log("Adding Product to cart");
+    },
+    success: function(){
+      console.log("Added Product to Cart...")
+    }
+  })

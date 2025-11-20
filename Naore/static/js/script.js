@@ -175,3 +175,19 @@ const decreaseProductQty = function () {
 };
 
 addEventOnElem(qtyMinusBtn, "click", decreaseProductQty);
+
+// ADD TO CART
+
+$("#add-to-cart-btn").on("click", function () {
+  let quantity = $("#product-quantity").val();
+  let product_title = $(".product-title").val();
+  let product_id = $(".product-id").val();
+  let product_price = $("#current-product-price").text();
+  let this_val = $(this);
+
+  console.log("Quantity:", quantity);
+  console.log("ID:", product_id);
+  console.log("Title:", product_title);
+  console.log("Price:", product_price);
+  console.log("Current Element:", this_val);
+});

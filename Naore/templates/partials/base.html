@@ -44,7 +44,10 @@
     <section class="main-header ">
 
         <!-- <img src="{% static './images/Jumia-Logo.png' %}" width="140px" /> -->
-        <img src="{% static './images/naore1.jpeg' %}" width="140px" />
+         <a href="/">
+        <img src="{% static './images/naore1.jpeg' %}"  width="140px" />
+         </a>
+        <!-- <img src="{% static './images/naore1.jpeg' %}"  width="140px" /> -->
         <div class="search-container">
             <form id="search-form" action="{% url 'core:search' %}" method="GET">
                 <img src="{% static './images/search.png' %}" width="1px" alt="">
@@ -70,12 +73,20 @@
                     <a href="#"><i class="fa-regular fa-circle-question"></i>Help</a>
                 </li>
                 <img src="{% static './images/drop2.png' %}" width="20px" alt="image" />
-                <li>
-                    <a href="#"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+                <!-- <li>
+                    <a href="#"><i class="fa-solid fa-cart-shopping">3</i>Cart</a>
+                </li> -->
+                <li class="cart"></li>
+                <a href="#" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count" cart-items-count>{{ request.session.cart_data_obj|length }}</span>
+                    <span class="cart-text">Cart</span>
+                </a>
                 </li>
             </ul>
         </div>
 
+        
     </section>
     <style>
         /* Base alert style */
@@ -120,6 +131,50 @@
         visibility: hidden;
     }
 
+
+    /* Container link */
+.cart-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #000; /* or #fff depending on your header */
+  font-weight: bold;
+  font-size: 16px;
+  padding: 5px 10px;
+  transition: color 0.2s;
+}
+
+/* Cart icon */
+.cart-link i {
+  font-size: 20px;
+  margin-right: 5px;
+  position: relative;
+}
+
+/* Item count badge */
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff6600; /* Jumia orange */
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
+  line-height: 1;
+}
+
+/* Cart text label */
+.cart-text {
+  margin-left: 5px;
+}
+
+/* Hover effect */
+.cart-link:hover {
+  color: #ff6600;
+}
 
     </style>
     {% if messages %}

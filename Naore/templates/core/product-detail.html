@@ -618,8 +618,11 @@ body {
 
             <div class="wrapper">
 
-              <span class="price" data-total-price>#{{ p.price }}</span>
-              <!-- <div id="product-data" data-price="{{ p.price }}"></div> -->
+              <!-- <span class="price" data-total-price>#{{ p.price }}</span> -->
+              <!-- <span class="current-product-price" data-total-price>#{{ p.price }}</span> -->
+              <span class="current-product-price" data-total-price>#{{ p.price }}</span>
+
+
 
               <span class="badge">-{{ p.get_percentage|floatformat:0}}%</span>
 
@@ -631,26 +634,57 @@ body {
             <div class="btn-group">
 
               <div class="counter-wrapper">
+                <input type="hidden"  value="{{ p.title }}" class="product-title">
+                <input type="hidden" value="{{ p.id }}" class="product-id" name="" id="">
 
                 <button class="counter-btn" data-qty-minus>
                   <ion-icon name="remove-outline"></ion-icon>
                 </button>
 
-                <span class="span" data-qty>1</span>
+                <input type="number" value="1" class="span" name="w-25 mb-10" id="product-quantity" >
+
+                
 
                 <button class="counter-btn" data-qty-plus>
                   <ion-icon name="add-outline"></ion-icon>
                 </button>
+                
 
               </div>
-
-              <button class="cart-btn">
-                <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
-
-                <!-- <input type="text" value="p.id" name="" id=""> -->
-
+            
+              <button class="cart-btn add-to-cart-btn">
+                <ion-icon name="bag-handle-outline"></ion-icon>
                 <span class="span">Add to cart</span>
               </button>
+
+                <!-- <input type="hidden" value="gii" class="product-title" name="hdhdhd" id=""> -->
+
+              <!-- <span class="span" data-qty id="product-quantity">1</span>  -->
+                <!-- <span class="span" data-qty id="product-quantity">1</span>  -->
+
+              <!-- ADD TO CART -->
+                <!-- <button  id="add-to-cart-btn">Add to cart btn</button> -->
+              
+
+                  
+
+              <!-- <div>
+                <input type="hidden" value="{{ p.title }}" class="product-title" name="" id="">
+                <input type="hidden" value="{{ p.id }}" class="product-id" name="" id="">
+                
+                <input type="number" value="1" name="" class="" name="w-25 mb-10" id="product-quantity">
+              </div> -->
+
+              
+
+              <!-- <button class="cart-btn">
+                <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+
+                <span class="span" id="add-to-cart-btn">Add to cart</span>
+              </button> -->
+
+
+
 
               <div>
                 <ul class="inline-list" style="display: flex; flex-direction: column; gap: 20px;">
@@ -682,6 +716,7 @@ body {
 
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
   <script>
@@ -732,31 +767,6 @@ document.addEventListener("DOMContentLoaded", () => {
     sliderEnd();
   }
 
-//   // QUANTITY
-  // const totalPriceElem = document.querySelector("[data-total-price]");
-  // const qtyElem = document.querySelector("[data-qty]");
-  // const qtyMinusBtn = document.querySelector("[data-qty-minus]");
-  // const qtyPlusBtn = document.querySelector("[data-qty-plus]");
-  // if (totalPriceElem && qtyElem && qtyMinusBtn && qtyPlusBtn) {
-  //   let qty = 1;
-  //   const productPrice = 20;
-
-  //   const updatePrice = () => {
-  //     qtyElem.textContent = qty;
-  //     totalPriceElem.textContent = `$${qty * productPrice}.00`;
-  //   };
-
-  //   addEventOnElem(qtyPlusBtn, "click", () => {
-  //     qty++;
-  //     updatePrice();
-  //   });
-
-  //   addEventOnElem(qtyMinusBtn, "click", () => {
-  //     if (qty > 1) qty--;
-  //     updatePrice();
-  //   });
-  // }
-
 
 
   // QUANTITY
@@ -792,6 +802,113 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
+
+// $(".add-to-cart-btn").on("click", function () {
+//   let quantity = $("#product-quantity").val();
+//   let product_title = $(".product-title").val();
+//   let product_id = $(".product-id").val();
+//   let product_price = $(".current-product-price").text();
+//   let this_val = $(this);
+
+//   console.log("Quantity:", quantity);
+//   console.log("ID:", product_id);
+//   console.log("Title:", product_title);
+//   console.log("Price:", product_price);
+//   console.log("Current Element:", this_val);
+// });
+
+
+// $(".add-to-cart-btn").on("click", function () {
+//     let group = $(this).closest(".btn-group");
+
+//     let quantity = group.find("#product-quantity").val();
+//     let product_title = group.find(".product-title").val();
+//     let product_id = group.find(".product-id").val();
+//     let product_price = group.find(".current-product-price").text();
+//     let this_val = $(this);
+
+//     console.log("Quantity:", quantity);
+//     console.log("ID:", product_id);
+//     console.log("Title:", product_title);
+//     console.log("Price:", product_price);
+//     console.log("Current Element:", this_val);
+
+
+//     $.ajax({
+//     url: '/add-to-cart',
+//     data: {
+//       'id': product_id,
+//       'qty': quantity,
+//       'title': product-title,
+//       'price': product-price,
+//     },
+//     dataType: 'json',
+//     beforeSend: function(){
+//       console.log("Adding Product to cart");
+//     },
+//     success: function(res){
+//       this_val.html("Item added to cart")
+//       console.log("Added Product to Cart...")
+//     }
+//   })
+  // $.ajax({
+  //   url: '/add-to-cart',
+  //   data: {
+  //     'id': product_id,
+  //     'qty': quantity,
+  //     'title': product-title,
+  //     'price': product-price,
+  //   },
+  //   dataType: 'json',
+  //   beforeSend: function(){
+  //     console.log("Adding Product to cart");
+  //   },
+  //   success: function(res){
+  //     this_val.html("Item added to cart")
+  //     console.log("Added Product to Cart...")
+  //   }
+  // })
+// });
+
+
+
+$(".add-to-cart-btn").on("click", function () {
+  let group = $(this).closest(".btn-group");
+
+  let quantity = $("#product-quantity").val();
+  let product_title = group.find(".product-title").val();
+  let product_id = $(".product-id").val();
+  let product_price = $(".current-product-price").text();
+  let this_val = $(this);
+
+  console.log("Quantity:", quantity);
+  console.log("ID:", product_id);
+  console.log("Title:", product_title);
+  console.log("Price:", product_price);
+  console.log("Current Element:", this_val);
+
+  $.ajax({
+    url: '/add-to-cart',
+    data: {
+      'id': product_id,
+      'qty': quantity,
+      'title': product_title, // ✅ use underscore, not dash
+      'price': product_price, // ✅ use underscore
+    },
+    dataType: 'json',
+    beforeSend: function(){
+      console.log("Adding Product to cart");
+    },
+    success: function(response){
+      this_val.html("Item added to cart")
+      console.log("Added Product to Cart...")
+      $(".cart-items-count").text(response.totalcartitems)
+    }
+})
+
+
+});
 
 </script>
 

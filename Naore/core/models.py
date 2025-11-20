@@ -134,7 +134,17 @@ class ProductImages(models.Model):
         verbose_name_plural = "Product Images"
 
 
+
+class ProductVideo(models.Model):
+    video_file = models.FileField(upload_to='videos/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.title
+
+
 ########################Cart, Order, OrderItems and Address #############
+
 
 
 
