@@ -77,10 +77,10 @@
                     <a href="#"><i class="fa-solid fa-cart-shopping">3</i>Cart</a>
                 </li> -->
                 <li class="cart"></li>
-                <a href="#" class="cart-link">
+                <a href="{% url 'core:cart' %}" class="cart-link">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span class="cart-count" cart-items-count>{{ request.session.cart_data_obj|length }}</span>
-                    <span class="cart-text">Cart</span>
+                    <span class="cart-text" href="">Cart</span>
                 </a>
                 </li>
             </ul>

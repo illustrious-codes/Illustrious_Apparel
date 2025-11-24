@@ -16,3 +16,38 @@ $.ajax({
       console.log("Added Product to Cart...")
     }
   })
+
+
+
+
+
+  $(".add-to-cart-btn").on("click", function () {
+
+    let quantity = $("#product-quantity" ).val();
+    let product_title = $(".product-title").text();
+    let product_id = $(".product-id").val();
+    let product_price = $(".current-product-price").text();
+    let product_pid = $(".product-pid").text();
+    let product_image = $(".product-image").attr("src");
+    let this_val = $(this);
+
+
+
+    console.log("QUANTITY:", quantity);
+    console.log("Title:", product_title);
+    console.log("PRICE:", product_price);
+    console.log("ID:", product_id);
+    console.log("PID:", product_pid);
+    console.log("IMAGE:", product_image);
+    console.log("Current Element:", this_val);
+
+
+}); 
+<input type="number" value="2" >
+
+$(".delete-product").on("click", function () {
+  let product_id = $(this).attr("data-product");
+  let this_val = $(this);
+
+  console.log("product id:", product_id);
+});

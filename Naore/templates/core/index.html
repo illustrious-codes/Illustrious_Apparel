@@ -376,7 +376,7 @@ margin-top: 5px;
                 
             </div>
 
-            <div class="slideshow-container">
+            <!-- <div class="slideshow-container">
 
                 <div class="mySlides fade">
                     <img src="https://ng.jumia.is/cms/0-1-initiatives/Free-Pickp/712X384.jpg" style="width:100%">
@@ -409,7 +409,14 @@ margin-top: 5px;
                     <span class="dot" onclick="currentSlide(1)"></span>
                 </div>
 
+            </div> -->
+
+            <div class="slideshow-container" data-slider>
+              <div class="slide"><img src="https://ng.jumia.is/cms/0-1-initiatives/jumia-global/2024/July/Have-fun-family/712x384.gif "></div>
             </div>
+<!-- 
+            <button data-prev class="prev">❮</button>
+            <button data-next class="next">❯</button> -->
 
 
             <div class="box-3">
@@ -429,35 +436,40 @@ margin-top: 5px;
                 {% for p in products %}
 
                 <div class="product-card">
-                    <a href="/product/{{ product.slug }}" class="product-link">
+                    <!-- cut a tag -->
                         <div class="product-image">
                             <div class="discount-badge">{{ p.get_percentage|floatformat:0 }}%</div>
                             <img src="{{ p.image.url }}" alt="{{ p.title }}">
                             
 
                         </div>
-                        <div class="product-info">
+                        <div class="product-info" style="padding: 7px;">
                             <p class="product-name">{{ p.category.title }}</p>
                             <b class="product-name">{{ p.title }}</b>
                             <small class="product-name">By: {{ p.vendor.title }}</small>
                             <div class="product-price">
-                                <span class="price">₦{{ p.price }}</span>
+                                <!-- <span class="current-product-price-{{ p.id }}">{{ p.price }}</span> -->
+                                <span class="current-product-price {{ p.id }}">₦{{ p.price }}</span>
                                 {% if p.old_price %}
                                 <span class="old-price">₦{{ p.old_price }}</span>
                                 {% endif %}
                         </div>
-                        <!-- <div class="product-rating">
-                            <span>{{ p.get_rating|default:"2" }}/5</span>
-                        </div> -->
-                        <button type="submit" class="cart-btn">Add to Cart</button>
 
-                        <!-- <div class="add-to-cart"></div>
-                            <form method="post" action="">
-                                <button type="submit" class="cart-btn">Add to Cart</button>
-                            </form>
-                        </div> -->
+                        <div >
+                            <input type="hidden" value="1" class="product-quantity-{{ p.id }}">
+                            <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
+                            <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
+                            <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
+                            <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
+                            <!-- <span class="cart-btn add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn">Add to cart</span> -->
+                            <button class="cart-btn add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn" >Add to Cart</button>
                         </div>
-                    </a>
+                        <!-- <button class="cart-btn add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn">Add to Cart</button> -->
+
+                        </div>
+                    <!-- <a href="/product/{{ product.slug }}" class="product-link"> -->
+
+                    <!-- </a> --> 
                 </div>
 
                 
@@ -504,6 +516,7 @@ margin-top: 5px;
                     <h4 class="text-img">Official Store Deals</h4>
                 </div> -->
             </div>
+
         </section>
 
         <div class="row-2 max-width img-hover"><img
@@ -1423,5 +1436,14 @@ margin-top: 5px;
         </div>
 
     </div>
+    {% block scripts %}
+    <script src="{% static 'js/script.js' %}"></script>
+    {% endblock scripts %}
+
+    <script>
+        
+
+    </script>
+
 
 {% endblock content %}

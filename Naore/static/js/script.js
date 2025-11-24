@@ -1,193 +1,120 @@
-"use strict";
+// SLIDER
 
-let slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides((slideIndex += n));
-}
-
-function currentSlide(n) {
-  showSlides((slideIndex = n));
-}
-
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {
-    slideIndex = 1;
-  }
-  if (n < 1) {
-    slideIndex = slides.length;
-  }
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex - 1].style.display = "block";
-  dots[slideIndex - 1].className += " active";
-}
-
-function showSlides() {
-  let slides = document.getElementsByClassName("mySlides");
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].classList.remove("active");
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {
-    slideIndex = 1;
-  }
-  slides[slideIndex - 1].classList.add("active");
-  setTimeout(showSlides, 5000);
-}
-
-const header = document.querySelector(".main-header");
-
-function toggleHeaderPosition() {
-  if (window.scrollY > 0) {
-    header.classList.add("fixed-header");
-  } else {
-    header.classList.remove("fixed-header");
-  }
-}
-
-window.addEventListener("scroll", toggleHeaderPosition);
-
-// product detail
-
-/**
- * add event on element
- */
-
-const addEventOnElem = function (elem, type, callback) {
-  if (elem.length > 1) {
-    for (let i = 0; i < elem.length; i++) {
-      elem[i].addEventListener(type, callback);
+document.addEventListener("DOMContentLoaded", () => {
+  const addEventOnElem = (elem, type, callback) => {
+    if (!elem) return;
+    if (elem.length > 1) {
+      for (let i = 0; i < elem.length; i++) {
+        elem[i].addEventListener(type, callback);
+      }
+    } else {
+      elem.addEventListener(type, callback);
     }
-  } else {
-    elem.addEventListener(type, callback);
-  }
-};
+  };
 
-/**
- * navbar toggle
- */
+  // SLIDER
+  const slider = document.querySelector("[data-slider]");
+  const nextBtn = document.querySelector("[data-next]");
+  const prevBtn = document.querySelector("[data-prev]");
+  if (slider && nextBtn && prevBtn) {
+    let sliderPos = 0;
+    const totalSliderItems = slider.children.length;
 
-const navbar = document.querySelector("[data-navbar]");
-const navToggler = document.querySelectorAll("[data-nav-toggler]");
-const overlay = document.querySelector("[data-overlay]");
+    const sliderEnd = () => {
+      nextBtn.classList.toggle("disabled", sliderPos >= totalSliderItems - 1);
+      prevBtn.classList.toggle("disabled", sliderPos <= 0);
+    };
 
-const toggleNav = function () {
-  navbar.classList.toggle("active");
-  overlay.classList.toggle("active");
-};
+    const slideToNext = () => {
+      if (sliderPos < totalSliderItems - 1) {
+        sliderPos++;
+        slider.style.transform = `translateX(-${sliderPos}00%)`;
+        sliderEnd();
+      }
+    };
 
-addEventOnElem(navToggler, "click", toggleNav);
+    const slideToPrev = () => {
+      if (sliderPos > 0) {
+        sliderPos--;
+        slider.style.transform = `translateX(-${sliderPos}00%)`;
+        sliderEnd();
+      }
+    };
 
-/**
- * slider funtionality
- */
-
-const slider = document.querySelector("[data-slider]");
-const nextBtn = document.querySelector("[data-next]");
-const prevBtn = document.querySelector("[data-prev]");
-
-// set the slider default position
-let sliderPos = 0;
-
-// set the number of total slider items
-const totalSliderItems = 4;
-
-// make next slide btn workable
-const slideToNext = function () {
-  sliderPos++;
-  slider.style.transform = `translateX(-${sliderPos}00%)`;
-
-  sliderEnd();
-};
-
-addEventOnElem(nextBtn, "click", slideToNext);
-
-// make prev slide btn workable
-const slideToPrev = function () {
-  sliderPos--;
-  slider.style.transform = `translateX(-${sliderPos}00%)`;
-
-  sliderEnd();
-};
-
-addEventOnElem(prevBtn, "click", slideToPrev);
-
-// check when slider is end then what should slider btn do
-function sliderEnd() {
-  if (sliderPos >= totalSliderItems - 1) {
-    nextBtn.classList.add("disabled");
-  } else {
-    nextBtn.classList.remove("disabled");
+    addEventOnElem(nextBtn, "click", slideToNext);
+    addEventOnElem(prevBtn, "click", slideToPrev);
+    sliderEnd();
   }
 
-  if (sliderPos <= 0) {
-    prevBtn.classList.add("disabled");
-  } else {
-    prevBtn.classList.remove("disabled");
+  // QUANTITY
+  const totalPriceElem = document.querySelector("[data-total-price]");
+  const qtyElem = document.querySelector("[data-qty]");
+  const qtyMinusBtn = document.querySelector("[data-qty-minus]");
+  const qtyPlusBtn = document.querySelector("[data-qty-plus]");
+  if (totalPriceElem && qtyElem && qtyMinusBtn && qtyPlusBtn) {
+    let qty = 1;
+    const productPrice = parseFloat("{{ p.price }}");
+
+    const updatePrice = () => {
+      qtyElem.textContent = qty;
+      totalPriceElem.textContent = `#${(qty * productPrice).toFixed(2)}`;
+    };
+
+    addEventOnElem(qtyPlusBtn, "click", () => {
+      qty++;
+      updatePrice();
+    });
+
+    addEventOnElem(qtyMinusBtn, "click", () => {
+      if (qty > 1) qty--;
+      updatePrice();
+    });
+
+    updatePrice(); // initialize
   }
-}
-
-sliderEnd();
-
-/**
- * product quantity functionality
- */
-
-const totalPriceElem = document.querySelector("[data-total-price]");
-const qtyElem = document.querySelector("[data-qty]");
-const qtyMinusBtn = document.querySelector("[data-qty-minus]");
-const qtyPlusBtn = document.querySelector("[data-qty-plus]");
-
-// set the product default quantity
-let qty = 1;
-
-// set the product default price
-let productPrice = 125;
-
-// set the initial total price
-let totalPrice = 125;
-
-const increaseProductQty = function () {
-  qty++;
-  totalPrice = qty * productPrice;
-
-  qtyElem.textContent = qty;
-  totalPriceElem.textContent = `$${totalPrice}.00`;
-};
-
-addEventOnElem(qtyPlusBtn, "click", increaseProductQty);
-
-const decreaseProductQty = function () {
-  if (qty > 1) qty--;
-  totalPrice = qty * productPrice;
-
-  qtyElem.textContent = qty;
-  totalPriceElem.textContent = `$${totalPrice}.00`;
-};
-
-addEventOnElem(qtyMinusBtn, "click", decreaseProductQty);
+});
 
 // ADD TO CART
-
-$("#add-to-cart-btn").on("click", function () {
+$(".add-to-cart-btn").on("click", function () {
   let quantity = $("#product-quantity").val();
-  let product_title = $(".product-title").val();
+  let product_title = $(".product-title").text();
   let product_id = $(".product-id").val();
-  let product_price = $("#current-product-price").text();
-  let this_val = $(this);
+  let product_pid = $(".product-pid").val();
+  let product_price = $(".current-product-price").text();
+  let product_image = $(".product-image").first().attr("src");
+  let product_old_price = $(".product-old-price").text();
 
-  console.log("Quantity:", quantity);
-  console.log("ID:", product_id);
-  console.log("Title:", product_title);
-  console.log("Price:", product_price);
-  console.log("Current Element:", this_val);
+  $.ajax({
+    url: "/add-to-cart",
+    data: {
+      id: product_id,
+      pid: product_pid,
+      qty: quantity,
+      title: product_title,
+      price: product_price,
+      image: product_image,
+      old_price: product_old_price,
+    },
+    dataType: "json",
+    success: function () {
+      console.log("Added Product to Cart...");
+    },
+  });
+});
+
+$(document).on("click", ".delete-product", function () {
+  let product_id = $(this).data("product");
+
+  $.ajax({
+    url: "/delete-from-cart",
+    data: { id: product_id },
+    dataType: "json",
+    beforeSend: function () {
+      console.log("Deleting product:", product_id);
+    },
+    success: function (res) {
+      $("#cart-list").html(res.data); // update cart list
+      $(".cart-count").text(res.totalcartitems); // update count
+    },
+  });
 });
