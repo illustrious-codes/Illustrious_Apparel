@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     #Custom Apps
     'core', 
     'userauths',
+
+
+    # Paypal installation
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
@@ -144,5 +148,12 @@ JAZZMIN_SETTINGS = {
     'copyright': 'illustriouscodes.com',
 }
 
+LOGIN_URL = 'userauths:sign-in'
+
 AUTH_USER_MODEL = 'userauths.User'
 
+
+
+
+PAYPAL_RECEIVER_EMAIL = "illustriouscodes@gmail.com"
+PAYPAL_TEST = True

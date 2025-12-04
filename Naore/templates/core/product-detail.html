@@ -562,14 +562,35 @@ body {
   <main>
     <article>
 
+            <div style="display:flex;  align-items:center; gap:8px; font-size:16px; margin-left: 150px;">
+
+              <!-- Home Icon -->
+              <a href="/"><ion-icon name="home-outline" 
+                        style="font-size:20px; color:#007bff;">
+              </ion-icon></a>
+
+              <!-- Arrow Icon -->
+              <span style="color:#6c757d; font-size:18px;">›</span>
+
+              <!-- Current Page -->
+              <span style="color:#6c757d; font-weight:500;">Product Details</span>
+
+          </div>
+
+      
+     
       <!-- 
         - #PRODUCT
       -->
 
       <section class="section product" aria-label="product">
-        <div class="container">
+        
+        <div class="container" >
+          
 
           <div class="product-slides">
+           
+
 
             <div class="slider-banner" data-slider>
               <figure class="product-banner">
@@ -657,9 +678,6 @@ body {
               </button>
 
               
-              <button class="delete-product" data-product="{{ item.pid }}">
-                  del
-              </button>
 
 
               <div>

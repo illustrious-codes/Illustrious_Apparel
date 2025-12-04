@@ -1906,12 +1906,37 @@ footer .phone a {
                 <div class="col-12 col-sm-6 col-lg-3 mb-3 mb-sm-3 mb-md-3 md-lg-0">
                   <b class="mb-2 d-block d-xl-none">Quantity</b>
                 <div class="qty-container">
-                    <input type="text" placeholder="Qty" class="w-25" name="" value="{{item.qty}}">
+                  <input
+                  type="text"
+                  placeholder="Qty"
+                  class="w-25 product-qty-{{ product_id }}"
+                  name=""
+                  value="{{item.qty}}"
+                />
                 </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3 mb-3 mb-sm-3 mb-md-3 md-lg-0">
+                <div>
+                  <div class="col-12 col-sm-6 col-lg-3 mb-3 mb-sm-3 mb-md-3 md-lg-0">
                   <b class="mb-2 d-block d-xl-none">Total</b>
                   <span class="font-weight-bold text-primary">#{{ item.item_total }}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-center">
+                  <button class="update-product" style="
+                background: blue;
+                color:#fff;
+                border:none;
+                padding:6px 10px;
+                margin-top: -10;
+                font-size:12px;
+                border-radius:4px;
+                display:flex;
+                align-items:center;
+                gap:4px;
+                cursor:pointer;
+                font-weight:600;
+              "
+                data-product="{{ product_id }}">Update Qty<i class="fa-solid fa-arrows-rotate" ></i></button>
+                </div>
                 </div>
                 <button class="btn btn-primary position-absolute close-cart delete-product" data-product="{{ product_id }}" >
                   <svg  stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">
@@ -1956,7 +1981,7 @@ footer .phone a {
                 </li>
               </ul>
               {% if totalcartitems %}
-              <a href="checkout.html" class="btn btn-primary mt-2 w-100 text-center font-weight-bold custom-btn-p">Checkout</a>
+              <a href="{% url 'core:checkout' %}" class="btn btn-primary mt-2 w-100 text-center font-weight-bold custom-btn-p" >Checkout</a>
               {% endif %}
             </div>
           </div>

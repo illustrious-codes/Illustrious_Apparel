@@ -118,3 +118,32 @@ $(document).on("click", ".delete-product", function () {
     },
   });
 });
+
+$(document).on("click", ".update-product", function () {
+  let product_id = $(this).data("product");
+  let this_val = $(this);
+  let product_quantity = $(".product-qty-" + product_id).val();
+
+  console.log("Product Id:", product_id);
+  console.log("Product Qty:", product_quantity);
+
+  $.ajax({
+    url: "/update-cart",
+    data: {
+      id: product_id,
+      qty: product_quantity,
+    },
+    dataType: "json",
+    beforeSend: function () {
+      // this_val.hide();
+      console.log("Updating product:", product_id);
+    },
+    success: function (response) {
+      this_val.show();
+      $(".cart-items-count").text(response.totalcartitems);
+      $("#cart-list").html(response.data);
+      // $("#cart-list").html(res.data);
+      // $(".cart-count").text(res.totalcartitems);
+    },
+  });
+});
