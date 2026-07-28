@@ -45,9 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cloudinary_storage',
-    'django.contrib.staticfiles',
-    'cloudinary',
 
     #Custom Apps
     'core', 
@@ -100,7 +97,6 @@ DATABASES = {
 }
 
 database_url = os.environ.get("DATABASE_URL")
-print(repr(database_url))
 DATABASES["default"] = dj_database_url.parse(database_url)
 
 
@@ -138,13 +134,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
-}
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 STATIC_URL = 'static/'
 
