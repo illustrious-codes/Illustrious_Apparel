@@ -128,7 +128,8 @@ html {
 }
 
 body {
-  background-color: var(--white);
+  /* background-color: var(--white); */
+  background-color: black;
   color: var(--dark-electric-blue);
   font-size: 1.6rem;
 }
@@ -362,7 +363,7 @@ body {
   font-weight: var(--fw-700);
 }
 
-.cart-btn {
+/* .cart-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -375,11 +376,11 @@ body {
   border-radius: var(--radius-10);
   box-shadow: var(--shadow-2);
   transition: var(--transition-1);
-}
-
-.cart-btn ion-icon { --ionicon-stroke-width: 50px; }
-
-.cart-btn:is(:hover, :focus) { background-color: var(--shamrock-green); }
+} */
+/* 
+.cart-btn ion-icon { --ionicon-stroke-width: 50px; } */
+/* 
+.cart-btn:is(:hover, :focus) { background-color: var(--shamrock-green); } */
 
 
 
@@ -559,23 +560,52 @@ body {
 
 
 
+<!-- ✅ Mobile nav must be HERE in base.html -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" id="mobileNavClose">
+      <i class="fa fa-times"></i>
+    </button>
+    <div class="mobile-logo">
+      <span class="logo-name">ILLUSTRIOUS</span>
+      <span class="logo-divider">
+        <span class="line"></span>
+        <span class="logo-codes">CODES</span>
+        <span class="line"></span>
+      </span>
+      <span class="logo-apparel">APPAREL</span>
+    </div>
+    <ul>
+      <li><a href="/" class="mobile-link">Home</a></li>
+      <li>
+        <a href="#" class="mobile-link" id="mobileShopToggle"
+           style="display:flex;justify-content:space-between;align-items:center;">
+          Shop <i class="fa fa-chevron-down" style="font-size:11px;color:#D4AF37;transition:transform .3s;"></i>
+        </a>
+        <ul id="mobileCategoryList" style="display:none;flex-direction:column;padding:8px 0 8px 16px;border-left:2px solid #D4AF37;margin:4px 0 8px;">
+          {% for c in categories %}
+          <li>
+            <a href="{% url 'core:category-product-list' c.cid %}"
+               style="display:flex;align-items:center;gap:10px;padding:10px 0;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#aaa;border-bottom:1px solid #1a1a1a;text-decoration:none;">
+              <img src="{{ c.image.url }}" alt="{{ c.title }}" style="width:28px;height:28px;object-fit:cover;border-radius:2px;flex-shrink:0;"/>
+              <span>{{ c.title }}</span>
+              <small style="color:#555;margin-left:auto;">({{ c.category.count }})</small>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      <li><a href="\#featured" class="mobile-link">Collections</a></li>
+      <li><a href="\#about"    class="mobile-link">About</a></li>
+      <li><a href="\#contact"  class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+  <div class="overlay-bg" id="overlayBg"></div>
+
+
   <main>
     <article>
 
-            <div style="display:flex;  align-items:center; gap:8px; font-size:16px; margin-left: 150px;">
-
-              <!-- Home Icon -->
-              <a href="/"><ion-icon name="home-outline" 
-                        style="font-size:20px; color:#007bff;">
-              </ion-icon></a>
-
-              <!-- Arrow Icon -->
-              <span style="color:#6c757d; font-size:18px;">›</span>
-
-              <!-- Current Page -->
-              <span style="color:#6c757d; font-weight:500;">Product Details</span>
-
-          </div>
+            
 
       
      
@@ -583,123 +613,424 @@ body {
         - #PRODUCT
       -->
 
-      <section class="section product" aria-label="product">
-        
-        <div class="container" >
-          
+      <section style="
+  background: #0a0a0a;
+  padding: 60px 40px;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+">
 
-          <div class="product-slides">
-           
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
+  <!-- Breadcrumb -->
+  <!-- <nav style="margin-bottom: 32px; font-size: 11px; letter-spacing: 2px; color: #666; text-transform: uppercase;">
+    <a href="/" style="color: #666; text-decoration: none; transition: color .2s;"
+       onmouseenter="this.style.color='#D4AF37'" onmouseleave="this.style.color='#666'">Home</a>
+    <span style="margin: 0 10px; color: #333;">/</span>
+    <a href="/shop" style="color: #666; text-decoration: none; transition: color .2s;"
+       onmouseenter="this.style.color='#D4AF37'" onmouseleave="this.style.color='#666'">Shop</a>
+    <span style="margin: 0 10px; color: #333;">/</span>
+    <span style="color: #D4AF37;">{{ p.title }}</span>
+  </nav> -->
 
-            <div class="slider-banner" data-slider>
-              <figure class="product-banner">
-                <img src="{{ p.image.url }}" width="600" height="600" loading="lazy" alt="Nike Sneaker"
-                  class="img-cover product-image">
-              </figure>
+  <!-- Main grid -->
+  <div style="
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+  " class="pd-grid">
 
-              {% for p in p_image %}
-              <figure class="product-banner">
-              <!-- <a href="{% url 'core:product-detail' p.id %}" "></a> -->
-              <img src="{{ p.images.url }}" width="600" height="600" alt="Product" class="img-cover" >
+    <!-- ══ LEFT: IMAGE GALLERY ══ -->
+    <div>
 
-              
+      <!-- Main image -->
+      <div style="
+        position: relative;
+        overflow: hidden;
+        background: #111;
+        border: 1px solid #1e1e1e;
+        aspect-ratio: 4/5;
+        margin-bottom: 12px;
+      " data-slider>
 
-              </figure>
-              {% endfor %}
+        <!-- Discount badge -->
+        <div style="
+          position: absolute; top: 16px; left: 16px; z-index: 2;
+          background: #D4AF37; color: #0a0a0a;
+          font-size: 11px; font-weight: 700;
+          letter-spacing: 1px; padding: 5px 12px;
+          font-family: 'Montserrat', sans-serif;
+        ">-{{ p.get_percentage|floatformat:0 }}%</div>
 
-            
-            </div>
+        <!-- Wishlist icon -->
+        <button style="
+          position: absolute; top: 16px; right: 16px; z-index: 2;
+          width: 38px; height: 38px;
+          background: rgba(0,0,0,.7); border: 1px solid #333;
+          color: #ccc; font-size: 15px;
+          cursor: pointer; display: flex;
+          align-items: center; justify-content: center;
+          transition: background .2s, color .2s;
+        " title="Add to Wishlist"
+           onmouseenter="this.style.background='#D4AF37';this.style.color='#0a0a0a'"
+           onmouseleave="this.style.background='rgba(0,0,0,.7)';this.style.color='#ccc'">
+          <i class="fa fa-heart"></i>
+        </button>
 
-            <button class="slide-btn prev" aria-label="Previous image" data-prev>
-              <ion-icon name="chevron-back" aria-hidden="true"></ion-icon>
-            </button>
+        <!-- Main product image -->
+        <figure style="margin:0; width:100%; height:100%;">
+          <img src="{{ p.image.url }}" alt="{{ p.title }}"
+               class="img-cover product-image"
+               style="width:100%; height:100%; object-fit:cover; display:block; transition: transform .5s;"
+               onmouseenter="this.style.transform='scale(1.03)'"
+               onmouseleave="this.style.transform='scale(1)'"/>
+        </figure>
 
-            <button class="slide-btn next" aria-label="Next image" data-next>
-              <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
-            </button>
+        <!-- Prev / Next buttons -->
+        <button class="slide-btn prev" aria-label="Previous image" data-prev
+          style="
+            position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+            width: 40px; height: 40px;
+            background: rgba(0,0,0,.65); border: 1px solid #444;
+            color: #fff; font-size: 16px;
+            cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
+            transition: background .2s;
+          "
+          onmouseenter="this.style.background='#D4AF37';this.style.color='#0a0a0a'"
+          onmouseleave="this.style.background='rgba(0,0,0,.65)';this.style.color='#fff'">
+          <i class="fa fa-chevron-left"></i>
+        </button>
 
-          </div>
+        <button class="slide-btn next" aria-label="Next image" data-next
+          style="
+            position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+            width: 40px; height: 40px;
+            background: rgba(0,0,0,.65); border: 1px solid #444;
+            color: #fff; font-size: 16px;
+            cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
+            transition: background .2s;
+          "
+          onmouseenter="this.style.background='#D4AF37';this.style.color='#0a0a0a'"
+          onmouseleave="this.style.background='rgba(0,0,0,.65)';this.style.color='#fff'">
+          <i class="fa fa-chevron-right"></i>
+        </button>
+      </div>
 
-          <div class="product-content">
-
-            <p class="product-subtitle">Naore Luxe Apparel</p>
-              <!-- <a href="{% url 'core:product-detail' p.pid %}">Davido</a> -->
-
-
-            <h1 class="h1 product-title">{{ p.title }}</h1>
-
-
-            <!-- <p class="product-text">
-              {{ p.description|truncatechars:10 }}
-            </p> -->
-            <p class="product-text"></p>
-              {{ p.description }}
-            </p>
-
-            <div class="wrapper">
-
-              <!-- <span class="price" data-total-price>#{{ p.price }}</span> -->
-              <!-- <span class="current-product-price" data-total-price>#{{ p.price }}</span> -->
-              <span class="current-product-price" data-total-price>#{{ p.price }}</span>
-
-
-
-              <span class="badge">-{{ p.get_percentage|floatformat:0}}%</span>
-
-
-              <del class="del">#{{ p.old_price }}</del> 
-
-            </div>
-
-            <div class="btn-group">
-
-              <div class="counter-wrapper">
-                <input type="hidden"  value="{{ p.title }}" class="product-title">
-                <input type="hidden" value="{{ p.id }}" class="product-id" name="" id="">
-                <input type="hidden" value="{{ p.pid }}" class="product-pid" name="" id="">
-
-
-                <!-- <button class="counter-btn" data-qty-minus>
-                  <ion-icon name="remove-outline"></ion-icon>
-                </button> -->
-
-                <input type="number" value="1" class="span product-quantity-{{ p.id }}" id="product-quantity" >
-
-                <!-- <button class="counter-btn" data-qty-plus>
-                  <ion-icon name="add-outline"></ion-icon>
-                </button> -->
-              </div>
-
-            
-              <button class="cart-btn add-to-cart-btn">
-                <ion-icon name="bag-handle-outline"></ion-icon>
-                <span class="span">Add to cart</span>
-              </button>
-
-              
-
-
-              <div>
-                <ul class="inline-list" style="display: flex; flex-direction: column; gap: 20px;">
-                  <li style="display: flex; flex-direction: row;">Type: <span style="color:#555; padding-left: 15px;">{{ p.type }}</span></li>
-                  <li style="display: flex; flex-direction: row;">MFG: <span style="color:#555; padding-left: 15px;">{{ p.mfd|date:"d M, Y" }}</span></li>
-                  <li style="display: flex; flex-direction: row;">LIFE: <span style="color:#555; padding-left: 15px;">{{ p.life }}</span></li>
-                  <li style="display: flex; flex-direction: row;">SKU: <span style="color:#555; padding-left: 15px;">{{ p.sku }}</span></li>
-                  <li style="display: flex; flex-direction: row;">Stock: <span style="color:#555; padding-left: 15px;">{{ p.stock_count }}</span></li>
-                </ul>
-              </div>
-
-
-            </div>
-
-          </div>
-
-            
-
-
+      <!-- Thumbnail strip -->
+      <div style="
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      ">
+        <!-- Main image thumb -->
+        <div style="
+          flex-shrink: 0; width: 72px; height: 90px;
+          border: 1.5px solid #D4AF37;
+          overflow: hidden; cursor: pointer;
+        ">
+          <img src="{{ p.image.url }}" alt="{{ p.title }}"
+               style="width:100%; height:100%; object-fit:cover;"/>
         </div>
-      </section>
+
+        <!-- Extra image thumbs -->
+        {% for img in p_image %}
+        <div style="
+          flex-shrink: 0; width: 72px; height: 90px;
+          border: 1px solid #2a2a2a;
+          overflow: hidden; cursor: pointer;
+          transition: border-color .2s;
+        "
+        onmouseenter="this.style.borderColor='#D4AF37'"
+        onmouseleave="this.style.borderColor='#2a2a2a'">
+          <img src="{{ img.images.url }}" alt="Product view"
+               style="width:100%; height:100%; object-fit:cover;"/>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+    <!-- ══ RIGHT: PRODUCT INFO ══ -->
+    <div style="padding-top: 8px;">
+
+      <!-- Brand label -->
+      <p style="
+        font-size: 10px; font-weight: 600;
+        letter-spacing: 4px; text-transform: uppercase;
+        color: #D4AF37; margin: 0 0 12px;
+      ">Illustrious Apparel</p>
+
+      <!-- Title -->
+      <h1 style="
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(28px, 4vw, 44px);
+        font-weight: 700; color: #fff;
+        line-height: 1.15; margin: 0 0 20px;
+      ">{{ p.title }}</h1>
+
+      <!-- Rating row -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+        <span style="color: #D4AF37; font-size: 13px; letter-spacing: 2px;">★★★★★</span>
+        <span style="font-size: 11px; color: #666; letter-spacing: 1px;">4.9 · 128 reviews</span>
+        <span style="color: #1e1e1e;">|</span>
+        <span style="font-size: 11px; color: #2ecc71; letter-spacing: 1px;">
+          <i class="fa fa-circle" style="font-size:8px;"></i> In Stock ({{ p.stock_count }} left)
+        </span>
+      </div>
+
+      <!-- Price block -->
+      <div style="
+        display: flex; align-items: baseline; gap: 14px;
+        padding: 20px 0;
+        border-top: 1px solid #1a1a1a;
+        border-bottom: 1px solid #1a1a1a;
+        margin-bottom: 28px;
+      ">
+        <span class="current-product-price" data-total-price style="
+          font-size: 32px; font-weight: 700;
+          color: #D4AF37; font-family: 'Montserrat', sans-serif;
+          letter-spacing: -0.5px;
+        ">₦{{ p.price }}</span>
+        {% if p.old_price %}
+        <del style="font-size: 18px; color: #555;">₦{{ p.old_price }}</del>
+        <span style="
+          background: #D4AF37; color: #0a0a0a;
+          font-size: 10px; font-weight: 700;
+          padding: 4px 10px; letter-spacing: 1px;
+        ">-{{ p.get_percentage|floatformat:0 }}% OFF</span>
+        {% endif %}
+      </div>
+
+      <!-- Description -->
+      <div style="
+        font-size: 14px; color: #aaa;
+        line-height: 1.9; margin-bottom: 28px;
+        border-left: 2px solid #D4AF37;
+        padding-left: 16px;
+      ">
+        {{ p.description }}
+      </div>
+
+            <!-- Hidden inputs -->
+      <input type="hidden" value="{{ p.title }}" class="product-title">
+      <input type="hidden" value="{{ p.id }}" class="product-id">
+      <input type="hidden" value="{{ p.pid }}" class="product-pid">
+
+      <!-- ══ Quantity + Add to Cart row ══ -->
+      <div style="
+        display: flex; gap: 12px;
+        align-items: stretch;
+        margin-bottom: 16px;
+      ">
+
+        <!-- Qty controls -->
+        <div style="
+          display: flex; align-items: center;
+          border: 1px solid #2a2a2a;
+          background: #111;
+          flex-shrink: 0;
+        ">
+          <button onclick="
+            var inp = document.getElementById('product-quantity-{{ p.id }}');
+            if(parseInt(inp.value) > 1) inp.value = parseInt(inp.value) - 1;
+          " style="
+            width: 40px; height: 100%;
+            background: none; border: none;
+            color: #888; font-size: 18px;
+            cursor: pointer; transition: color .2s;
+          "
+          onmouseenter="this.style.color='#D4AF37'"
+          onmouseleave="this.style.color='#888'">−</button>
+
+          <input type="number" value="1" min="1"
+                 id="product-quantity-{{ p.id }}"
+                 class="span product-quantity-{{ p.id }}"
+                 style="
+                   width: 50px; background: transparent;
+                   border: none; outline: none;
+                   text-align: center; color: #fff;
+                   font-size: 15px; font-weight: 600;
+                   font-family: 'Montserrat', sans-serif;
+                 "/>
+
+          <button onclick="
+            var inp = document.getElementById('product-quantity-{{ p.id }}');
+            inp.value = parseInt(inp.value) + 1;
+          " style="
+            width: 40px; height: 100%;
+            background: none; border: none;
+            color: #888; font-size: 18px;
+            cursor: pointer; transition: color .2s;
+          "
+          onmouseenter="this.style.color='#D4AF37'"
+          onmouseleave="this.style.color='#888'">+</button>
+        </div>
+
+        <!-- Add to Cart → WhatsApp -->
+       <!-- Add to Cart -->
+
+            <a href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="flex: 1; text-decoration: none; display: flex;"
+            onclick="sendToWhatsApp(event, 'cart')"
+          >
+            <button class="cart-btn add-to-cart-btn" style="
+              width: 100%; padding: 16px 24px;
+              background: #D4AF37; border: 2px solid #D4AF37;
+              color: #0a0a0a;
+              font-family: 'Montserrat', sans-serif;
+              font-size: 12px; font-weight: 700;
+              letter-spacing: 3px; text-transform: uppercase;
+              cursor: pointer; display: flex;
+              align-items: center; justify-content: center; gap: 10px;
+              transition: background .2s, color .2s;
+            "
+            onmouseenter="this.style.background='transparent';this.style.color='#D4AF37'"
+            onmouseleave="this.style.background='#D4AF37';this.style.color='#0a0a0a'">
+              <i class="fa fa-shopping-bag"></i>
+              Buy now on whatsapp
+            </button>
+          </a>
+
+         
+
+          </div>
+          <!-- ══ END Quantity + Add to Cart row ══ -->
+
+          <!-- Buy Now -->
+
+            <!-- <a href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="text-decoration: none; display: block; margin-bottom: 28px;"
+            onclick="sendToWhatsApp(event, 'buynow')"
+          >
+            <button style="
+              width: 100%; padding: 16px;
+              background: transparent; border: 1px solid #333;
+              color: #ccc;
+              font-family: 'Montserrat', sans-serif;
+              font-size: 12px; font-weight: 700;
+              letter-spacing: 3px; text-transform: uppercase;
+              cursor: pointer;
+              transition: border-color .2s, color .2s;
+            "
+            onmouseenter="this.style.borderColor='#fff';this.style.color='#fff'"
+            onmouseleave="this.style.borderColor='#333';this.style.color='#ccc'">
+              Buy Now on WhatsApp
+            </button>
+          </a> -->
+
+      <!-- Product meta -->
+      <div style="
+        background: #111;
+        border: 1px solid #1a1a1a;
+        padding: 20px 24px;
+        margin-bottom: 24px;
+      ">
+        <ul style="
+          list-style: none; margin: 0; padding: 0;
+          display: flex; flex-direction: column; gap: 14px;
+        ">
+          <li style="
+            display: flex; justify-content: space-between;
+            align-items: center; font-size: 12px;
+            padding-bottom: 14px; border-bottom: 1px solid #1a1a1a;
+          ">
+            <span style="color:#666; letter-spacing:2px; text-transform:uppercase;">Type</span>
+            <span style="color:#ccc; font-weight:500;">{{ p.type }}</span>
+          </li>
+          <li style="
+            display: flex; justify-content: space-between;
+            align-items: center; font-size: 12px;
+            padding-bottom: 14px; border-bottom: 1px solid #1a1a1a;
+          ">
+            <span style="color:#666; letter-spacing:2px; text-transform:uppercase;">MFG Date</span>
+            <span style="color:#ccc; font-weight:500;">{{ p.mfd|date:"d M, Y" }}</span>
+          </li>
+          <li style="
+            display: flex; justify-content: space-between;
+            align-items: center; font-size: 12px;
+            padding-bottom: 14px; border-bottom: 1px solid #1a1a1a;
+          ">
+            <span style="color:#666; letter-spacing:2px; text-transform:uppercase;">Life</span>
+            <span style="color:#ccc; font-weight:500;">{{ p.life }}</span>
+          </li>
+          <li style="
+            display: flex; justify-content: space-between;
+            align-items: center; font-size: 12px;
+            padding-bottom: 14px; border-bottom: 1px solid #1a1a1a;
+          ">
+            <span style="color:#666; letter-spacing:2px; text-transform:uppercase;">SKU</span>
+            <span style="color:#ccc; font-weight:500; font-family:monospace;">{{ p.sku }}</span>
+          </li>
+          <li style="
+            display: flex; justify-content: space-between;
+            align-items: center; font-size: 12px;
+          ">
+            <span style="color:#666; letter-spacing:2px; text-transform:uppercase;">Stock</span>
+            <span style="color:#2ecc71; font-weight:600;">{{ p.stock_count }} available</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Trust badges -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+        <div style="text-align:center; padding:14px 8px; border:1px solid #1a1a1a; background:#111;">
+          <i class="fa fa-truck" style="color:#D4AF37; font-size:18px; margin-bottom:6px; display:block;"></i>
+          <span style="font-size:10px; color:#888; letter-spacing:1px; display:block;">Delivery</span>
+          <span style="font-size:9px; color:#555; display:block;">We deliver nationwide</span>
+        </div>
+        <div style="text-align:center; padding:14px 8px; border:1px solid #1a1a1a; background:#111;">
+          <i class="fa-brands fa-whatsapp" style="color:#D4AF37; font-size:18px; margin-bottom:6px; display:block;"></i>
+          <span style="font-size:10px; color:#888; letter-spacing:1px; display:block;">Easy WhatsApp Ordering</span>
+          <span style="font-size:9px; color:#555; display:block;">Order directly through WhatsApp in minutes.</span>
+        </div>
+        <div style="text-align:center; padding:14px 8px; border:1px solid #1a1a1a; background:#111;">
+          <i class="fa fa-shield-alt" style="color:#D4AF37; font-size:18px; margin-bottom:6px; display:block;"></i>
+          <span style="font-size:10px; color:#888; letter-spacing:1px; display:block;">Authentic</span>
+          <span style="font-size:9px; color:#555; display:block;">Quality checked</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ RESPONSIVE STYLES ══ -->
+  <style>
+    @media (max-width: 900px) {
+      .pd-grid {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+      }
+    }
+    @media (max-width: 600px) {
+      section {
+        padding: 32px 16px !important;
+      }
+    }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    input[type=number] { -moz-appearance: textfield; }
+  </style>
+
+</section>
+
+
+
+
+
+
 
     </article>
   </main>
@@ -891,6 +1222,110 @@ $(document).on("click", ".delete-product", function () {
 });
 
 
+
+// function sendToWhatsApp(event, type) {
+//   event.preventDefault();
+
+//   const qty   = document.getElementById('product-quantity-{{ p.id }}').value || 1;
+//   const title = "{{ p.title }}";
+//   const price = "{{ p.price }}";
+//   const phone = "2349057058845";
+
+//   let message = "";
+
+//   if (type === "cart") {
+//     message =
+//       "Hello Illustrious Codes! I want to order: " + qty + " piece(s)\n\n" +
+//       "Product: " + title + "\n" +
+//       "Price: ₦" + price + "\n\n" +
+//       "Please confirm availability.";
+//   } else {
+//     message =
+//       "Hello Illustrious Codes! I want to BUY NOW: " + qty + " piece(s)\n\n" +
+//       "Product: " + title + "\n" +
+//       "Price: ₦" + price + "\n\n" +
+//       "Please send me payment details.";
+//   }
+
+//   const encoded = encodeURIComponent(message);
+//   window.open("https://wa.me/" + phone + "?text=" + encoded, "_blank");
+// }
+
+// <!-- ✅ Keep this ONLY in product-detail.html, inside a <script> tag -->
+
+function sendToWhatsApp(event, type) {
+  event.preventDefault();
+
+  const qty   = document.getElementById("product-quantity-{{ p.id }}").value || 1;
+  const title = "{{ p.title }}";
+  const price = "{{ p.price }}";
+  const phone = "2349057058845";
+
+  let message = "";
+
+  if (type === "cart") {
+    message =
+      "Hello Illustrious Codes! I want to order: " + qty + " piece(s)\n\n" +
+      "Product: " + title + "\n" +
+      "Price: ₦" + price + "\n\n" +
+      "Please confirm availability.";
+  } else {
+    message =
+      "Hello Illustrious Codes! I want to BUY NOW: " + qty + " piece(s)\n\n" +
+      "Product: " + title + "\n" +
+      "Price: ₦" + price + "\n\n" +
+      "Please send me payment details.";
+  }
+
+  const encoded = encodeURIComponent(message);
+  window.open("https://wa.me/" + phone + "?text=" + encoded, "_blank");
+}
+
+
+// ✅ Safe version — add this to script.js
+document.addEventListener("DOMContentLoaded", function() {
+
+  /* ── HAMBURGER ─────────────────────────────────── */
+  const hamburgerBtn   = document.getElementById("hamburgerBtn");
+  const mobileNav      = document.getElementById("mobileNav");
+  const overlayBg      = document.getElementById("overlayBg");
+  const mobileNavClose = document.getElementById("mobileNavClose");
+
+  function openMobileNav() {
+    if (mobileNav) mobileNav.classList.add("open");
+    if (overlayBg) overlayBg.classList.add("show");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMobileNav() {
+    if (mobileNav) mobileNav.classList.remove("open");
+    if (overlayBg) overlayBg.classList.remove("show");
+    document.body.style.overflow = "";
+  }
+
+  if (hamburgerBtn)   hamburgerBtn.addEventListener("click", openMobileNav);
+  if (mobileNavClose) mobileNavClose.addEventListener("click", closeMobileNav);
+  if (overlayBg)      overlayBg.addEventListener("click", closeMobileNav);
+
+  document.querySelectorAll(".mobile-link").forEach((link) => {
+    link.addEventListener("click", closeMobileNav);
+  });
+
+  /* ── MOBILE SHOP TOGGLE ────────────────────────── */
+  const mobileShopToggle   = document.getElementById("mobileShopToggle");
+  const mobileCategoryList = document.getElementById("mobileCategoryList");
+
+  if (mobileShopToggle && mobileCategoryList) {
+    mobileShopToggle.addEventListener("click", function(e) {
+      e.preventDefault();
+      const isOpen = mobileCategoryList.style.display === "flex";
+      mobileCategoryList.style.display = isOpen ? "none" : "flex";
+      const icon = this.querySelector("i");
+      if (icon) icon.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+    });
+  }
+
+});
 
 </script>
 

@@ -511,10 +511,7 @@ def checkout_view(request):
 
     paypal_payment_button = PayPalPaymentsForm(initial=paypal_dict)
   
-
-
-
-    cart_total_amount = 0
+    cart_total_amount = 0 
     if "cart_data_obj" in request.session:
         for p_id, item in request.session["cart_data_obj"].items():
             # cart_total_amount += int(item['qty']) * float(item["price"])
@@ -537,3 +534,17 @@ def payment_completed_view(request):
 
 def payment_failed_view(request):
     return render(request, 'core/payment-failed.html')
+
+
+
+def category_product_list(request, cid):
+    category = get_object_or_404(Category, cid=cid)
+    products = Product.objects.filter(category=category)
+    categories = Category.objects.all()  # ← needed for nav + footer
+
+    context = {
+        'category': category,
+        'products': products,
+        'categories': categories,  # ← without this, the page breaks
+    }
+    return render(request, 'core/category-product-list.html', context)

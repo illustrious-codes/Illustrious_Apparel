@@ -5,7 +5,8 @@
     display: flex;
     gap: 20px;
     padding: 20px 40px; /* reduced padding */
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
+    background-color: #000;
   }
 
   /* ====== CATEGORY SIDEBAR ====== */
@@ -14,11 +15,12 @@
     margin: 0;
     padding: 15px;
     width: 220px; /* slightly narrower */
-    background: #fff;
-    border: 1px solid #eee;
+    /* background: #fff; */
+    background-color: #0000;
+    border: 1px solid #D4AF37;
     border-radius: 6px;
     height: fit-content;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px #D4AF37;
   }
 
   .category-list b {
@@ -38,16 +40,17 @@
     display: flex;
     align-items: center;
     padding: 5px 8px;
-    color: #333;
+    /* color: #333; */
+    color: #D4AF37;
     text-decoration: none;
     font-size: 13px;
     transition: all 0.3s ease;
   }
 
   .category-link:hover {
-    background-color: #f5f5f5;
-    color: #f68b1e;
-    border-left: 3px solid #f68b1e;
+    background-color: #d4af37d5;
+    color: white;
+    border-left: 3px solid white;
   }
 
   .category-icon {
@@ -63,15 +66,15 @@
   }
 
   .category-count {
-    color: #999;
+    color: white;
     font-size: 12px;
   }
 
   /* ====== PRODUCTS SECTION ====== */
 
   .product-card {
-    background: #fff;
-    border: 1px solid #eee;
+    background: black;
+    border: 1px solid #d4af376c;
     border-radius: 6px;
     text-align: center;
     transition: all 0.3s ease;
@@ -99,7 +102,7 @@
   .product-title {
     font-size: 18px;
     font-weight: 500;
-    color: #333;
+    color: white;
     margin: 4px 0 2px 0; /* smaller gaps */
     line-height: 1.2;
     height: auto; /* remove fixed height if not needed */
@@ -121,7 +124,7 @@
   .product-price .price {
     font-size: 14px;
     font-weight: bold;
-    color: #f68b1e;
+    color: #D4AF37;
   }
 
   .product-price .old-price {
@@ -133,7 +136,7 @@
 
   /* Button snug under price */
   .add-to-cart-btn {
-    background-color: #f68b1e;
+    background-color: black;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -143,19 +146,21 @@
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 0;
+    border: 1px solid #999;
   }
 
   .add-to-cart-btn:hover {
-    background-color: #d97706;
+    background-color: #D4AF37;
+    color: black;
   }
 
   /* Container spacing (unchanged) */
   .products-section {
     flex: 1;
-    background: #fff;
+    background: black;
     border-radius: 6px;
     padding: 15px;
-    border: 1px solid #eee;
+    border: 1px solid #d4af378f;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
 
@@ -198,7 +203,7 @@
 <div class="main-container">
   <!-- ====== CATEGORY SIDEBAR ====== -->
   <ul class="category-list">
-    <b style="font-size: 18px; color: blue"><a href="/" style="text-decoration: none;">Home/</a>Categories</b>
+    <b style="font-size: 18px; color: #D4AF37">Categories</b>
     {% for c in categories %}
      <li class="category-item"></li>
         <a href="{% url 'core:category-product-list' c.cid %}" class="category-link">
@@ -263,7 +268,31 @@
         </div>
 
       </a>
-        <button class="add-to-cart-btn">Add to Cart</button>
+        <!-- <button class="add-to-cart-btn">Add to Cart</button> -->
+
+        <a href="https://wa.me/2349057058845?text=Hello%20Illustrious%20Codes!%20I%20want%20to%20order%3A%0A%0AProduct%3A%20{{ p.title }},%0APrice%3A%20%E2%82%A6{{ p.price }}%0A%0APlease%20confirm%20availability."
+  target="_blank"
+  rel="noopener noreferrer"
+  style="text-decoration: none; display: block; margin-top: auto;"
+>
+  <button
+    class="cart-btn add-to-cart-btn"
+    data-index="{{ p.id }}"
+    style="
+      width: 100%; padding: 11px 16px;
+      background: transparent;
+      border: 1px solid #333;
+      color: #ccc;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, color .2s;
+    "
+    onmouseenter="this.style.background='#D4AF37'; this.style.borderColor='#D4AF37'; this.style.color='#0a0a0a'"
+    onmouseleave="this.style.background='transparent'; this.style.borderColor='#333'; this.style.color='#ccc'"
+  >Buy now</button>
+</a>
 
       </div>
     </div>

@@ -4,1446 +4,799 @@
 {% block content %}
 
 
-<style>
-
-/* *{
-    padding: 0;
-    margin: 0;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-}
-
-.product-card {
-    background-color: red;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    overflow: hidden;
-    transition: box-shadow 0.2s ease;
-    width: 240px;  
-    margin: 10px;
-}
-
-.product-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-.product-card .product-link {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-
-.product-card .product-image {
-    width: 100%;
-    padding-top: 100%;
-    position: relative;
-    overflow: hidden;
-    background-color: #fafafa;
-}
-
-.product-card .product-image img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    max-width: 100%;
-    max-height: 100%;
-    transform: translate(-50%, -50%);
-}
-
-.product-card .product-info {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.product-card .product-name {
-    font-size: 1rem;
-    line-height: 1.2;
-    margin: 0 0 8px 0;
-    color: #333;
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-
-.product-card .product-price {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-}
-
-.product-card .product-price .price {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #e91e63; 
-}
-
-.product-card .product-price .old-price {
-    font-size: 0.9rem;
-    color: #999;
-    text-decoration: line-through;
-}
-
-.product-card .product-rating {
-    margin-top: 6px;
-    font-size: 0.9rem;
-    color: #777;
-} */
-
-
-/* ----------------------------------------------------------------------------- */
-
-
-/* Container for all product cards */
-.products-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-between;
-  margin-left: 85px;
-  margin-right: 85px;
-}
-
-/* Individual product card */
-.product-card {
-  width: calc(20% - 16px); /* 5 per row, with gap adjustment */
-  background-color: #fff;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-}
-
-.product-card:hover {
-  transform: scale(1.02);
-}
-
-.product-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  padding: 10px;
-}
-
-.product-image {
-  position: relative;
-}
-
-.discount-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: red;
-  color: white;
-  padding: 4px 8px;
-  font-size: 13px;
-  font-weight: bold;
-  border-radius: 4px;
-  z-index: 1;
-}
-
-.product-image img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-bottom: 1px solid #eee;
-}
-
-.product-info {
-  padding: 10px 0;
-}
-
-.product-name {
-  font-size: 14px;
-  color: #555;
-  margin: 4px 0;
-}
-
-.product-price {
-  margin-top: 8px;
-}
-
-.price {
-  font-weight: bold;
-  font-size: 16px;
-  color: green;
-}
-
-.old-price {
-  text-decoration: line-through;
-  color: #999;
-  margin-left: 10px;
-}
-
-.discount {
-  background-color: red;
-  color: white;
-  padding: 3px 6px;
-  margin-left: 10px;
-  font-size: 12px;
-  border-radius: 4px;
-}
-
-.product-rating {
-margin-top: 5px;
-  font-size: 13px;
-  color: #999;
-}
-
-.cart-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 6px 12px;
-  font-size: 14px;
-  font-weight: bold;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.cart-btn:hover {
-  background-color: #0056b3;
-}
-
-
-
-/* for Category */
-.category-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 250px;
-  background: #fff;
-  border: 0.5px solid #eee;
-  border-radius: 4px;
-}
-
-.category-item {
-  border-bottom: 0.5px solid #f2f2f2;
-}
-
-.category-item:last-child {
-  border-bottom: none;
-}
-
-.category-link {
-  display: flex;
-  align-items: center;
-  padding: 3px 15px;
-  color: #333;
-  text-decoration: none;
-  font-size: 12px;
-  transition: all 0.3s ease;
-}
-
-.category-link:hover {
-  background-color: #f5f5f5;
-  color: blue; 
-  border-left: 3px solid blue;
-}
-
-.category-icon {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  margin-right: 10px;
-}
-
-.category-title {
-  flex-grow: 1;
-  font-weight: 500;
-}
-
-.category-count {
-  color: #999;
-  font-size: 12px;
-  margin-left: 55px;
-}
-
-
-
-/* Responsive: stack fewer per row on smaller screens */
-@media (max-width: 1024px) {
-  .product-card {
-    width: calc(25% - 16px); /* 4 per row */
-  }
-}
-@media (max-width: 768px) {
-  .product-card {
-    width: calc(33.33% - 16px); /* 3 per row */
-  }
-}
-@media (max-width: 480px) {
-  .product-card {
-    width: calc(50% - 16px); /* 2 per row */
-  }
-}
-
-
-
-
-
-
-
-
-</style>
-
-        <div class="main-body"></div>
-        <div class="boxes-container">
-            <div class="box-1">
-                <ul>
-                    <b style="font-size: 24px; color: blue; ">Categories</b>
-                    {% for c in categories %}
-                    <li class="category-item">
-                        <a href="{% url 'core:category-product-list' c.cid %}" class="category-link">
-                        <img src="{{ c.image.url }}" alt="{{ c.title }}" class="category-icon">
-                        <span class="category-title">{{ c.title }}</span>
-                        <small class="category-count">({{ c.category.count }})</small>
-                        </a>
-                    </li>
-                    {% endfor %}
-
-                    <!-- {% for c in categories %}
-                    <li>
-                        <span class="material-symbols-outlined">
-                        <img src="{{ c.image.url }}" alt="" height="15px" width="15px">
-                        </span><a href="">{{ c.title }}</a>
-                        <small>({{ c.category.count }})</small>
-                    </li>
-                    {% endfor %} -->
-                    <!-- <h1>{{categories.count}}</h1> -->
-
-
-                    <!-- <li>
-                        <span class="material-symbols-outlined">
-                            <i class="fa-solid fa-user-tie"></i>
-                        </span><a href="#">Men's Wear</a>
-                    </li>
-                    <li><span class="material-symbols-outlined">
-                            <i class="fa-solid fa-vest"></i>
-                        </span><a href="">Women's Fashion</a></li>
-                    <li>
-                        <span class="material-symbols-outlined">
-                            <i class="fa-solid fa-shirt"></i>
-                        </span>
-                        <a href="">Unisex Fashion</a>
-                    </li>
-                    <li><span class="material-symbols-outlined">
-                            <span class="material-symbols-outlined">
-                                <i class="fa-solid fa-shoe-prints"></i>
-                            </span>
-                        </span><a href="">Children's Fashion</a></li>
-                    <li><span class="material-symbols-outlined">
-                            <i class="fa-solid fa-keyboard"></i>
-                        </span><a href="">Accessories</a></li>
-                    <li><span class="material-symbols-outlined">
-                            <i class="fa-solid fa-gem"></i>
-                        </span><a href="">Jewelry</a></li>
-                    <li><span class="material-symbols-outlined">
-                            <i class="fa-solid fa-socks"></i>
-                        </span><a href="">Footwear</a></li>
-                    <li><span class="material-symbols-outlined">
-                            <i class="fa-solid fa-clock"></i>
-                        </span><a href="">Watches</a></li>
-                    <li><span class="material-symbols-outlined">
-                            <i class="fa-solid fa-suitcase-rolling"></i>
-                        </span><a href="">Bags</a></li>
-                    <li><span class="material-symbols-outlined"></span>
-                            <i class="fa-solid fa-person-skiing-nordic"></i>
-                        </span><a href="">Skincare Products</a></li>
-                    <li><span class="material-symbols-outlined"></span>
-                            <i class="fa-brands fa-artstation"></i>
-                        </span><a href="">Art, Design & Crafts</a></li>
-                    <li><span class="material-symbols-outlined"></span>
-                            <i class="fa-solid fa-holly-berry"></i>
-                        </span><a href="">Interior Decoration</a></li>
-                    <li><span class="material-symbols-outlined">
-                            <i class="fa-solid fa-wallet"></i>
-                        </span><a href="">Purses & Wallets</a></li> -->
-
-                </ul>
-
-                
-            </div>
-
-            <!-- <div class="slideshow-container">
-
-                <div class="mySlides fade">
-                    <img src="https://ng.jumia.is/cms/0-1-initiatives/Free-Pickp/712X384.jpg" style="width:100%">
-                </div>
-
-                <div class="mySlides fade">
-                    <img src="https://ng.jumia.is/cms/0-1-weekly-cps/0-2024/0-1Advertising/august/itel/712-X-385-ITEL.gif"
-                        style="width:100%">
-                </div>
-
-                <div class="mySlides fade">
-                    <img src="https://ng.jumia.is/cms/0-1-weekly-cps/0-2024/Week-32/Family-times/712x384y.png "
-                        style="width:100%">
-                </div>
-                <div class="mySlides fade">
-                    <img src="{% static './images/jumia backdrop.jpg' %}" style="width:100%">
-                </div>
-                <div class="mySlides fade">
-                    <img src="https://ng.jumia.is/cms/0-1-initiatives/jumia-global/2024/July/Have-fun-family/712x384.gif"
-                        style="width:100%">
-                </div>
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-                <div>
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                </div>
-
-            </div> -->
-
-            <div class="slideshow-container" data-slider>
-              <div class="slide"><img src="https://ng.jumia.is/cms/0-1-initiatives/jumia-global/2024/July/Have-fun-family/712x384.gif "></div>
-            </div>
+ <!-- Mobile nav overlay -->
+    <!-- <div class="mobile-nav" id="mobileNav">
+      <button
+        class="mobile-nav-close"
+        id="mobileNavClose"
+        aria-label="Close menu"
+      >
+        <i class="fa fa-times"></i>
+      </button>
+      <div class="mobile-logo">
+        <span class="logo-name">ILLUSTRIOUS</span>
+        <span class="logo-divider"
+          ><span class="line"></span><span class="logo-codes">CODES</span
+          ><span class="line"></span
+        ></span>
+        <span class="logo-apparel">APPAREL</span>
+      </div>
+      <ul>
+  <li><a href="/" class="mobile-link">Home</a></li>
+
+  <li>
+    <a href="\#shop" class="mobile-link" id="mobileShopToggle"
+       style="display:flex; justify-content:space-between; align-items:center;">
+      Shop
+      <i class="fa fa-chevron-down" style="font-size:11px; color:#D4AF37;"></i>
+    </a>
+
+    <ul id="mobileCategoryList" style="
+      display: none;
+      flex-direction: column;
+      padding: 8px 0 8px 16px;
+      border-left: 2px solid #D4AF37;
+      margin: 4px 0 8px;
+      gap: 0;
+    ">
+      {% for c in categories %}
+      <li>
+        <a href="{% url 'core:category-product-list' c.cid %}"
+           style="
+             display: flex; align-items: center; gap: 10px;
+             padding: 10px 0;
+             font-size: 13px; font-weight: 500;
+             letter-spacing: 1px; text-transform: uppercase;
+             color: #aaa; border-bottom: 1px solid #1a1a1a;
+             text-decoration: none;
+             transition: color .2s;
+           "
+           onmouseenter="this.style.color='#D4AF37'"
+           onmouseleave="this.style.color='#aaa'">
+          <img src="{{ c.image.url }}" alt="{{ c.title }}"
+               style="width:28px; height:28px; object-fit:cover; border-radius:2px; flex-shrink:0;"/>
+          <span>{{ c.title }}</span>
+          <small style="color:#555; margin-left:auto;">({{ c.category.count }})</small>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </li>
+
+  <li><a href="\#featured" class="mobile-link">Collections</a></li>
+  <li><a href="\#about"    class="mobile-link">About</a></li>
+  <li><a href="#contact"  class="mobile-link">Contact</a></li>
+</ul> -->
+
+
+
+      <!-- <ul>
+        <li><a href="\" class="mobile-link">Home</a></li>
+        <li><a href="\#shop" class="mobile-link">Shop</a></li>
+
+        <li><a href="\#featured" class="mobile-link">Collections</a></li>
+        <li><a href="\#about" class="mobile-link">About</a></li>
+        <li><a href="#contact" class="mobile-link">Contact</a></li>
+      </ul> -->
+      <!-- <div class="mobile-nav-actions">
+        <a href="#"><i class="fa fa-user"></i> Sign In / Register</a>
+        <a href="#"><i class="fa fa-heart"></i> Wishlist</a>
+        <a href="#"><i class="fa fa-shopping-bag"></i> Cart</a>
+      </div> -->
+    </div>
+    <div class="overlay-bg" id="overlayBg"></div>
+
+    <!-- ══════════════════ HERO ══════════════════ -->
+    <section class="hero" id="home">
+      <div class="hero-bg">
+        <img
+          src="../../static/images/ill.jpg"
+          alt="Illustrious Codes hero"
+          class="hero-img"
+        />
+        <div class="hero-veil"></div>
+      </div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">New Season Collection</p>
+        <h1 class="hero-headline">WEAR YOUR<br /><span>IDENTITY</span></h1>
+        <p class="hero-sub">
+          Premium clothing for those who live illustriously
+        </p>
+        <div class="hero-ctas">
+          <a href="#shop" class="btn-gold">Shop Men</a>
+          <a href="#shop" class="btn-outline">Shop Women</a>
+        </div>
+      </div>
+      <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <i class="fa fa-chevron-down"></i>
+      </div>
+    </section>
+
+    <!-- ══════════════════ MARQUEE ══════════════════ -->
+    <div class="marquee-strip">
+      <div class="marquee-track">
+        <span>WEAR YOUR IDENTITY</span><span class="dot">✦</span>
+        <span>LIVE ILLUSTRIOUS</span><span class="dot">✦</span>
+        <span>PREMIUM APPAREL</span><span class="dot">✦</span>
+        <span>NEW ARRIVALS</span><span class="dot">✦</span>
+        <span>WEAR YOUR IDENTITY</span><span class="dot">✦</span>
+        <span>LIVE ILLUSTRIOUS</span><span class="dot">✦</span>
+        <span>PREMIUM APPAREL</span><span class="dot">✦</span>
+        <span>NEW ARRIVALS</span><span class="dot">✦</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════ CATEGORIES ══════════════════ -->
+    <section class="categories" id="shop">
+      <div class="section-header">
+        <p class="eyebrow">Explore</p>
+        <h2>Shop by Category</h2>
+      </div>
+
+
+       <div class="category-grid">
+        <div class="cat-card cat-large">
+          <img src="../../static/images/man2 c.jpeg" alt="Men's Collection" />
+          <div class="cat-overlay">
+            <h3>Men</h3>
+            <!-- <a href="#" class="cat-link"
+              >Explore <i class="fa fa-arrow-right"></i
+            ></a> -->
+          </div>
+        </div>
+        <div class="cat-card cat-large">
+          <img src="../../static/images/women c.jpeg" alt="Women's Collection" />
+          <div class="cat-overlay">
+            <h3>Women</h3>
+            <!-- <a href="#" class="cat-link"
+              >Explore <i class="fa fa-arrow-right"></i
+            ></a> -->
+          </div>
+        </div>
+        <div class="cat-card cat-small">
+          <img src="../../static/images/shoe c.webp" alt="Shoes" />
+          <div class="cat-overlay">
+            <h3>Shoes</h3>
+            <!-- <a href="#" class="cat-link"
+              >Explore <i class="fa fa-arrow-right"></i
+            ></a> -->
+          </div>
+        </div>
+        <div class="cat-card cat-small">
+          <img src="../../static/images/accessories c.jpeg" alt="Accessories" />
+          <div class="cat-overlay">
+            <h3>Accessories</h3>
+            <!-- <a href="#" class="cat-link"
+              >Explore <i class="fa fa-arrow-right"></i
+            ></a> -->
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- <div class="category-grid">
+        <div class="cat-card cat-large">
+          <img src="./image/apparel.png" alt="Men's Collection" />
+          <div class="cat-overlay">
+            <h3>Men</h3>
+            <a href="#" class="cat-link"
+              >Explore <i class="fa fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+        <div class="cat-card cat-large">
+          <img src="./image/apparel.png" alt="Women's Collection" />
+          <div class="cat-overlay">
+            <h3>Women</h3>
+            <a href="#" class="cat-link"
+              >Explore <i class="fa fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+        <div class="cat-card cat-small">
+          <img src="./image/apparel.png" alt="Shoes" />
+          <div class="cat-overlay">
+            <h3>Shoes</h3>
+            <a href="#" class="cat-link"
+              >Explore <i class="fa fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+        <div class="cat-card cat-small">
+          <img src="./image/apparel.png" alt="Accessories" />
+          <div class="cat-overlay">
+            <h3>Accessories</h3>
+            <a href="#" class="cat-link"
+              >Explore <i class="fa fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div> -->
+    </section>
+
+    <!-- ══════════════════ FEATURED PRODUCTS ══════════════════ -->
+    <section class="products" id="featured">
+      <div class="section-header">
+        <p class="eyebrow">Curated for You</p>
+        <h2>Featured Products</h2>
+      </div>
+
+      <!-- Filter tabs -->
+      <div class="filter-tabs">
+        <button class="tab active" data-filter="all">All</button>
+        <!-- <button class="tab" data-filter="men">Men</button>
+        <button class="tab" data-filter="women">Women</button>
+        <button class="tab" data-filter="shoes">Shoes</button>
+        <button class="tab" data-filter="accessories">Accessories</button> -->
+      </div>
+
+
 <!-- 
-            <button data-prev class="prev">❮</button>
-            <button data-next class="next">❯</button> -->
+       <div class="products-container">
+        {% for p in products %}
 
-
-            <div class="box-3">
-                <ul>
-                    <li><span class="material-symbols-outlined">
-                            call
-                        </span>CALL TO ORDER</li> 
-                    <!-- <li><i class="fa-solid fa-house fa-xl" style="color: #ffba00;"></i>Sell on Naor&eacute;</li> -->
-                    <li><i class="fa-solid fa-house fa-xl" style="color: #3396d3;"></i>Sell on Naor&eacute;</li>
-                    <li><i class="fa-solid fa-rotate fa-2xl" style="color: #3396d3;"></i></i>Best Deals</li>
-                </ul>
-                <img src="https://ng.jumia.is/cms/0-1-initiatives/jforce/2024/shop_earn.png" alt="images" />
-            </div>
-        </div>
-        <section >
-            <div class="products-container">
-                {% for p in products %}
-
-                <div class="product-card">
-                    <!-- cut a tag -->
-                        <div class="product-image">
-                            <div class="discount-badge">{{ p.get_percentage|floatformat:0 }}%</div>
-                            <img src="{{ p.image.url }}" alt="{{ p.title }}">
-                            
-
-                        </div>
-                        <div class="product-info" style="padding: 7px;">
-                            <p class="product-name">{{ p.category.title }}</p>
-                            <b class="product-name">{{ p.title }}</b>
-                            <small class="product-name">By: {{ p.vendor.title }}</small>
-                            <div class="product-price">
-                                <!-- <span class="current-product-price-{{ p.id }}">{{ p.price }}</span> -->
-                                <span class="current-product-price {{ p.id }}">₦{{ p.price }}</span>
-                                {% if p.old_price %}
-                                <span class="old-price">₦{{ p.old_price }}</span>
-                                {% endif %}
-                        </div>
-
-                        <div >
-                            <input type="hidden" value="1" class="product-quantity-{{ p.id }}">
-                            <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
-                            <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
-                            <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
-                            <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
-                            <!-- <span class="cart-btn add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn">Add to cart</span> -->
-                            <button class="cart-btn add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn" >Add to Cart</button>
-                        </div>
-                        <!-- <button class="cart-btn add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn">Add to Cart</button> -->
-
-                        </div>
-                    <!-- <a href="/product/{{ product.slug }}" class="product-link"> -->
-
-                    <!-- </a> --> 
+        <div class="product-card">
+                <div class="product-image">
+                    <div class="discount-badge">{{ p.get_percentage|floatformat:0 }}%</div>
+                    <img src="{{ p.image.url }}" alt="{{ p.title }}">
+                </div>
+                <div class="product-info" style="padding: 7px;">
+                    <p class="product-name">{{ p.category.title }}</p>
+                    <b class="product-name">{{ p.title }}</b>
+                    <small class="product-name">By: {{ p.vendor.title }}</small>
+                    <div class="product-price">
+                    <span class="current-product-price {{ p.id }}">₦{{ p.price }}</span>
+                        {% if p.old_price %}
+                        <span class="old-price">₦{{ p.old_price }}</span>
+                        {% endif %}
                 </div>
 
-                
-
-
-
-
-            
-
-
-                
-               
-                {% endfor %}
-                <!-- <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Electronic.jpg"
-                        alt="image">
-                    <h4 class="text-img">Best deals</h4>
+                <div >
+                    <input type="hidden" value="1" class="product-quantity-{{ p.id }}">
+                    <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
+                    <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
+                    <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
+                    <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
+                   <button class="cart-btn add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn" >Add to Cart</button>
                 </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-weekly-cps/0-2024/Week_31/Phones-Super-Sales/Tablets.png"
-                        alt="image">
-                    <h4 class="text-img">Phones & Tablets</h4>
-                </div>
-                <div class="img-hover"><img src="{% static './images/Artboard_4.png' %}" alt="image">
-                    <h4 class="text-img">Men's Sneakers</h4>
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/appliances/2024/updated/Fridgee.png"
-                        alt="image">
-                    <h4 class="text-img">Refrigerators</h4>
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/Mobile_Accessories.jpg"
-                        alt="image">
-                    <h4 class="text-img">Mobile Accessories</h4>
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Power_Deals.jpg"
-                        alt="image">
-                    <h4 class="text-img">Generators</h4>
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/home.png" alt="image">
-                    <h4 class="text-img">Official Store Deals</h4>
-                </div> -->
-            </div>
 
-        </section>
+                </div>
 
-        <div class="row-2 max-width img-hover"><img
-                src="https://ng.jumia.is/cms/0-1-weekly-cps/0-2024/Week_7/power-ups/1152x252.png" alt="image">
         </div>
 
-        <!----- row-3-container--->
-        <section class=" max-width">
-            <div class="para-top">
-                <h1>Top selling items</h1>
+        {% endfor %}
+
+    </div> -->
+
+
+    <div class="products-container" style="
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+">
+
+    
+
+  {% for p in products %}
+
+ 
+<div class="product-card" style="
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: border-color .25s, transform .25s;
+  "
+  onmouseenter="this.style.borderColor='#D4AF37'; this.style.transform='translateY(-4px)'"
+  onmouseleave="this.style.borderColor='#1e1e1e'; this.style.transform='translateY(0)'">
+
+    <!-- IMAGE — clickable link to detail page -->
+    <a href="{% url 'core:product-detail' p.pid %}" style="text-decoration: none;">
+      <div class="product-image" style="
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 3 / 4;
+      ">
+        <div class="discount-badge" style="
+          position: absolute; top: 12px; left: 12px; z-index: 2;
+          background: #D4AF37; color: #0a0a0a;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 10px; font-weight: 700;
+          letter-spacing: 1px; padding: 4px 10px;
+        ">{{ p.get_percentage|floatformat:0 }}%</div>
+
+        <img src="{{ p.image.url }}" alt="{{ p.title }}" style="
+          width: 100%; height: 100%;
+          object-fit: cover; display: block;
+          transition: transform .5s;
+        "
+        onmouseenter="this.style.transform='scale(1.05)'"
+        onmouseleave="this.style.transform='scale(1)'"/>
+      </div>
+    </a>
+
+    <!-- INFO -->
+    <div class="product-info" style="
+      padding: 16px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    ">
+      <!-- Category -->
+      <p class="product-name" style="
+        font-family: 'Montserrat', sans-serif;
+        font-size: 9px; font-weight: 600;
+        letter-spacing: 3px; text-transform: uppercase;
+        color: #888; margin: 0 0 5px;
+      ">{{ p.category.title }}</p>
+
+      <!-- Title — also clickable -->
+      <a href="{% url 'core:product-detail' p.pid %}" style="text-decoration: none;">
+        <b class="product-name" style="
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 18px; font-weight: 700;
+          color: #fff; line-height: 1.2;
+          display: block; margin-bottom: 5px;
+          transition: color .2s;
+        "
+        onmouseenter="this.style.color='#D4AF37'"
+        onmouseleave="this.style.color='#fff'">{{ p.title }}</b>
+      </a>
+
+      <!-- Vendor -->
+      <small class="product-name" style="
+        font-family: 'Montserrat', sans-serif;
+        font-size: 10px; color: #666;
+        letter-spacing: 1px; display: block;
+        margin-bottom: 12px;
+      ">By: {{ p.vendor.title }}</small>
+
+      <!-- Price -->
+      <div class="product-price" style="
+        display: flex; align-items: center;
+        gap: 10px; margin-bottom: 16px;
+      ">
+        <span class="current-product-price {{ p.id }}" style="
+          font-family: 'Montserrat', sans-serif;
+          font-size: 15px; font-weight: 700;
+          color: #D4AF37; letter-spacing: .5px;
+        ">₦{{ p.price }}</span>
+
+        {% if p.old_price %}
+        <span class="old-price" style="
+          font-family: 'Montserrat', sans-serif;
+          font-size: 12px; color: #555;
+          text-decoration: line-through;
+        ">₦{{ p.old_price }}</span>
+        {% endif %}
+      </div>
+
+      <!-- Hidden inputs -->
+      <input type="hidden" value="1" class="product-quantity-{{ p.id }}">
+      <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
+      <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
+      <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
+      <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
+
+      <!-- Add to Cart -->
+      <!-- <button
+        class="cart-btn add-to-cart-btn"
+        data-index="{{ p.id }}"
+        style="
+          width: 100%; padding: 11px 16px;
+          background: transparent;
+          border: 1px solid #333;
+          color: #ccc;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 10px; font-weight: 700;
+          letter-spacing: 3px; text-transform: uppercase;
+          cursor: pointer; margin-top: auto;
+          transition: background .2s, border-color .2s, color .2s;
+        "
+        onmouseenter="this.style.background='#D4AF37'; this.style.borderColor='#D4AF37'; this.style.color='#0a0a0a'"
+        onmouseleave="this.style.background='transparent'; this.style.borderColor='#333'; this.style.color='#ccc'"
+      >Add to Cart</button> -->
+
+
+      <a href="https://wa.me/2349057058845?text=Hello%20Illustrious%20Codes!%20I%20want%20to%20order%3A%0A%0AProduct%3A%20{{ p.title }},%0APrice%3A%20%E2%82%A6{{ p.price }}%0A%0APlease%20confirm%20availability."
+  target="_blank"
+  rel="noopener noreferrer"
+  style="text-decoration: none; display: block; margin-top: auto;"
+>
+  <button
+    class="cart-btn add-to-cart-btn"
+    data-index="{{ p.id }}"
+    style="
+      width: 100%; padding: 11px 16px;
+      background: transparent;
+      border: 1px solid #333;
+      color: #ccc;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, color .2s;
+    "
+    onmouseenter="this.style.background='#D4AF37'; this.style.borderColor='#D4AF37'; this.style.color='#0a0a0a'"
+    onmouseleave="this.style.background='transparent'; this.style.borderColor='#333'; this.style.color='#ccc'"
+  >Buy now</button>
+</a>
+
+      
+    </div>
+    
+
+</div>
+
+  {% endfor %}
+</div>
+
+
+      <!-- <div class="product-grid" id="productGrid"> -->
+        
+        <!-- Products injected by JS -->
+      <!-- </div> -->
+
+      <!-- <div class="load-more-wrap">
+        <a href="#" class="btn-outline-gold">View All Products</a>
+      </div> -->
+    </section>
+
+    <!-- ══════════════════ BRAND BANNER ══════════════════ -->
+    <section class="brand-banner">
+      <div class="brand-banner-inner">
+        <div class="bb-logo">
+          <svg
+            viewBox="0 0 80 80"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect x="36" y="8" width="8" height="64" fill="#D4AF37" />
+            <path
+              d="M44 8 C20 8 12 22 12 40 C12 58 20 72 44"
+              stroke="white"
+              stroke-width="7"
+              fill="none"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+        <div class="bb-text">
+          <h2>ILLUSTRIOUS</h2>
+          <p class="bb-tagline">
+            <span class="line-short"></span> APPAREL
+            <span class="line-short"></span>
+          </p>
+          <p class="bb-sub">Wear Your Identity. Live Illustrious.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ NEW ARRIVALS ══════════════════ -->
+    <!-- <section class="new-arrivals" id="collections">
+      <div class="section-header light">
+        <p class="eyebrow">Just Dropped</p>
+        <h2>New Arrivals</h2>
+      </div>
+      <div class="arrivals-grid">
+        <div class="arrival-card">
+          <div class="arrival-img-wrap">
+            <img src="cloth1.jpg" alt="Luxury Hoodie" />
+            <span class="badge">New</span>
+            <div class="arrival-actions">
+              <button title="Wishlist"><i class="fa fa-heart"></i></button>
+              <button title="Quick view"><i class="fa fa-eye"></i></button>
             </div>
-            <div class="row-3 ">
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/51/7737652/1.jpg?6882"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src=https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/68/0008722/1.jpg?6238
-                        alt="">
-                    <h4 class="text">Sun King Home 200X...</h4>
-                    <p class="number">₦ 93,144</p>
-                    <p class="img-line">₦ 96,500</p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/26/6512971/1.jpg?1435"
-                        alt="">
-                    <h4 class="text">Men's Palm Sandals PU...</h4>
-                    <p class="number">₦ 13,800 </p>
-                    <p class="img-line">₦ 18,900 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/93/4239032/1.jpg?8985"
-                        alt="">
-                    <h4 class="text">Men's plus size loafers PU....</h4>
-                    <p class="number">₦6,800 </p>
-                    <p class="img-line">₦ 10,000 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/68/9023002/1.jpg?3955"
-                        alt="">
-                    <h4 class="text">Men's T-shirt...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/79/3012041/1.jpg?6275"
-                        alt="">
-                    <h4 class="text">Men sweat-shirt..</h4>
-                    <p class="number">₦ 12,200 </p>
-                    <p class="img-line">₦ 22,600 </p>
-                </div>
-
+          </div>
+          <div class="arrival-info">
+            <p class="arrival-cat">Men · Hoodies</p>
+            <h3>Luxury Hoodie</h3>
+            <p class="arrival-price">₦35,000</p>
+            <button
+              class="btn-add-cart"
+              data-name="Luxury Hoodie"
+              data-price="35000"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div class="arrival-card">
+          <div class="arrival-img-wrap">
+            <img src="cloth2.jpg" alt="Premium Shirt" />
+            <span class="badge">New</span>
+            <div class="arrival-actions">
+              <button title="Wishlist"><i class="fa fa-heart"></i></button>
+              <button title="Quick view"><i class="fa fa-eye"></i></button>
             </div>
-
-        </section>
-
-        <section class=" max-width">
-            <div class="para-only">
-                <h1>Flash Sale</h1>
-                <h3>Time Left:16h:48m:02s</h3>
-                <h1>SEE ALL</h1>
+          </div>
+          <div class="arrival-info">
+            <p class="arrival-cat">Men · Shirts</p>
+            <h3>Premium Shirt</h3>
+            <p class="arrival-price">₦28,000</p>
+            <button
+              class="btn-add-cart"
+              data-name="Premium Shirt"
+              data-price="28000"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div class="arrival-card">
+          <div class="arrival-img-wrap">
+            <img src="cloth1.jpg" alt="Classic Tee" />
+            <div class="arrival-actions">
+              <button title="Wishlist"><i class="fa fa-heart"></i></button>
+              <button title="Quick view"><i class="fa fa-eye"></i></button>
             </div>
-            <div class="row-3">
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/84/2196612/1.jpg?6851"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 3,595 </p>
-                    <p class="img-line">₦ 4.080 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/87/6532362/1.jpg?3204"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 6,900 </p>
-                    <p class="img-line">₦ 10,000 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/82/859646/1.jpg?2286"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 4,799 </p>
-                    <p class="img-line">₦ 5,600 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/64/3661052/1.jpg?9274"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 9,799 </p>
-                    <p class="img-line">₦ 12,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/64/3661052/1.jpg?9274"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 13,110 </p>
-                    <p class="img-line">₦ 15,000 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/85/0817722/1.jpg?8330"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
+          </div>
+          <div class="arrival-info">
+            <p class="arrival-cat">Men · Tees</p>
+            <h3>Classic IC Tee</h3>
+            <p class="arrival-price">₦18,000</p>
+            <button
+              class="btn-add-cart"
+              data-name="Classic IC Tee"
+              data-price="18000"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div class="arrival-card">
+          <div class="arrival-img-wrap">
+            <img src="cloth2.jpg" alt="Statement Jacket" />
+            <span class="badge sale-badge">Sale</span>
+            <div class="arrival-actions">
+              <button title="Wishlist"><i class="fa fa-heart"></i></button>
+              <button title="Quick view"><i class="fa fa-eye"></i></button>
             </div>
-        </section>
-
-        <section class=" max-width">
-            <div class="row-3-para">
-                <h1>Limited Stock Deals</h1>
-                <h1>SEE ALL</h1>
-            </div>
-            <div class="row-3 ">
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/98/2732552/1.jpg?3463"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/55/3380182/1.jpg?8426"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/85/3213401/1.jpg?0948"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/77/4180352/1.jpg?2807"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/17/397664/1.jpg?0793"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/92/4790312/1.jpg?7440"
-                        alt="">
-                    <h4 class="text">itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-            </div>
-        </section>
-        <section class=" max-width">
-            <div class="para">
-                <h1>Appliance Upgrade</h1>
-            </div>
-            <div class="row-3 =">
-                <div><img src="https://ng.jumia.is/cms/0-1-category-pages/appliances/2024/new-layout/Fans.png"
-                        alt="image">
-                    <h4 class="text-img">Fans</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/appliances/2024/new-layout/Air_conditioner.png"
-                        alt="image">
-                    <h4 class="text-img">Air Conditioner</h4>
-
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/appliances/2024/new-layout/Washer.png"
-                        alt="image">
-                    <h4 class="text-img">Washing Machine</h4>
-
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/appliances/2024/new-layout/Pressing_Iron.png"
-                        alt="image">
-                    <h4 class="text-img">Pressing Iron</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/appliances/2024/new-layout/Freezer.png"
-                        alt="image">
-                    <h4 class="text-img">Freezers</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/appliances/2024/new-layout/Fridge.png"
-                        alt="image">
-                    <h4 class="text-img">Fridges</h4>
-                </div>
-
-            </div>
-        </section>
-
-        <section class=" max-width">
-            <Div class="row-3-para">
-                <h1>Appliance Upgrade</h1>
-                <h1> SEE ALL</h1>
-            </Div>
-
-            <div class="row-3">
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/33/2332202/1.jpg?0036"
-                        alt="">
-                    <h4 class="text">Binatone 1.6 Metre Duo...</h4>
-                    <p class="number">₦ 62,640 </p>
-                    <p class="img-line">₦ 69,000 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/33/4021622/1.jpg?3632"
-                        alt="">
-                    <h4 class="text">Electric Handheld Cake M...</h4>
-                    <p class="number">₦ 6,799 </p>
-                    <p class="img-line">₦ 7,000 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/59/397662/1.jpg?0511"
-                        alt="">
-                    <h4 class="text">Binatone Smoother Glidin...</h4>
-                    <p class="number">₦ 15,980 </p>
-                    <p class="img-line">₦ 20,000 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/94/5031362/1.jpg?0002"
-                        alt="">
-                    <h4 class="text">Skyrun 70 litre Double...</h4>
-                    <p class="number">₦ 173,900 </p>
-                    <p class="img-line">₦ 379,580 </p>
-                </div>
-
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/90/311665/1.jpg?6107"
-                        alt="">
-                    <h4 class="text">Skyrun 70 litre Double...</h4>
-                    <p class="number">₦ 173,900 </p>
-                    <p class="img-line">₦ 379,580 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/43/0104011/1.jpg?5198"
-                        alt="">
-                    <h4 class="text">Haier Thermocool 1.5HP...</h4>
-                    <p class="number">₦ 385,999 </p>
-                    <p class="img-line">₦ 395,999 </p>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="max-width">
-            <div class="row-explore">
-                <h1>Explore More</h1>
-            </div>
-            <div class="explore-row">
-                <div class="explore-row">
-                    <div class="img-hover"><img
-                            src="https://ng.jumia.is/cms/0-1-category-pages/0-cat-dev/2024/Feb/572X250_copy_9.png"
-                            alt="image"></div>
-                    <div class="img-hover"><img
-                            src="https://ng.jumia.is/cms/0-1-category-pages/0-cat-dev/2024/Feb/572X250_copy_5.png"
-                            alt="image"></div>
-                </div>
-            </div>
-            <div class="explore-row">
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-cat-dev/2024/Feb/WALLS.png" alt="image">
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-cat-dev/2024/Feb/572X250_copy_17.png"
-                        alt="image"></div>
-            </div>
-        </section>
-
-        <section class=" max-width">
-            <div class="para">
-                <h1>Shop From Our Collections</h1>
-            </div>
-            <div class="row-3 =">
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Appliances.jpg"
-                        alt="images">
-                    <h4 class="text-img">Appliances Deals</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Phones.jpg" alt="images">
-                    <h4 class="text-img">Phone Deals</h4>
-
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Fashion.jpg"
-                        alt="images">
-                    <h4 class="text-img">Fashion Deals</h4>
-
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Supermarket.jpg"
-                        alt="images">
-                    <h4 class="text-img">Supermarket Deals</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Electronic.jpg"
-                        alt="images">
-                    <h4 class="text-img">Electronics</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/appliances/2024/new-layout/Fridge.png" alt="">
-                    <h4 class="text-img">Fridges</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/appliances/2024/new-layout/Fans.png" alt="">
-                    <h4 class="text-img">Fans</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Home_and_office.jpg"
-                        alt="">
-                    <h4 class="text-img">Home and Office</h4>
-
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Beauty.jpg" alt="">
-                    <h4 class="text-img">Beauty Deals</h4>
-
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/computing.jpg" alt="">
-                    <h4 class="text-img">Computing Deals</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/appliances/2024/new-layout/Freezer.png" alt="">
-                    <h4 class="text-img">Freezers</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Kids_Corner.jpg" alt="">
-                    <h4 class="text-img">Kids Corner</h4>
-                </div>
-
-            </div>
-        </section>
-
-        <section class=" max-width">
-            <div class="para">
-                <h1>Phone Deals</h1>
-            </div>
-            <div class="row-3 =">
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/phones-tablets/2024/updated/Android_Phones.png"
-                        alt="image">
-                    <h4 class="text-img">Android Phones</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/phones-tablets/2024/updated/iPhones.png"
-                        alt="image">
-                    <h4 class="text-img">iphones</h4>
-
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/phones-tablets/2024/updated/Note_phones.png"
-                        alt="image">
-                    <h4 class="text-img">Note Phones</h4>
-
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/phones-tablets/2024/updated/Android_Tablets.png"
-                        alt="image">
-                    <h4 class="text-img">Android Tablets</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/phones-tablets/2024/updated/Tabs.png"
-                        alt="image">
-                    <h4 class="text-img">ipads</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/phones-tablets/2024/updated/Fold_Phones.png"
-                        alt="image">
-                    <h4 class="text-img">Fold Phones</h4>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="max-width">
-            <div class="para">
-                <h1>Power Up</h1>
-            </div>
-            <div class="power-up">
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-weekly-cps/0-2024/Week_7/power-ups/power-bank.png" alt="image">
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-weekly-cps/0-2024/Week_7/power-ups/Artboard_1.png" alt="image">
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-weekly-cps/0-2024/Week_7/power-ups/generators.png" alt="image">
-                </div>
-            </div>
-        </section>
-
-        <section class="max-width">
-            <div class="row-3-para">
-                <h1>Power Up Deals</h1>
-                <h1>SEE ALL</h1>
-            </div>
-            <div class="row-3 ">
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/31/5329962/1.jpg?7249"
-                        alt="">
-                    <h4>itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/82/9570182/1.jpg?9226"
-                        alt="">
-                    <h4>itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/86/1511352/1.jpg?5770"
-                        alt="">
-                    <h4>itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/64/0172752/1.jpg?4509"
-                        alt="">
-                    <h4>itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/43/0829762/1.jpg?5307"
-                        alt="">
-                    <h4>itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/05/8142752/1.jpg?4575"
-                        alt="">
-                    <h4>itel 20000mAh Mobile Po...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-            </div>
-        </section>
-
-        <div class=" max-width"><img
-                src="https://ng.jumia.is/cms/0-1-initiatives/jbps/2024/cocacola/Desktop_MLP_Slider__1168x384.jpg"
-                alt="image">
-            <div class="mySlides fade">
-                <img src="{% static './images/back drop 2.gif' %}" style="width:100%">
-            </div>
-
-            <div class="mySlides fade">
-                <img src="{% static './images/back drop 3.gif' %}" style="width:100%">
-            </div>
-
-            <div class="mySlides fade">
-                <img src="{% static './images/back drop 4.jpg    ' %}" style="width:100%">
-            </div>
-            <div class="mySlides fade">
-                <img src="{% static './images/jumia backdrop.jpg' %}" style="width:100%">
-            </div>
-            <div class="mySlides fade">
-                <img src="{% static './images/back drop 3.gif' %}" style="width:100%">
-            </div>
-            <!-- <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a> -->
-
+          </div>
+          <div class="arrival-info">
+            <p class="arrival-cat">Women · Jackets</p>
+            <h3>Statement Jacket</h3>
+            <p class="arrival-price">
+              ₦42,000 <span class="old-price">₦55,000</span>
+            </p>
+            <button
+              class="btn-add-cart"
+              data-name="Statement Jacket"
+              data-price="42000"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- ══════════════════ WHY US / USPs ══════════════════ -->
+    <section class="why-us">
+      <div class="usp-grid">
+        <div class="usp">
+          <i class="fa fa-truck"></i>
+          <h4>Delivery</h4>
+          <p>We deliver nationwide</p>
+        </div>
+        <div class="usp">
+          <i class="fa fa-shield-alt"></i>
+          <h4>Authentic Quality</h4>
+          <p>Every piece is quality-checked before it reaches you</p>
+        </div>
+        <div class="usp">
+          <i class="fa-brands fa-whatsapp"></i>
+          <h4> Easy WhatsApp Ordering</h4>
+          <p>Order directly through WhatsApp in minutes.</p>
+        </div>
+        <div class="usp">
+          <i class="fa fa-headset"></i>
+          <h4>24/7 Support</h4>
+          <p>Our team is always here to help you</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ ABOUT / STORY ══════════════════ -->
+    <section class="about-section" id="about">
+      <div class="about-img">
+        <img src="../../static/images/CEO Illustrious Codes Apparel.jpeg" alt="Illustrious Codes story" />
+      </div>
+      <div class="about-content">
+        <p class="eyebrow">Our Story</p>
+        <h2>Born From Identity,<br />Built for the Bold</h2>
+        <p>
+          Illustrious Codes Apparel was founded on a single conviction: your
+          clothes should speak before you do. We design premium pieces that
+          carry culture, confidence, and craftsmanship, made for those who
+          refuse to blend in.
+        </p>
+        <p>
+          Each collection is a code, a language of style that only the
+          illustrious understand. From Lagos to the world, we dress the ones who
+          lead.
+        </p>
+        <!-- <a href="#" class="btn-gold">Our Story</a> -->
+      </div>
+    </section>
+
+    <!-- ══════════════════ TESTIMONIALS ══════════════════ -->
+    <section class="testimonials">
+      <div class="section-header">
+        <p class="eyebrow">What They Say</p>
+        <h2>Customer Reviews</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>
+            "The quality is unmatched. I wore the IC Hoodie to an event and got
+            compliments all night. This brand is different."
+          </p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">AO</div>
             <div>
-                <span class="dot" onclick="currentSlide(1,)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-                <span class="dot" onclick="currentSlide(1)"></span>
+              <strong>Onatayo Samuel O.</strong>
+              <span>Lagos, Nigeria</span>
             </div>
+          </div>
         </div>
-
-        <section class=" stores">
-            <div class="para">
-                <h1>Official Stores</h1>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>
+            "Fast delivery, beautiful packaging, and the shirt fits perfectly.
+            Illustrious Codes is my go-to brand now."
+          </p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">CF</div>
+            <div>
+              <strong>Akeem Olatunbosun</strong>
+              <span>Osun, Nigeria</span>
             </div>
-            <div class="row-3">
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/xiaomi_260x144.png" alt="images">
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/nivea_260x144.png" alt="images">
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/diageo_260x144.png" alt="images">
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/oraimo_260x144.png" alt="images">
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/adidas_260x144_V2.png"
-                        alt="images">
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/reckitt_260x144.png"
-                        alt="images">
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/binatone_260x144.png"
-                        alt="images">
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/haier-thermocool_260x144.png"
-                        alt="images">
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/Brand-design-update/Pernod_ricard.png"
-                        alt="images">
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/infinix_260x144v2.png"
-                        alt="images">
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/tecno_260x144.png" alt="images">
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-homepage/freelinks-brands-all/bacardi-bacardi_260x144.png"
-                        alt="images">
-                </div>
-
-            </div>
-        </section>
-        <section class=" max-width">
-            <div class="para">
-                <h1>Home & Beauty</h1>
-            </div>
-            <div class="row-3 ">
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/health-beauty/2024/Feb/Artboard_1.png"
-                        alt="image">
-                    <h4 class="text-img">Skin Care</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/health-beauty/2024/Feb/Artboard_1_copy_3.png"
-                        alt="image">
-                    <h4 class="text-img">Sun Screen</h4>
-
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/health-beauty/2024/Feb/Artboard_1_copy_4.png"
-                        alt="image">
-                    <h4 class="text-img">Shampoo & Conditioner</h4>
-
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/health-beauty/2024/Feb/Artboard_1_copy_5.png"
-                        alt="image">
-                    <h4 class="text-img">Wigs</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/health-beauty/2024/Feb/Artboard_1_copy_2.png"
-                        alt="image">
-                    <h4 class="text-img">Oral Care</h4>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/cms/0-1-category-pages/health-beauty/2024/Feb/Artboard_1_copy.png"
-                        alt="image">
-                    <h4 class="text-img">Fragrances</h4>
-                </div>
-
-            </div>
-        </section>
-
-
-        <section class=" max-width">
-            <div class="row-3-para">
-                <h1>Limited Stock Deals</h1>
-                <h1>SEE ALL</h1>
-            </div>
-            <div class="row-3 ">
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/83/4862891/1.jpg?2296"
-                        alt="">
-                    <h4 class="text">Enchanteur ENCHANTEU...</h4>
-                    <p class="number">₦ 3,035</p>
-
-                </div>
-
-                <div class="img-hover"><img
-                        src=https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/85/3213401/1.jpg?0948
-                        alt="">
-                    <h4 class="text">NIVEA Perfect & Radiant...</h4>
-                    <p class="number">₦ 6,455</p>
-                    <p class="img-line">₦ 8,600</p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/95/9762891/1.jpg?6895"
-                        alt="">
-                    <h4 class="text">ORS Olive Oil No-Lye Rela...</h4>
-                    <p class="number">₦4,691</p>
-                    <p class="img-line">₦ 1,900 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/94/3028532/1.jpg?4630"
-                        alt="">
-                    <h4 class="text">Hot Comb Hair...</h4>
-                    <p class="number">₦5,710</p>
-                </div>
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/02/0217751/1.jpg?1806"
-                        alt="">
-                    <h4 class="text">NIVEA Perfect & Radiant...</h4>
-                    <p class="number">₦ 15,435</p>
-                    <p class="img-line">₦ 22,000</p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/97/2891651/1.jpg?3654"
-                        alt="">
-                    <h4 class="text">Blood Sugar Monitor...</h4>
-                    <p class="number">₦ 19,372</p>
-                    <p class="img-line">₦ 30,500 </p>
-                </div>
-            </div>
-        </section>
-
-        <section class=" max-width">
-            <div class="row-3-para">
-                <h1>Televisions</h1>
-                <h1>SEE ALL</h1>
-            </div>
-            <div class="row-3 ">
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/94/5031362/1.jpg?0002"
-                        alt="">
-                    <h4 class="text">itel 32 inches LED TV...</h4>
-                    <p class="number">₦ 129,999 </p>
-                    <p class="img-line">₦ 144,999 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src=https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/41/1982762/1.jpg?2682
-                        alt="">
-                    <h4 class="text">Sun King Home 200X...</h4>
-                    <p class="number">₦ 93,144</p>
-                    <p class="img-line">₦ 96,500</p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/11/2122462/1.jpg?8847"
-                        alt="">
-                    <h4 class="text">Men's Palm Sandals PU...</h4>
-                    <p class="number">₦ 13,800 </p>
-                    <p class="img-line">₦ 18,900 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/44/2636301/1.jpg?1598"
-                        alt="">
-                    <h4 class="text">Men's plus size loafers PU....</h4>
-                    <p class="number">₦6,800 </p>
-                    <p class="img-line">₦ 10,000 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/92/643077/1.jpg?0796"
-                        alt="">
-                    <h4 class="text">Men's T-shirt...</h4>
-                    <p class="number">₦ 17,000 </p>
-                    <p class="img-line">₦ 18,500 </p>
-                </div>
-
-                <div class="img-hover"><img
-                        src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/71/1897052/1.jpg?0761"
-                        alt="">
-                    <h4 class="text">Men sweat-shirt..</h4>
-                    <p class="number">₦ 12,200 </p>
-                    <p class="img-line">₦ 22,600 </p>
-                </div>
-            </div>
-        </section>
-        <div>
-            <section class="mark-up  max-width">
-                <div>
-                    <h1>Naor&eacute; Luxe Apparel - Nigeria's No. 1 Shopping Destination</h1>
-                    <h2>Shop for Everything You Need on Naor&eacute; Luxe Apparel</h2>
-                    <p>Naor&eacute; Luxe Apparel is one of the largest online shopping website in Nigeria. We offer a platform where
-                        customers in any part of Nigeria can find and shop for all they need in one online store and
-                        that platform is the Naor&eacute; Luxe Apparel <br>
-                        shopping website. On the Naor&eacute; Luxe Apparel website, you can shop from the comfort of your home
-                        or during work breaks and get everything delivered fast without you having to stress or move an
-                        inch. Be it <br>
-                        fashion, electronics, mobile phones, computers, or your everyday groceries you can get
-                        everything you need on Naor&eacute; Luxe Apparel.</p>
-                </div>
-                Have you used the Naor&eacute; Luxe Apparel today? Shop now on Naor&eacute; to enjoy a seamless online shopping
-                experience. With fast delivery, free returns, and flexible payment options, you are certain to enjoy
-                <br>
-                the convenience of shopping online.
-                <h3>Shop for Original and Quality Items at The Best Prices</h3>
-                <p>
-
-                <div>
-                    Naor&eacute; Luxe Apparel prides itself in giving the best prices and the best quality of products you can find
-                    anywhere in the country. Our strong partnership with top brands like Oraimo, Samsung, Infinix,
-                    Xiaomi, Diageo, <br>
-                    Tecno, Adidas, Nike, Defacto, Trendyol, etc. guarantees our customers the cheapest prices on
-                    original brand products. Beyond that, customers also have exclusive access to the latest product
-                    released by these top <br>
-                    brands. If you enjoy exclusivity, the Naor&eacute; Official Store is the right place for you. On the Naor&eacute;
-                    official stores, you can experience product launches and be among the first set of people in Nigeria
-                    to own new <br>
-                    products. You can also enjoy huge offers on brand days that come with heavy discounts on various
-                    products ranging from mobile phones to drinks, clothing items, sneakers, and many more!
-                    </p>
-                </div>
-                <p>Explore our official stores today to see a wide range of popular brands that sell directly on our
-                    platform and get assured of the best prices and quality of products you buy on Naor&eacute;</p>
-                <h3>Shop the Latest Fashion and Trendy Outfits Online </h3>
-                <p>Discover an extensive range of fashion items for women, men, and kids on Jumia. Our women's fashion
-                    collection includes a diverse selection of clothing such as blouses, pants, and jeans. We also offer
-                    a variety <br>
-                    of gowns in different lengths and materials to suit your individual style. Additionally, browse
-                    through our unique fashion accessories like shoes, bags, jewelry, and sunglasses, all at unbeatable
-                    prices.
-                </p>
-                <p>
-                    For men's fashion, Naor&eacute; has an impressive collection of stylish clothing pieces that can make a
-                    statement. Find quality men's trousers, shoes, shirts, watches and suits at the most affordable
-                    prices. Sports <br>
-                    enthusiasts can also get their hands on quality gym wear, trendy sneakers, and other sportswear
-                    items.
-                </p>
-                <p>
-                    At Naor&eacute; Luxe Apparel, we haven't forgotten about the little ones. Browse through our selection of baby clothes
-                    for boys and girls and their accessories. Shop now on Jumia Nigeria and enjoy an incredible online
-                    shopping <br>
-                    experience.
-                </p>
-                <h3>Indulge in a Selection of Beauty Products</h3>
-                <p>Our online store also offers you the best beauty products from top brands in the world, e.g. Nivea
-                    and many others. Many things related to health and beauty e.g. skin care products, makeup and
-                    cosmetics, wigs, <br>
-                    oral care, hair care, and fragrances can be found at our online store.</p>
-                <p>Be certain that whatever we sell on the Naor&eacute; website is of good quality. When you shop for your
-                    beauty products on Naor&eacute; you have successfully avoided getting fake products that can cause
-                    unhealthy reactions to <br>
-                    your skin or body and without breaking the bank, you can maintain a healthy beauty routine to leave
-                    jaws dropping.</p>
-                <h3>Get Your Home Needs on Naor&eacute; Luxe Apparel</h3>
-                <p>Naor&eacute; is an online supermarket where you can shop for your daily groceries in Nigeria at prices
-                    cheaper than others. Check off your grocery list and stock up your pantry with a variety of items
-                    ranging from rice to <br>
-                    cooking oils, wines, Snacks, beverages, household cleaning items, and many others. We also have a
-                    section for fresh foods and canned foods. Also, Discover our baby shop for all baby essentials from
-                    baby food and <br>
-                    diapers to toys and educational games. </p>
-                <p>
-                    Beyond your daily grocery needs, you can shop on Naor&eacute; Luxe Apparel for unique home furniture and interior
-                    decor pieces to beautify your homes and offices. We have carefully designed outdoor furniture and
-                    lighting for <br>
-                    your patio and rooftops. We also have generators, inverters, and inverter batteries to power up.
-                    There is nothing your home needs that is not on Naor&eacute;. You can easily shop from our huge collection
-                    of large and small <br>
-                    appliances such as fridges, washing machines, air conditioners, iron, blenders, air fryers, and many
-                    others. Shop for all your home needs and enjoy top deals, prices, and offers you can get nowhere
-                    else.
-                </p>
-                <h3>Buy the Latest Smartphones and Electronics From Naor&eacute; Luxe Apparel</h3>
-                <p>Shopping on Naor&eacute; guarantees that you get the latest mobile phones, tablets, or phablets before
-                    anyone else. Buy trusted Apple iOS iPhones and iPads and quality Android brands like Samsung, Tecno,
-                    Xiaomi,<br>
-                    Infinix, and many others! Unlock the best functionality of your smartphones when you buy our amazing
-                    phone accessories like AirPods, earphones, powerbank, Bluetooth speakers, durable phone cases, and
-                    many more! <br>
-                    We have an endless supply of Jumia phone accessories from top brands like Oraimo,
-                    Edifier, Samsung, Tecno, JBL, etc.</p>
-
-                <h3>Enjoy Top Deals and Discounts when Shopping on Naor&eacute; Luxe Apparel Store</h3>
-                <p>Enjoy other weekly offers that run all year long, which means that every time you shop on the Naor&eacute;
-                    website, you are sure to enjoy mouth-watering discounts and deals that will help you save more and
-                    get the most <br>
-                    affordable prices no one else can give you. To know more about these offers and deals, you can
-                    subscribe to our push notifications and newsletters, read our blog, and follow us on all our social
-                    media accounts.</p>
-                <h3>Experience Fast Delivery and Online Shopping Convenience</h3>
-                <p>Get your cart delivered to you within 24 hrs when you buy items with the Naor&eacute;  Express tag, for
-                    selected products, you are also assured of free delivery and have your products delivered to you at
-                    no extra cost! <br>
-                    Also, we have products that you can ship from abroad under the Jumia Global catalog. This means that
-                    you can order various items from outside the country and get them delivered to your doorstep without
-                    <br>
-                    hassles.
-                </p>
-                <h1>Frequently Asked Questions (FAQs)</h1>
-                <h4>What Payment Options are Available on Naor&eacute;?</h4>
-                <p>You can either pay online or pay on delivery when you shop from us. With out payment solution called
-                    Naor&eacute;Pay, you can conveniently pay online or on delivery with your cards (MasterCard, Visa and
-                    Verve), bank <br>
-                    transfers and USSD</p>
-                <h4>Can I Return the Items I Bought From Naor&eacute;?</h4>
-                <p>Yes, you can return items you bought for free and get refunded as soon as possible! We have a refund
-                    policy that grants you 7 days to return ALL eligible items bought from the official store and other
-                    sellers <br>
-                    on Naor&eacute; Luxe Apparel.</p>
-                <h4>When is the Next Naor&eacute; Black Friday?</h4>
-
-                <p>Naor&eacute; Black Friday happens in November. Naor&eacute; is the pioneer of Black Friday in Nigeria, so expect us
-                    to do it best!
-                    It comes with the biggest discount and offers on various categories of products like fashion, <br>
-                    phones, computers, home appliances,
-                    electronics and many more! We also have various exciting and engaging activities like the treasure
-                    hunt and games our customers
-                    love to play. </p>
-                <h4>Can I get Free Delivery on All my Orders?</h4>
-                <p>Customers in Lagos, Abuja, Ibadan,Warri,Benin, Abeokuta, Akure and Portharcourt enjoy free delivery
-                    on items with the free delivery tag.
-                    Free delivery does not apply to large items like refrigerators, huge TVs, <br> washing machines and
-                    others.</p>
-                <h4>What Is the Naor&eacute; Customer Care Line?</h4>
-                <p>
-                    We have a dedicated team that is always available to make sure your shopping experience on Naor&eacute; is
-                    effortless.
-                    Simply dial 02018881106 to reach out to us for complaints and other inquiries. If you would like
-                    <br> to
-                    place an order,
-                    please call us at 0700-600-0000. You can also chat with us on the Naor&eacute; website if you find that more
-                    convenient. Whatever you do,
-                    we are always available to help.
-                </p>
-                <h4>How Can I Become a Seller on Naor&eacute;?</h4>
-                <p>You can partner with Naor&eacute; as a seller on the website. All you need to do is register and follow the
-                    necessary steps. With our large customer base,
-                    we can help you reach a wider audience and sell many <br>of your products to our customers</p>
-                <h4>What Other Events are Celebrated in Naor&eacute;?</h4>
-                <p>Aside the Naor&eacute; Black Friday, the Naor&eacute; Tech Week is another big event we celebrate in Naor&eacute; Luxe Apparel.
-                    The goal of the Naor&eacute; Tech Week is to help customers have access
-                    to the latest technology at the cheapest <br> prices they can get. It happens in the month of March
-                    of
-                    every year
-                    and lasts at least two weeks. </p>
-                <p>Aside these major events, we also have Ramadan sales, Easter sales, Christmas sales and other
-                    seasonal celebrations we make sure our customers enjoy
-                    on Naor&eacute;. </p>
-                shop now and enjoy unlimited offers, discounts and the best online shopping experience!
-            </section>
+          </div>
         </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>
+            "I love the aesthetic. Every piece feels exclusive. The gold details
+            are subtle but elevate the whole look."
+          </p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">TK</div>
+            <div>
+              <strong>Oluwatobi </strong>
+              <span>Ibadan, Nigeria</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ INSTAGRAM FEED ══════════════════ -->
+    <section class="instagram-feed">
+      <div class="section-header">
+        <p class="eyebrow">@illustriouscodes</p>
+        <h2>Wear It. Show It.</h2>
+      </div>
+      <div class="insta-grid">
+        <div class="insta-tile">
+          <img src="../../static/images/w1.jpeg" alt="" />
+          <div class="insta-hover"><i class="fab fa-tiktok"></i></div>
+        </div>
+        <div class="insta-tile">
+          <img src="../../static/images/w2.jpeg" alt="" />
+          <div class="insta-hover"><i class="fab fa-tiktok"></i></div>
+        </div>
+        <div class="insta-tile">
+          <img src="../../static/images/w3.jpeg" alt="" />
+          <div class="insta-hover"><i class="fab fa-tiktok"></i></div>
+        </div>
+        <div class="insta-tile">
+          <img src="../../static/images/w4.jpeg" alt="" />
+          <div class="insta-hover"><i class="fab fa-tiktok"></i></div>
+        </div>
+        <div class="insta-tile">
+          <img src="../../static/images/w5.jpeg" alt="" />
+          <div class="insta-hover"><i class="fab fa-tiktok"></i></div>
+        </div>
+        <div class="insta-tile">
+          <img src="../../static/images/w6.jpeg" alt="" />
+          <div class="insta-hover"><i class="fab fa-tiktok"></i></div>
+        </div>
+      </div>
+      <div class="insta-cta">
+        <a href="#" class="btn-outline-gold"
+          ><i class="fab fa-tiktok"></i> Follow @illustriouscodes</a
+        >
+      </div>
+    </section>
+
+    <!-- ══════════════════ NEWSLETTER ══════════════════ -->
+    <section class="newsletter" id="newsletter"></section>
+  <div class="newsletter-inner">
+    <p class="eyebrow">Join the Circle</p>
+    <h2>Live Illustrious</h2>
+    <p class="nl-sub">
+      Join our exclusive WhatsApp community for early access to new drops,
+      members-only deals, and style updates — curated for those who lead.
+    </p>
+
+ 
+    
+     
+      <!-- WhatsApp icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.845L.057 23.5l5.797-1.452A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.007-1.371l-.36-.214-3.716.93.992-3.614-.235-.372A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+      </svg>
+      Join Our WhatsApp Group
+    </a>
+       <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fchat.whatsapp.com%2FBNgcIcRDPdEEHakFLFh3hx%3Fs%3Dcl%26p%3Da%26ilr%3D4%26fbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExOU03T2hkc2U2MkVzaUFOZXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4_GFZ3mqtziRBfrkRvsezgugGF0HeLKZ18Tzz5VBBwT9JzKC6DeI6kjQxQTg_aem_QqHTsioN1-uJKKNrgfzAXw&h=AUD4GSW2aMe0iV9mtrAR7WtxPmhpT_gHWjfNty-yNUaiVl-0yrD1eevDzYJ0OZINeu1uNUKHolCANYo0lYx2S_hx5gQ_HZvOJkGPSZ7A881jaV82g5Ajlo1zJlIm" target="_blank"
+      rel="noopener noreferrer"
+      style="
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 8px;
+        padding: 16px 40px;
+        background: #25D366;
+        color: #fff;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        border: 2px solid #25D366;
+        transition: background .25s, color .25s, border-color .25s;
+      "
+      onmouseenter="this.style.background='transparent';this.style.color='#25D366'"
+      onmouseleave="this.style.background='#25D366';this.style.color='#fff'">HERE</a>
+
+    <p class="nl-note" style="margin-top: 16px;">
+      Free to join · Members get first access to every drop
+    </p>
+  </div>
+</section>
+
+    
+    
+
+
+
 
     </div>
     {% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{% static 'js/script.js' %}"></script>
     {% endblock scripts %}
 
-    <script>
-        
+<script>
+  // Toggle mobile categories on Shop click
+  const mobileShopToggle = document.getElementById("mobileShopToggle");
+  const mobileCategoryList = document.getElementById("mobileCategoryList");
 
-    </script>
+  if (mobileShopToggle && mobileCategoryList) {
+    mobileShopToggle.addEventListener("click", function(e) {
+      e.preventDefault();
+      const isOpen = mobileCategoryList.style.display === "flex";
+      mobileCategoryList.style.display = isOpen ? "none" : "flex";
+
+      // rotate chevron
+      const icon = this.querySelector("i");
+      if (icon) {
+        icon.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+        icon.style.transition = "transform .3s";
+      }
+    });
+  }
+</script>
 
 
 {% endblock content %}
