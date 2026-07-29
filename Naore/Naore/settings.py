@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'django.contrib.staticfiles',
-    
+    'django.contrib.sitemaps',
 
     #Custom Apps
     'core', 
