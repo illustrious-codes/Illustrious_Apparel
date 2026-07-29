@@ -14,6 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 from paypal.standard.forms import PayPalPaymentsForm
 
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 def index(request):
     # products = Product.objects.all().order_by("-id")
@@ -548,3 +549,7 @@ def category_product_list(request, cid):
         'categories': categories,  # ← without this, the page breaks
     }
     return render(request, 'core/category-product-list.html', context)
+
+
+def robots_txt(request):
+    return render(request, "robots.txt", content_type="text/plain")

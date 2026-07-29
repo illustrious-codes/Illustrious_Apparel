@@ -1,6 +1,6 @@
 from django.urls import path, include
 from .sitemaps import StaticViewSitemap, ProductSitemap, CategorySitemap
-
+from core.views import robots_txt
 from core.views import (
     add_to_cart,
     category_product_list_view,
@@ -50,6 +50,9 @@ urlpatterns = [
 
     path("paypal-completed/", payment_completed_view, name="paypal-completed"),
     path("paypal-failed/", payment_failed_view, name="paypal-failed"),
+    path("robots.txt", robots_txt, name="robots"),
+
+
 
     # Sitemap
     path(
