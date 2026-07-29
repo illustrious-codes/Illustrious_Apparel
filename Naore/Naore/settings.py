@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import dj_database_url
 import os
 
+from decouple import config
 from pathlib import Path
 import os
 import cloudinary_storage
@@ -191,13 +192,13 @@ PAYPAL_RECEIVER_EMAIL = "illustriouscodes@gmail.com"
 PAYPAL_TEST = True
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'hlffkpfu',
-    'API_KEY': '748858811669271',
-    'API_SECRET': 'M9M_MWK04IJMw_8Ryumy6A9utH4',
-}
+API_SECRET = config('API_SECRET')
 
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': config('CLOUDINARY_API_KEY'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET'),
+}
 
 STORAGES = {
     "default": {
