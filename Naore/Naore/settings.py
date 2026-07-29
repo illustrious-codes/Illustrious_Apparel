@@ -46,10 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
-    'cloudinary',
-    'django.contrib.staticfiles',
     'django.contrib.sitemaps',
+
+    'cloudinary_storage',
+    'django.contrib.staticfiles',
+    'cloudinary',
 
     #Custom Apps
     'core', 
@@ -196,4 +197,13 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'M9M_MWK04IJMw_8Ryumy6A9utH4',
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
