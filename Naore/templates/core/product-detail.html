@@ -731,32 +731,33 @@ body {
         overflow-x: auto;
         padding-bottom: 4px;
       ">
+        <!-- Main image thumb -->
+        <div style="
+          flex-shrink: 0; width: 72px; height: 90px;
+          border: 1.5px solid #D4AF37;
+          overflow: hidden; cursor: pointer;
+        ">
+          <img src="{{ p.image.url }}" alt="{{ p.title }}"
+               style="width:100%; height:100%; object-fit:cover;"/>
+        </div>
 
+        <!-- Extra image thumbs -->
+        {% for img in p_image %}
+        <div style="
+          flex-shrink: 0; width: 72px; height: 90px;
+          border: 1px solid #2a2a2a;
+          overflow: hidden; cursor: pointer;
+          transition: border-color .2s;
+        "
+        onmouseenter="this.style.borderColor='#D4AF37'"
+        onmouseleave="this.style.borderColor='#2a2a2a'">
+          <img src="{{ img.images.url }}" alt="Product view"
+               style="width:100%; height:100%; object-fit:cover;"/>
+        </div>
+        {% endfor %}
+      </div>
 
-<!-- Main image thumb -->
-<div class="thumb-item" style="
-  flex-shrink: 0; width: 72px; height: 90px;
-  border: 1.5px solid #D4AF37;
-  overflow: hidden; cursor: pointer;
-">
-  <img src="{{ p.image.url }}" alt="{{ p.title }}"
-       style="width:100%; height:100%; object-fit:cover;"/>
-</div>
-
-{% for img in p_image %}
-<div class="thumb-item" style="
-  flex-shrink: 0; width: 72px; height: 90px;
-  border: 1px solid #2a2a2a;
-  overflow: hidden; cursor: pointer;
-  transition: border-color .2s;
-">
-  <img src="{{ img.images.url }}" alt="Product view"
-       style="width:100%; height:100%; object-fit:cover;"/>
-</div>
-{% endfor %}
-
-
-       
+    </div>
 
     <!-- ══ RIGHT: PRODUCT INFO ══ -->
     <div style="padding-top: 8px;">
@@ -1058,61 +1059,39 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // SLIDER
-const slider  = document.querySelector("[data-slider]");
-const nextBtn = document.querySelector("[data-next]");
-const prevBtn = document.querySelector("[data-prev]");
+  const slider = document.querySelector("[data-slider]");
+  const nextBtn = document.querySelector("[data-next]");
+  const prevBtn = document.querySelector("[data-prev]");
+  if (slider && nextBtn && prevBtn) {
+    let sliderPos = 0;
+    const totalSliderItems = slider.children.length;
 
-if (slider && nextBtn && prevBtn) {
-  // Make sure slider items display correctly
-  slider.style.display = "flex";
-  slider.style.transition = "transform 0.4s ease";
+    const sliderEnd = () => {
+      nextBtn.classList.toggle("disabled", sliderPos >= totalSliderItems - 1);
+      prevBtn.classList.toggle("disabled", sliderPos <= 0);
+    };
 
-  let sliderPos = 0;
-  const totalSliderItems = slider.children.length;
+    const slideToNext = () => {
+      if (sliderPos < totalSliderItems - 1) {
+        sliderPos++;
+        slider.style.transform = `translateX(-${sliderPos}00%)`;
+        sliderEnd();
+      }
+    };
 
-  // Set each slide to take full width
-  Array.from(slider.children).forEach((child) => {
-    child.style.minWidth = "100%";
-    child.style.flexShrink = "0";
-  });
+    const slideToPrev = () => {
+      if (sliderPos > 0) {
+        sliderPos--;
+        slider.style.transform = `translateX(-${sliderPos}00%)`;
+        sliderEnd();
+      }
+    };
 
-  const updateSlider = () => {
-    // ✅ FIX: multiply by 100 properly — was sliderPos + "00%" before
-    slider.style.transform = `translateX(-${sliderPos * 100}%)`;
-    nextBtn.classList.toggle("disabled", sliderPos >= totalSliderItems - 1);
-    prevBtn.classList.toggle("disabled", sliderPos <= 0);
-  };
+    addEventOnElem(nextBtn, "click", slideToNext);
+    addEventOnElem(prevBtn, "click", slideToPrev);
+    sliderEnd();
+  }
 
-  nextBtn.addEventListener("click", () => {
-    if (sliderPos < totalSliderItems - 1) {
-      sliderPos++;
-      updateSlider();
-    }
-  });
-
-  prevBtn.addEventListener("click", () => {
-    if (sliderPos > 0) {
-      sliderPos--;
-      updateSlider();
-    }
-  });
-
-  // Thumbnail click support
-  document.querySelectorAll(".thumb-item").forEach((thumb, index) => {
-    thumb.addEventListener("click", () => {
-      sliderPos = index;
-      updateSlider();
-
-      // highlight active thumb
-      document.querySelectorAll(".thumb-item").forEach((t) => {
-        t.style.borderColor = "#2a2a2a";
-      });
-      thumb.style.borderColor = "#D4AF37";
-    });
-  });
-
-  updateSlider(); // initialize
-}
 
 
   // QUANTITY
