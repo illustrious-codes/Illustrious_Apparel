@@ -34,7 +34,7 @@ def user_directory_path(instance, filename):
 class Category(models.Model):
     cid = ShortUUIDField(unique=True, length=10, max_length=20, prefix="cat", alphabet="abcdefgh12345")
     title = models.CharField(max_length=100, default="Food")
-    image = models.ImageField(upload_to='admin-uploads/') 
+    image = models.ImageField(upload_to="category", default="category.jpg")
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -83,7 +83,7 @@ class Product(models.Model):
 
 
     title = models.CharField(max_length=100, default="Fresh Pear")
-    image = models.ImageField(upload_to='admin-uploads/') 
+    image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
     description = models.TextField(null=True, blank=True, default="This is the product")
 
     price = models.DecimalField(max_digits=12, decimal_places=2, default="1.99")
@@ -124,14 +124,8 @@ class Product(models.Model):
         new_price = (self.price / self.old_price) * 100
         return new_price 
     
-
-
-
-
-
-
 class ProductImages(models.Model):
-    images = models.ImageField(upload_to='admin-uploads/') 
+    images = models.ImageField(upload_to="product-images", default="product.jpg")
     product = models.ForeignKey(Product, related_name="p_images", on_delete=models.SET_NULL, null=True)
     date = models.DateTimeField(auto_now_add=True)
 
@@ -225,6 +219,3 @@ class Address(models.Model):
         verbose_name_plural = "Address"
 
 
-class Photo(models.Model):
-    title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='admin-uploads/') 
