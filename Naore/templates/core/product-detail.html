@@ -649,80 +649,91 @@ body {
     <!-- ══ LEFT: IMAGE GALLERY ══ -->
     <div>
 
-      <!-- Main image -->
-      <div style="
-        position: relative;
-        overflow: hidden;
-        background: #111;
-        border: 1px solid #1e1e1e;
-        aspect-ratio: 4/5;
-        margin-bottom: 12px;
-      " data-slider>
+      <!-- Main image container -->
+<div style="
+  position: relative;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid #1e1e1e;
+  aspect-ratio: 4/5;
+  margin-bottom: 12px;
+">
+  <!-- ✅ Only THIS inner div gets data-slider -->
+  <div data-slider style="
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s ease;
+  ">
+    <!-- Slide 1: main image -->
+    <div style="min-width:100%; height:100%; flex-shrink:0;">
+      <img src="{{ p.image.url }}" alt="{{ p.title }}"
+           class="img-cover product-image"
+           style="width:100%; height:100%; object-fit:cover; display:block;"/>
+    </div>
 
-        <!-- Discount badge -->
-        <div style="
-          position: absolute; top: 16px; left: 16px; z-index: 2;
-          background: #D4AF37; color: #0a0a0a;
-          font-size: 11px; font-weight: 700;
-          letter-spacing: 1px; padding: 5px 12px;
-          font-family: 'Montserrat', sans-serif;
-        ">-{{ p.get_percentage|floatformat:0 }}%</div>
+    <!-- Extra image slides -->
+    {% for img in p_image %}
+    <div style="min-width:100%; height:100%; flex-shrink:0;">
+      <img src="{{ img.images.url }}" alt="Product view"
+           style="width:100%; height:100%; object-fit:cover; display:block;"/>
+    </div>
+    {% endfor %}
+  </div>
 
-        <!-- Wishlist icon -->
-        <button style="
-          position: absolute; top: 16px; right: 16px; z-index: 2;
-          width: 38px; height: 38px;
-          background: rgba(0,0,0,.7); border: 1px solid #333;
-          color: #ccc; font-size: 15px;
-          cursor: pointer; display: flex;
-          align-items: center; justify-content: center;
-          transition: background .2s, color .2s;
-        " title="Add to Wishlist"
-           onmouseenter="this.style.background='#D4AF37';this.style.color='#0a0a0a'"
-           onmouseleave="this.style.background='rgba(0,0,0,.7)';this.style.color='#ccc'">
-          <i class="fa fa-heart"></i>
-        </button>
+  <!-- Discount badge -->
+  <div style="
+    position: absolute; top: 16px; left: 16px; z-index: 2;
+    background: #D4AF37; color: #0a0a0a;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; padding: 5px 12px;
+    font-family: 'Montserrat', sans-serif;
+  ">-{{ p.get_percentage|floatformat:0 }}%</div>
 
-        <!-- Main product image -->
-        <figure style="margin:0; width:100%; height:100%;">
-          <img src="{{ p.image.url }}" alt="{{ p.title }}"
-               class="img-cover product-image"
-               style="width:100%; height:100%; object-fit:cover; display:block; transition: transform .5s;"
-               onmouseenter="this.style.transform='scale(1.03)'"
-               onmouseleave="this.style.transform='scale(1)'"/>
-        </figure>
+  <!-- Wishlist button -->
+  <button style="
+    position: absolute; top: 16px; right: 16px; z-index: 2;
+    width: 38px; height: 38px;
+    background: rgba(0,0,0,.7); border: 1px solid #333;
+    color: #ccc; font-size: 15px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, color .2s;
+  " title="Add to Wishlist"
+     onmouseenter="this.style.background='#D4AF37';this.style.color='#0a0a0a'"
+     onmouseleave="this.style.background='rgba(0,0,0,.7)';this.style.color='#ccc'">
+    <i class="fa fa-heart"></i>
+  </button>
 
-        <!-- Prev / Next buttons -->
-        <button class="slide-btn prev" aria-label="Previous image" data-prev
-          style="
-            position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-            width: 40px; height: 40px;
-            background: rgba(0,0,0,.65); border: 1px solid #444;
-            color: #fff; font-size: 16px;
-            cursor: pointer; display: flex;
-            align-items: center; justify-content: center;
-            transition: background .2s;
-          "
-          onmouseenter="this.style.background='#D4AF37';this.style.color='#0a0a0a'"
-          onmouseleave="this.style.background='rgba(0,0,0,.65)';this.style.color='#fff'">
-          <i class="fa fa-chevron-left"></i>
-        </button>
+  <!-- Prev button -->
+  <button class="slide-btn prev" data-prev
+    style="
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      width: 40px; height: 40px;
+      background: rgba(0,0,0,.65); border: 1px solid #444;
+      color: #fff; font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    "
+    onmouseenter="this.style.background='#D4AF37';this.style.color='#0a0a0a'"
+    onmouseleave="this.style.background='rgba(0,0,0,.65)';this.style.color='#fff'">
+    <i class="fa fa-chevron-left"></i>
+  </button>
 
-        <button class="slide-btn next" aria-label="Next image" data-next
-          style="
-            position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-            width: 40px; height: 40px;
-            background: rgba(0,0,0,.65); border: 1px solid #444;
-            color: #fff; font-size: 16px;
-            cursor: pointer; display: flex;
-            align-items: center; justify-content: center;
-            transition: background .2s;
-          "
-          onmouseenter="this.style.background='#D4AF37';this.style.color='#0a0a0a'"
-          onmouseleave="this.style.background='rgba(0,0,0,.65)';this.style.color='#fff'">
-          <i class="fa fa-chevron-right"></i>
-        </button>
-      </div>
+  <!-- Next button -->
+  <button class="slide-btn next" data-next
+    style="
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      width: 40px; height: 40px;
+      background: rgba(0,0,0,.65); border: 1px solid #444;
+      color: #fff; font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    "
+    onmouseenter="this.style.background='#D4AF37';this.style.color='#0a0a0a'"
+    onmouseleave="this.style.background='rgba(0,0,0,.65)';this.style.color='#fff'">
+    <i class="fa fa-chevron-right"></i>
+  </button>
+</div>
 
       <!-- Thumbnail strip -->
       <div style="
@@ -1037,255 +1048,46 @@ body {
 
 
 
-   <script src="{% static 'js/script.js' %}"></script>
+   <!-- <script src="{% static 'js/script.js' %}"></script> -->
 
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
 
-  const addEventOnElem = (elem, type, callback) => {
-    if (!elem) return;
-    if (elem.length > 1) {
-      for (let i = 0; i < elem.length; i++) {
-        elem[i].addEventListener(type, callback);
-      }
-    } else {
-      elem.addEventListener(type, callback);
-    }
-  };
+<script>
+document.addEventListener("DOMContentLoaded", function() {
 
-  // SLIDER
-  const slider = document.querySelector("[data-slider]");
+  /* ── SLIDER ──────────────────────────────────────── */
+  const slider  = document.querySelector("[data-slider]");
   const nextBtn = document.querySelector("[data-next]");
   const prevBtn = document.querySelector("[data-prev]");
+
   if (slider && nextBtn && prevBtn) {
     let sliderPos = 0;
-    const totalSliderItems = slider.children.length;
+    const total = Array.from(slider.children).length;
 
-    const sliderEnd = () => {
-      nextBtn.classList.toggle("disabled", sliderPos >= totalSliderItems - 1);
+    const updateSlider = () => {
+      slider.style.transform = `translateX(-${sliderPos * 100}%)`;
+      nextBtn.style.display = total <= 1 ? "none" : "flex";
+      prevBtn.style.display = total <= 1 ? "none" : "flex";
+      nextBtn.classList.toggle("disabled", sliderPos >= total - 1);
       prevBtn.classList.toggle("disabled", sliderPos <= 0);
     };
 
-    const slideToNext = () => {
-      if (sliderPos < totalSliderItems - 1) {
-        sliderPos++;
-        slider.style.transform = `translateX(-${sliderPos}00%)`;
-        sliderEnd();
-      }
-    };
-
-    const slideToPrev = () => {
-      if (sliderPos > 0) {
-        sliderPos--;
-        slider.style.transform = `translateX(-${sliderPos}00%)`;
-        sliderEnd();
-      }
-    };
-
-    addEventOnElem(nextBtn, "click", slideToNext);
-    addEventOnElem(prevBtn, "click", slideToPrev);
-    sliderEnd();
-  }
-
-
-
-  // QUANTITY
-  const totalPriceElem = document.querySelector("[data-total-price]");
-  const qtyElem = document.querySelector("[data-qty]");
-  const qtyMinusBtn = document.querySelector("[data-qty-minus]");
-  const qtyPlusBtn = document.querySelector("[data-qty-plus]");
-  if (totalPriceElem && qtyElem && qtyMinusBtn && qtyPlusBtn) {
-    let qty = 1;
-    const productPrice = parseFloat("{{ p.price }}");
-
-    const updatePrice = () => {
-      qtyElem.textContent = qty;
-      totalPriceElem.textContent = `#${(qty * productPrice).toFixed(2)}`;
-    };
-
-    addEventOnElem(qtyPlusBtn, "click", () => {
-      qty++;
-      updatePrice();
+    nextBtn.addEventListener("click", () => {
+      if (sliderPos < total - 1) { sliderPos++; updateSlider(); }
+    });
+    prevBtn.addEventListener("click", () => {
+      if (sliderPos > 0) { sliderPos--; updateSlider(); }
     });
 
-    addEventOnElem(qtyMinusBtn, "click", () => {
-      if (qty > 1) qty--;
-      updatePrice();
-    });
-
-    updatePrice(); // initialize
+    updateSlider();
   }
 
-
-});
-
-
-// $(".add-to-cart-btn").on("click", function () {
-
-//     let quantity = $("#product-quantity" ).val();
-//     let product_title = $(".product-title").text();
-//     let product_id = $(".product-id").val();
-//     let product_pid = $(".product-pid").val();
-//     let product_price = $(".current-product-price").text();
-//     let product_image = $(".product-image").first().attr("src");
-//     let product_old_price = $(".product-old-price").text();
-
-
-//     let this_val = $(this);
-
-
-
-//     console.log("QUANTITY:", quantity);
-//     console.log("Title:", product_title);
-//     console.log("PRICE:", product_price);
-//     console.log("ID:", product_id);
-//     console.log("PID:", product_pid);
-//     console.log("Current Element:", this_val);
-//     console.log("Image:", product_image);
-
-    
-
-
-
-//     $.ajax({
-//     url: '/add-to-cart',
-//     data: {
-//       'id': product_id,
-//       'pid': product_pid,
-//       'qty': quantity,
-//       'title': product_title,
-//       'price': product_price,
-//       'image': product_image,
-//       'old_price': product_old_price,
-
-//     },
-//     dataType: 'json',
-//     beforeSend: function(){
-//       console.log("Adding Product to cart");
-//     },
-//     success: function(){
-//       console.log("Added Product to Cart...")
-//     }
-//   })
-
-// $(".delete-product").on("click", function () {
-//   let product_id = $(this).attr("data-product");
-//   let this_val = $(this);
-
-//   console.log("product id:", product_id);
-// });
-
-
-// }); 
-
-
-
-// ADD TO CART
-$(".add-to-cart-btn").on("click", function () {
-
-    let quantity = $("#product-quantity").val();
-    let product_title = $(".product-title").text();
-    let product_id = $(".product-id").val();
-    let product_pid = $(".product-pid").val();
-    let product_price = $(".current-product-price").text();
-    let product_image = $(".product-image").first().attr("src");
-    let product_old_price = $(".product-old-price").text();
-
-    $.ajax({
-        url: '/add-to-cart',
-        data: {
-            'id': product_id,
-            'pid': product_pid,
-            'qty': quantity,
-            'title': product_title,
-            'price': product_price,
-            'image': product_image,
-            'old_price': product_old_price,
-        },
-        dataType: 'json',
-        success: function(){
-            console.log("Added Product to Cart...");
-        }
-    });
-});
-
-
-// DELETE PRODUCT — FIXED
-$(document).on("click", ".delete-product", function () {
-    let product_id = $(this).data("product");
-    console.log("Deleting product:", product_id);
-});
-
-
-
-// function sendToWhatsApp(event, type) {
-//   event.preventDefault();
-
-//   const qty   = document.getElementById('product-quantity-{{ p.id }}').value || 1;
-//   const title = "{{ p.title }}";
-//   const price = "{{ p.price }}";
-//   const phone = "2349057058845";
-
-//   let message = "";
-
-//   if (type === "cart") {
-//     message =
-//       "Hello Illustrious Codes! I want to order: " + qty + " piece(s)\n\n" +
-//       "Product: " + title + "\n" +
-//       "Price: ₦" + price + "\n\n" +
-//       "Please confirm availability.";
-//   } else {
-//     message =
-//       "Hello Illustrious Codes! I want to BUY NOW: " + qty + " piece(s)\n\n" +
-//       "Product: " + title + "\n" +
-//       "Price: ₦" + price + "\n\n" +
-//       "Please send me payment details.";
-//   }
-
-//   const encoded = encodeURIComponent(message);
-//   window.open("https://wa.me/" + phone + "?text=" + encoded, "_blank");
-// }
-
-// <!-- ✅ Keep this ONLY in product-detail.html, inside a <script> tag -->
-
-function sendToWhatsApp(event, type) {
-  event.preventDefault();
-
-  const qty   = document.getElementById("product-quantity-{{ p.id }}").value || 1;
-  const title = "{{ p.title }}";
-  const price = "{{ p.price }}";
-  const phone = "2349057058845";
-
-  let message = "";
-
-  if (type === "cart") {
-    message =
-      "Hello Illustrious Codes! I want to order: " + qty + " piece(s)\n\n" +
-      "Product: " + title + "\n" +
-      "Price: ₦" + price + "\n\n" +
-      "Please confirm availability.";
-  } else {
-    message =
-      "Hello Illustrious Codes! I want to BUY NOW: " + qty + " piece(s)\n\n" +
-      "Product: " + title + "\n" +
-      "Price: ₦" + price + "\n\n" +
-      "Please send me payment details.";
-  }
-
-  const encoded = encodeURIComponent(message);
-  window.open("https://wa.me/" + phone + "?text=" + encoded, "_blank");
-}
-
-
-// ✅ Safe version — add this to script.js
-document.addEventListener("DOMContentLoaded", function() {
-
-  /* ── HAMBURGER ─────────────────────────────────── */
+  /* ── HAMBURGER ───────────────────────────────────── */
   const hamburgerBtn   = document.getElementById("hamburgerBtn");
   const mobileNav      = document.getElementById("mobileNav");
   const overlayBg      = document.getElementById("overlayBg");
@@ -1311,7 +1113,7 @@ document.addEventListener("DOMContentLoaded", function() {
     link.addEventListener("click", closeMobileNav);
   });
 
-  /* ── MOBILE SHOP TOGGLE ────────────────────────── */
+  /* ── MOBILE SHOP TOGGLE ──────────────────────────── */
   const mobileShopToggle   = document.getElementById("mobileShopToggle");
   const mobileCategoryList = document.getElementById("mobileCategoryList");
 
@@ -1325,8 +1127,23 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-});
+}); // ← ONE closing brace
 
+/* ── WHATSAPP ────────────────────────────────────── */
+function sendToWhatsApp(event, type) {
+  event.preventDefault();
+  const qty   = document.getElementById("product-quantity-{{ p.id }}").value || 1;
+  const title = "{{ p.title }}";
+  const price = "{{ p.price }}";
+  const phone = "2349057058845";
+  let message = "";
+  if (type === "cart") {
+    message = "Hello Illustrious Codes! I want to order: " + qty + " piece(s)\n\nProduct: " + title + "\nPrice: ₦" + price + "\n\nPlease confirm availability.";
+  } else {
+    message = "Hello Illustrious Codes! I want to BUY NOW: " + qty + " piece(s)\n\nProduct: " + title + "\nPrice: ₦" + price + "\n\nPlease send me payment details.";
+  }
+  window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), "_blank");
+}
 </script>
 
 </body>
