@@ -2725,35 +2725,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-/* ── DARK / LIGHT MODE TOGGLE ────────────────────── */
-const themeToggle = document.getElementById("themeToggle");
-const themeIcon   = document.getElementById("themeIcon");
-
-// Load saved preference
-if (localStorage.getItem("theme") === "light") {
-  document.body.classList.add("light-mode");
-  if (themeIcon) {
-    themeIcon.classList.remove("fa-moon");
-    themeIcon.classList.add("fa-sun");
-  }
-}
-
-if (themeToggle) {
-  themeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
-    const isLight = document.body.classList.contains("light-mode");
-
-    // Swap icon
-    if (themeIcon) {
-      themeIcon.classList.toggle("fa-moon", !isLight);
-      themeIcon.classList.toggle("fa-sun",  isLight);
-    }
-
-    // Save preference — persists across sessions
-    localStorage.setItem("theme", isLight ? "light" : "dark");
-  });
-}
-
 
   /* ── ALERT AUTO-HIDE ─────────────────────────────── */
   setTimeout(() => {
@@ -2761,6 +2732,45 @@ if (themeToggle) {
       el.classList.add("hidden");
     });
   }, 3000);
+
+
+  /* ── DARK / LIGHT MODE TOGGLE ────────────────────── */
+document.addEventListener("DOMContentLoaded", function() {
+
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon   = document.getElementById("themeIcon");
+
+  // Load saved preference on page load
+  if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+    if (themeIcon) {
+      themeIcon.classList.remove("fa-moon");
+      themeIcon.classList.add("fa-sun");
+    }
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function() {
+      document.body.classList.toggle("light-mode");
+      const isLight = document.body.classList.contains("light-mode");
+
+      // Swap icon
+      if (themeIcon) {
+        if (isLight) {
+          themeIcon.classList.remove("fa-moon");
+          themeIcon.classList.add("fa-sun");
+        } else {
+          themeIcon.classList.remove("fa-sun");
+          themeIcon.classList.add("fa-moon");
+        }
+      }
+
+      // Save preference
+      localStorage.setItem("theme", isLight ? "light" : "dark");
+    });
+  }
+
+});
 
   /* ── HAMBURGER ───────────────────────────────────── */
   const hamburgerBtn   = document.getElementById("hamburgerBtn");
@@ -2787,6 +2797,14 @@ if (themeToggle) {
   document.querySelectorAll(".mobile-link").forEach((link) => {
     link.addEventListener("click", closeMobileNav);
   });
+
+ //Close welcome
+  function closeWelcome() {
+  const popup = document.getElementById("welcome-popup");
+  if (popup) popup.style.visibility = "hidden";
+  document.body.style.overflow = "";
+  sessionStorage.setItem("greeted", "true");
+}
 
   /* ── MOBILE SHOP TOGGLE ──────────────────────────── */
   const mobileShopToggle   = document.getElementById("mobileShopToggle");
