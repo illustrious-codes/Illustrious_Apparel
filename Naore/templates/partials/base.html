@@ -2444,7 +2444,8 @@
     </button>
 
     <div id="welcome-popup" style="
-  display: none;
+  display: flex;
+  visibility: hidden;
   position: fixed; inset: 0; z-index: 9999;
   background: rgba(0,0,0,.75);
   align-items: center; justify-content: center;
@@ -2500,25 +2501,22 @@
   </div>
 </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
 
     <script>
 
     function closeWelcome() {
-    document.getElementById("welcome-popup").style.display = "none";
-    document.body.style.overflow = "";
-    sessionStorage.setItem("greeted", "true");
-  }
+  document.getElementById("welcome-popup").style.visibility = "hidden";
+  document.body.style.overflow = "";
+  sessionStorage.setItem("greeted", "true");
+}
 
-  if (!sessionStorage.getItem("greeted")) {
-    setTimeout(() => {
-      const popup = document.getElementById("welcome-popup");
-      popup.style.display = "flex";
-      document.body.style.overflow = "hidden";
-    }, 1000);
-  }
-
+if (!sessionStorage.getItem("greeted")) {
+  setTimeout(() => {
+    const popup = document.getElementById("welcome-popup");
+    popup.style.visibility = "visible";
+    document.body.style.overflow = "hidden";
+  }, 1000);
+}
 
   /* ── ALERT AUTO-HIDE ─────────────────────────────── */
   setTimeout(() => {
