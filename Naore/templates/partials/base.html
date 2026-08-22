@@ -120,6 +120,21 @@
           <span></span><span></span><span></span>
         </button>
 
+
+        <button id="themeToggle" aria-label="Toggle theme" style="
+  background: none; border: 1px solid #333;
+  color: #ccc; font-size: 14px;
+  width: 36px; height: 36px;
+  cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  transition: border-color .2s, color .2s;
+  border-radius: 2px;
+"
+onmouseenter="this.style.borderColor='#D4AF37';this.style.color='#D4AF37'"
+onmouseleave="this.style.borderColor='#333';this.style.color='#ccc'">
+  <i class="fa fa-moon" id="themeIcon"></i>
+</button>
+
         <!-- Logo -->
         <div class="nav-logo">
           <div class="logo-monogram">
@@ -225,6 +240,11 @@
             .icon li a i {
               margin-right: 10px;
             }
+
+
+
+
+            
           </style>
 
           <!-- <div class="search-container" style="display: flex; justify-content: center; align-items: center; gap: 10px;"></div>
@@ -316,6 +336,176 @@
     
 
     <style>
+
+      /* ─── LIGHT MODE ─────────────────────────────────── */
+body.light-mode {
+  background: #f5f5f0;
+  color: #1a1a1a;
+}
+
+body.light-mode #site-header {
+  background: rgba(245, 245, 240, 0.96);
+  border-bottom: 1px solid #ddd;
+}
+
+body.light-mode .nav-links > li > a {
+  color: #333;
+}
+
+body.light-mode .nav-links > li > a:hover {
+  color: #B8922A;
+}
+
+body.light-mode .announcement-bar {
+  background: #1a1a1a;
+  color: #D4AF37;
+}
+
+body.light-mode .announcement-bar a {
+  color: #D4AF37;
+}
+
+body.light-mode .hamburger span {
+  background: #1a1a1a;
+}
+
+body.light-mode .mobile-nav {
+  background: #f0f0eb;
+  border-right: 1px solid #ddd;
+}
+
+body.light-mode .mobile-nav ul li .mobile-link {
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+
+body.light-mode .overlay-bg {
+  background: rgba(0,0,0,.5);
+}
+
+body.light-mode .mega-menu {
+  background: #fff;
+  border: 1px solid #ddd;
+}
+
+body.light-mode .mega-menu li a {
+  color: #333;
+}
+
+body.light-mode .mega-menu li a:hover {
+  background: #f5f5f0;
+  color: #B8922A;
+}
+
+body.light-mode .product-card {
+  background: #fff;
+  border-color: #e0e0e0;
+}
+
+body.light-mode .product-card-info h3 {
+  color: #1a1a1a;
+}
+
+body.light-mode .product-card-info .pcat {
+  color: #999;
+}
+
+body.light-mode .btn-cart {
+  background: #f0f0eb;
+  border-color: #ddd;
+  color: #1a1a1a;
+}
+
+body.light-mode .btn-cart:hover {
+  background: #D4AF37;
+  border-color: #D4AF37;
+  color: #fff;
+}
+
+body.light-mode .why-us {
+  background: #f0f0eb;
+}
+
+body.light-mode .usp h4 { color: #1a1a1a; }
+body.light-mode .usp p  { color: #666; }
+
+body.light-mode .about-content {
+  background: #fff;
+}
+
+body.light-mode .about-content h2 { color: #1a1a1a; }
+body.light-mode .about-content p  { color: #555; }
+
+body.light-mode .testimonial-card {
+  background: #fff;
+  border-color: #e0e0e0;
+}
+
+body.light-mode .testimonial-card > p { color: #555; }
+body.light-mode .reviewer strong      { color: #1a1a1a; }
+
+body.light-mode .newsletter {
+  background: #f0f0eb;
+  border-top: 1px solid #ddd;
+}
+
+body.light-mode .newsletter-inner h2 { color: #1a1a1a; }
+
+body.light-mode .nl-form input {
+  background: #fff;
+  border-color: #ddd;
+  color: #1a1a1a;
+}
+
+body.light-mode footer {
+  background: #1a1a1a;
+}
+
+body.light-mode .footer-top {
+  border-bottom: 1px solid #333;
+}
+
+body.light-mode .footer-brand > p { color: #aaa; }
+body.light-mode .footer-bottom p  { color: #aaa; }
+
+body.light-mode .footer-links ul li a { color: #aaa; }
+body.light-mode .footer-links ul li a:hover { color: #D4AF37; }
+
+body.light-mode .footer-contact p { color: #aaa; }
+
+body.light-mode #welcome-popup > div {
+  background: #fff;
+}
+
+body.light-mode #welcome-popup h2 { color: #1a1a1a !important; }
+body.light-mode #welcome-popup p  { color: #666 !important; }
+
+body.light-mode .search-bar input {
+  background: #fff;
+  border-color: #ddd;
+  color: #1a1a1a;
+}
+
+body.light-mode #search-form {
+  background: #fff;
+}
+
+body.light-mode #search-form input {
+  color: #1a1a1a;
+}
+
+body.light-mode .cart-drawer {
+  background: #fff;
+  border-left: 1px solid #ddd;
+}
+
+body.light-mode .cart-drawer-header h3 { color: #1a1a1a; }
+body.light-mode .cart-item-info h4     { color: #1a1a1a; }
+
+body.light-mode .back-to-top {
+  background: #1a1a1a;
+  color: #D4AF37;
+}
 
       @media (max-width: 600px) {
         #search-form {
@@ -2533,6 +2723,36 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
+
+
+/* ── DARK / LIGHT MODE TOGGLE ────────────────────── */
+const themeToggle = document.getElementById("themeToggle");
+const themeIcon   = document.getElementById("themeIcon");
+
+// Load saved preference
+if (localStorage.getItem("theme") === "light") {
+  document.body.classList.add("light-mode");
+  if (themeIcon) {
+    themeIcon.classList.remove("fa-moon");
+    themeIcon.classList.add("fa-sun");
+  }
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+    const isLight = document.body.classList.contains("light-mode");
+
+    // Swap icon
+    if (themeIcon) {
+      themeIcon.classList.toggle("fa-moon", !isLight);
+      themeIcon.classList.toggle("fa-sun",  isLight);
+    }
+
+    // Save preference — persists across sessions
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+  });
+}
 
 
   /* ── ALERT AUTO-HIDE ─────────────────────────────── */
