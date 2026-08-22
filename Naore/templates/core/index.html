@@ -4,86 +4,6 @@
 {% block content %}
 
 
- <!-- Mobile nav overlay -->
-    <!-- <div class="mobile-nav" id="mobileNav">
-      <button
-        class="mobile-nav-close"
-        id="mobileNavClose"
-        aria-label="Close menu"
-      >
-        <i class="fa fa-times"></i>
-      </button>
-      <div class="mobile-logo">
-        <span class="logo-name">ILLUSTRIOUS</span>
-        <span class="logo-divider"
-          ><span class="line"></span><span class="logo-codes">CODES</span
-          ><span class="line"></span
-        ></span>
-        <span class="logo-apparel">APPAREL</span>
-      </div>
-      <ul>
-  <li><a href="/" class="mobile-link">Home</a></li>
-
-  <li>
-    <a href="\#shop" class="mobile-link" id="mobileShopToggle"
-       style="display:flex; justify-content:space-between; align-items:center;">
-      Shop
-      <i class="fa fa-chevron-down" style="font-size:11px; color:#D4AF37;"></i>
-    </a>
-
-    <ul id="mobileCategoryList" style="
-      display: none;
-      flex-direction: column;
-      padding: 8px 0 8px 16px;
-      border-left: 2px solid #D4AF37;
-      margin: 4px 0 8px;
-      gap: 0;
-    ">
-      {% for c in categories %}
-      <li>
-        <a href="{% url 'core:category-product-list' c.cid %}"
-           style="
-             display: flex; align-items: center; gap: 10px;
-             padding: 10px 0;
-             font-size: 13px; font-weight: 500;
-             letter-spacing: 1px; text-transform: uppercase;
-             color: #aaa; border-bottom: 1px solid #1a1a1a;
-             text-decoration: none;
-             transition: color .2s;
-           "
-           onmouseenter="this.style.color='#D4AF37'"
-           onmouseleave="this.style.color='#aaa'">
-          <img src="{{ c.image.url }}" alt="{{ c.title }}"
-               style="width:28px; height:28px; object-fit:cover; border-radius:2px; flex-shrink:0;"/>
-          <span>{{ c.title }}</span>
-          <small style="color:#555; margin-left:auto;">({{ c.category.count }})</small>
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
-  </li>
-
-  <li><a href="\#featured" class="mobile-link">Collections</a></li>
-  <li><a href="\#about"    class="mobile-link">About</a></li>
-  <li><a href="#contact"  class="mobile-link">Contact</a></li>
-</ul> -->
-
-
-
-      <!-- <ul>
-        <li><a href="\" class="mobile-link">Home</a></li>
-        <li><a href="\#shop" class="mobile-link">Shop</a></li>
-
-        <li><a href="\#featured" class="mobile-link">Collections</a></li>
-        <li><a href="\#about" class="mobile-link">About</a></li>
-        <li><a href="#contact" class="mobile-link">Contact</a></li>
-      </ul> -->
-      <!-- <div class="mobile-nav-actions">
-        <a href="#"><i class="fa fa-user"></i> Sign In / Register</a>
-        <a href="#"><i class="fa fa-heart"></i> Wishlist</a>
-        <a href="#"><i class="fa fa-shopping-bag"></i> Cart</a>
-      </div> -->
-    </div>
     <div class="overlay-bg" id="overlayBg"></div>
 
     <!-- ══════════════════ HERO ══════════════════ -->
@@ -140,80 +60,29 @@
           <img src="../../static/images/man2 c.jpeg" alt="Men's Collection" />
           <div class="cat-overlay">
             <h3>Men</h3>
-            <!-- <a href="#" class="cat-link"
-              >Explore <i class="fa fa-arrow-right"></i
-            ></a> -->
           </div>
         </div>
         <div class="cat-card cat-large">
           <img src="../../static/images/women c.jpeg" alt="Women's Collection" />
           <div class="cat-overlay">
             <h3>Women</h3>
-            <!-- <a href="#" class="cat-link"
-              >Explore <i class="fa fa-arrow-right"></i
-            ></a> -->
           </div>
         </div>
         <div class="cat-card cat-small">
           <img src="../../static/images/shoe c.webp" alt="Shoes" />
           <div class="cat-overlay">
             <h3>Shoes</h3>
-            <!-- <a href="#" class="cat-link"
-              >Explore <i class="fa fa-arrow-right"></i
-            ></a> -->
           </div>
         </div>
         <div class="cat-card cat-small">
           <img src="../../static/images/accessories c.jpeg" alt="Accessories" />
           <div class="cat-overlay">
             <h3>Accessories</h3>
-            <!-- <a href="#" class="cat-link"
-              >Explore <i class="fa fa-arrow-right"></i
-            ></a> -->
           </div>
         </div>
       </div>
 
 
-
-      <!-- <div class="category-grid">
-        <div class="cat-card cat-large">
-          <img src="./image/apparel.png" alt="Men's Collection" />
-          <div class="cat-overlay">
-            <h3>Men</h3>
-            <a href="#" class="cat-link"
-              >Explore <i class="fa fa-arrow-right"></i
-            ></a>
-          </div>
-        </div>
-        <div class="cat-card cat-large">
-          <img src="./image/apparel.png" alt="Women's Collection" />
-          <div class="cat-overlay">
-            <h3>Women</h3>
-            <a href="#" class="cat-link"
-              >Explore <i class="fa fa-arrow-right"></i
-            ></a>
-          </div>
-        </div>
-        <div class="cat-card cat-small">
-          <img src="./image/apparel.png" alt="Shoes" />
-          <div class="cat-overlay">
-            <h3>Shoes</h3>
-            <a href="#" class="cat-link"
-              >Explore <i class="fa fa-arrow-right"></i
-            ></a>
-          </div>
-        </div>
-        <div class="cat-card cat-small">
-          <img src="./image/apparel.png" alt="Accessories" />
-          <div class="cat-overlay">
-            <h3>Accessories</h3>
-            <a href="#" class="cat-link"
-              >Explore <i class="fa fa-arrow-right"></i
-            ></a>
-          </div>
-        </div>
-      </div> -->
     </section>
 
     <!-- ══════════════════ FEATURED PRODUCTS ══════════════════ -->
@@ -226,49 +95,9 @@
       <!-- Filter tabs -->
       <div class="filter-tabs">
         <button class="tab active" data-filter="all">All</button>
-        <!-- <button class="tab" data-filter="men">Men</button>
-        <button class="tab" data-filter="women">Women</button>
-        <button class="tab" data-filter="shoes">Shoes</button>
-        <button class="tab" data-filter="accessories">Accessories</button> -->
+  
       </div>
 
-
-<!-- 
-       <div class="products-container">
-        {% for p in products %}
-
-        <div class="product-card">
-                <div class="product-image">
-                    <div class="discount-badge">{{ p.get_percentage|floatformat:0 }}%</div>
-                    <img src="{{ p.image.url }}" alt="{{ p.title }}">
-                </div>
-                <div class="product-info" style="padding: 7px;">
-                    <p class="product-name">{{ p.category.title }}</p>
-                    <b class="product-name">{{ p.title }}</b>
-                    <small class="product-name">By: {{ p.vendor.title }}</small>
-                    <div class="product-price">
-                    <span class="current-product-price {{ p.id }}">₦{{ p.price }}</span>
-                        {% if p.old_price %}
-                        <span class="old-price">₦{{ p.old_price }}</span>
-                        {% endif %}
-                </div>
-
-                <div >
-                    <input type="hidden" value="1" class="product-quantity-{{ p.id }}">
-                    <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
-                    <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
-                    <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
-                    <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
-                   <button class="cart-btn add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn" >Add to Cart</button>
-                </div>
-
-                </div>
-
-        </div>
-
-        {% endfor %}
-
-    </div> -->
 
 
     <div class="products-container" style="
@@ -477,104 +306,6 @@
       </div>
     </section>
 
-    <!-- ══════════════════ NEW ARRIVALS ══════════════════ -->
-    <!-- <section class="new-arrivals" id="collections">
-      <div class="section-header light">
-        <p class="eyebrow">Just Dropped</p>
-        <h2>New Arrivals</h2>
-      </div>
-      <div class="arrivals-grid">
-        <div class="arrival-card">
-          <div class="arrival-img-wrap">
-            <img src="cloth1.jpg" alt="Luxury Hoodie" />
-            <span class="badge">New</span>
-            <div class="arrival-actions">
-              <button title="Wishlist"><i class="fa fa-heart"></i></button>
-              <button title="Quick view"><i class="fa fa-eye"></i></button>
-            </div>
-          </div>
-          <div class="arrival-info">
-            <p class="arrival-cat">Men · Hoodies</p>
-            <h3>Luxury Hoodie</h3>
-            <p class="arrival-price">₦35,000</p>
-            <button
-              class="btn-add-cart"
-              data-name="Luxury Hoodie"
-              data-price="35000"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-        <div class="arrival-card">
-          <div class="arrival-img-wrap">
-            <img src="cloth2.jpg" alt="Premium Shirt" />
-            <span class="badge">New</span>
-            <div class="arrival-actions">
-              <button title="Wishlist"><i class="fa fa-heart"></i></button>
-              <button title="Quick view"><i class="fa fa-eye"></i></button>
-            </div>
-          </div>
-          <div class="arrival-info">
-            <p class="arrival-cat">Men · Shirts</p>
-            <h3>Premium Shirt</h3>
-            <p class="arrival-price">₦28,000</p>
-            <button
-              class="btn-add-cart"
-              data-name="Premium Shirt"
-              data-price="28000"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-        <div class="arrival-card">
-          <div class="arrival-img-wrap">
-            <img src="cloth1.jpg" alt="Classic Tee" />
-            <div class="arrival-actions">
-              <button title="Wishlist"><i class="fa fa-heart"></i></button>
-              <button title="Quick view"><i class="fa fa-eye"></i></button>
-            </div>
-          </div>
-          <div class="arrival-info">
-            <p class="arrival-cat">Men · Tees</p>
-            <h3>Classic IC Tee</h3>
-            <p class="arrival-price">₦18,000</p>
-            <button
-              class="btn-add-cart"
-              data-name="Classic IC Tee"
-              data-price="18000"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-        <div class="arrival-card">
-          <div class="arrival-img-wrap">
-            <img src="cloth2.jpg" alt="Statement Jacket" />
-            <span class="badge sale-badge">Sale</span>
-            <div class="arrival-actions">
-              <button title="Wishlist"><i class="fa fa-heart"></i></button>
-              <button title="Quick view"><i class="fa fa-eye"></i></button>
-            </div>
-          </div>
-          <div class="arrival-info">
-            <p class="arrival-cat">Women · Jackets</p>
-            <h3>Statement Jacket</h3>
-            <p class="arrival-price">
-              ₦42,000 <span class="old-price">₦55,000</span>
-            </p>
-            <button
-              class="btn-add-cart"
-              data-name="Statement Jacket"
-              data-price="42000"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-      </div>
-    </section> -->
 
     <!-- ══════════════════ WHY US / USPs ══════════════════ -->
     <section class="why-us">
@@ -608,18 +339,44 @@
         <img src="../../static/images/CEO Illustrious Codes Apparel.jpeg" alt="Illustrious Codes story" />
       </div>
       <div class="about-content">
-        <p class="eyebrow">Our Story</p>
-        <h2>Born From Identity,<br />Built for the Bold</h2>
+         <p class="eyebrow">MEET THE FOUNDER </p>
+        <h2>David Onatayo<br />Founder & Creative Director, Illustrious Apparel</h2>
         <p>
-          Illustrious Codes Apparel was founded on a single conviction: your
-          clothes should speak before you do. We design premium pieces that
-          carry culture, confidence, and craftsmanship, made for those who
-          refuse to blend in.
-        </p>
+         David Onatayo, known to many as Illustrious Codes, is the founder and creative 
+         force behind Illustrious Apparel, a brand built on a simple but powerful 
+         belief: what you wear should reflect who you are.
+         "I don't believe clothing is just something you wear. I believe it's a reflection
+         of who you are. That's why I created Illustrious Apparel: to help people wear 
+         their identity with confidence, style, and purpose." — David Onatayo
+
+         Launched in 2026, Illustrious Apparel was born from David's passion for style 
+         and his conviction that fashion has the power to inspire confidence, express 
+         individuality, and leave a lasting impression. What started as a personal belief 
+         grew into a brand offering premium-quality, stylish clothing that people can 
+         wear with pride, helping every customer look their best, feel confident, and
+         truly Wear Their Identity.
+
+         What sets David apart is how hands-on he is in building the brand from the 
+         ground up. With a background spanning software engineering, web development, 
+         digital marketing, graphic design, and AI-driven creativity, he personally 
+         designed and built the Illustrious Apparel website, and continues to oversee
+         everything from the brand's digital presence to its customer experience and 
+         visual identity, ensuring every detail reflects the quality and values 
+         Illustrious Apparel stands for.
+
+         </p>
         <p>
-          Each collection is a code, a language of style that only the
-          illustrious understand. From Lagos to the world, we dress the ones who
-          lead.
+         Beyond entrepreneurship, David is a software engineering tutor and mentor, 
+         passionate about helping others grow. He believes true success isn't 
+         measured only by personal achievement, but also by the impact made in the 
+         lives of others, a philosophy that shapes everything Illustrious Apparel does.
+
+         At its core, the brand is committed to quality, authenticity, and community,
+         building a space where style, creativity, and self-expression thrive, 
+         backed by a shopping experience customers can trust. 
+         As Illustrious Apparel continues to grow, David remains focused on one 
+         mission: helping people wear their identity with confidence, style, and purpose.
+        
         </p>
         <!-- <a href="#" class="btn-gold">Our Story</a> -->
       </div>
@@ -764,11 +521,6 @@
     </p>
   </div>
 </section>
-
-    
-    
-
-
 
 
     </div>
