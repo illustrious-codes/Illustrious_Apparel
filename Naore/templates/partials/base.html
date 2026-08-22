@@ -2443,10 +2443,83 @@
       <i class="fa fa-chevron-up"></i>
     </button>
 
+    <div id="welcome-popup" style="
+  display: none;
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,.75);
+  align-items: center; justify-content: center;
+">
+  <div style="
+    background: #111; border: 1px solid #D4AF37;
+    padding: 40px 36px; max-width: 420px; width: 90%;
+    text-align: center; position: relative;
+  ">
+    <!-- Gold top bar -->
+    <div style="
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: #D4AF37;
+    "></div>
+
+    <!-- IC monogram -->
+    <p style="
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px; font-weight: 700;
+      color: #D4AF37; margin-bottom: 8px;
+    ">IC</p>
+
+    <h2 style="
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; color: #fff;
+      margin-bottom: 10px;
+    ">Welcome to Illustrious Codes</h2>
+
+    <p style="
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px; color: #888;
+      line-height: 1.8; margin-bottom: 28px;
+    ">
+      Wear Your Identity. Live Illustrious.<br/>
+      Explore our premium collections and order<br/>
+      directly via WhatsApp.
+    </p>
+
+    <button onclick="closeWelcome()" style="
+      padding: 14px 36px;
+      background: #D4AF37; border: none;
+      color: #0a0a0a;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s;
+    "
+    onmouseenter="this.style.background='#B8922A'"
+    onmouseleave="this.style.background='#D4AF37'">
+      Shop Now
+    </button>
+  </div>
+</div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
     <script>
+
+    function closeWelcome() {
+    document.getElementById("welcome-popup").style.display = "none";
+    document.body.style.overflow = "";
+    sessionStorage.setItem("greeted", "true");
+  }
+
+  if (!sessionStorage.getItem("greeted")) {
+    setTimeout(() => {
+      const popup = document.getElementById("welcome-popup");
+      popup.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }, 1000);
+  }
+
+
   /* ── ALERT AUTO-HIDE ─────────────────────────────── */
   setTimeout(() => {
     document.querySelectorAll(".alert").forEach((el) => {
