@@ -2462,17 +2462,27 @@
     "></div>
 
     <!-- IC monogram -->
-    <p style="
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 48px; font-weight: 700;
-      color: #D4AF37; margin-bottom: 8px;
-    ">IC</p>
+    <svg
+              viewBox="0 0 80 80"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              width="50"
+            >
+              <rect x="36" y="8" width="8" height="64" fill="#D4AF37" />
+              <path
+                d="M44 8 C20 8 12 22 12 40 C12 58 20 72 44"
+                stroke="white"
+                stroke-width="7"
+                fill="none"
+                stroke-linecap="round"
+              />
+            </svg>
 
     <h2 style="
       font-family: 'Cormorant Garamond', serif;
       font-size: 26px; color: #fff;
       margin-bottom: 10px;
-    ">Welcome to Illustrious Codes</h2>
+    ">Welcome to Illustrious Apparel</h2>
 
     <p style="
       font-family: 'Montserrat', sans-serif;
@@ -2504,19 +2514,26 @@
 
     <script>
 
-    function closeWelcome() {
-  document.getElementById("welcome-popup").style.visibility = "hidden";
+   function closeWelcome() {
+  const popup = document.getElementById("welcome-popup");
+  if (popup) popup.style.visibility = "hidden";
   document.body.style.overflow = "";
   sessionStorage.setItem("greeted", "true");
 }
 
-if (!sessionStorage.getItem("greeted")) {
-  setTimeout(() => {
-    const popup = document.getElementById("welcome-popup");
-    popup.style.visibility = "visible";
-    document.body.style.overflow = "hidden";
-  }, 1000);
-}
+document.addEventListener("DOMContentLoaded", function() {
+  if (!sessionStorage.getItem("greeted")) {
+    setTimeout(() => {
+      const popup = document.getElementById("welcome-popup");
+      if (popup) {
+        popup.style.visibility = "visible";
+        document.body.style.overflow = "hidden";
+      }
+    }, 1000); // shows 1 second after page loads
+  }
+});
+
+
 
   /* ── ALERT AUTO-HIDE ─────────────────────────────── */
   setTimeout(() => {
