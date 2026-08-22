@@ -2704,14 +2704,20 @@ body.light-mode .back-to-top {
 
     <script>
 
-   function closeWelcome() {
+/* ── WELCOME POPUP ───────────────────────────────── */
+function closeWelcome() {
   const popup = document.getElementById("welcome-popup");
   if (popup) popup.style.visibility = "hidden";
   document.body.style.overflow = "";
   sessionStorage.setItem("greeted", "true");
 }
 
+/* ══════════════════════════════════════════════════
+   ONE SINGLE DOMContentLoaded — everything inside
+══════════════════════════════════════════════════ */
 document.addEventListener("DOMContentLoaded", function() {
+
+  /* ── WELCOME POPUP ─────────────────────────────── */
   if (!sessionStorage.getItem("greeted")) {
     setTimeout(() => {
       const popup = document.getElementById("welcome-popup");
@@ -2719,60 +2725,17 @@ document.addEventListener("DOMContentLoaded", function() {
         popup.style.visibility = "visible";
         document.body.style.overflow = "hidden";
       }
-    }, 1000); // shows 1 second after page loads
+    }, 1000);
   }
-});
 
-
-
-
-  /* ── ALERT AUTO-HIDE ─────────────────────────────── */
+  /* ── ALERT AUTO-HIDE ───────────────────────────── */
   setTimeout(() => {
     document.querySelectorAll(".alert").forEach((el) => {
       el.classList.add("hidden");
     });
   }, 3000);
 
-
-  /* ── DARK / LIGHT MODE TOGGLE ────────────────────── */
-document.addEventListener("DOMContentLoaded", function() {
-
-  const themeToggle = document.getElementById("themeToggle");
-  const themeIcon   = document.getElementById("themeIcon");
-
-  // Load saved preference on page load
-  if (localStorage.getItem("theme") === "light") {
-    document.body.classList.add("light-mode");
-    if (themeIcon) {
-      themeIcon.classList.remove("fa-moon");
-      themeIcon.classList.add("fa-sun");
-    }
-  }
-
-  if (themeToggle) {
-    themeToggle.addEventListener("click", function() {
-      document.body.classList.toggle("light-mode");
-      const isLight = document.body.classList.contains("light-mode");
-
-      // Swap icon
-      if (themeIcon) {
-        if (isLight) {
-          themeIcon.classList.remove("fa-moon");
-          themeIcon.classList.add("fa-sun");
-        } else {
-          themeIcon.classList.remove("fa-sun");
-          themeIcon.classList.add("fa-moon");
-        }
-      }
-
-      // Save preference
-      localStorage.setItem("theme", isLight ? "light" : "dark");
-    });
-  }
-
-});
-
-  /* ── HAMBURGER ───────────────────────────────────── */
+  /* ── HAMBURGER ─────────────────────────────────── */
   const hamburgerBtn   = document.getElementById("hamburgerBtn");
   const mobileNav      = document.getElementById("mobileNav");
   const overlayBg      = document.getElementById("overlayBg");
@@ -2790,23 +2753,15 @@ document.addEventListener("DOMContentLoaded", function() {
     document.body.style.overflow = "";
   }
 
-  if (hamburgerBtn)   hamburgerBtn.addEventListener("click", openMobileNav);
+  if (hamburgerBtn)   hamburgerBtn.addEventListener("click",  openMobileNav);
   if (mobileNavClose) mobileNavClose.addEventListener("click", closeMobileNav);
-  if (overlayBg)      overlayBg.addEventListener("click", closeMobileNav);
+  if (overlayBg)      overlayBg.addEventListener("click",     closeMobileNav);
 
   document.querySelectorAll(".mobile-link").forEach((link) => {
     link.addEventListener("click", closeMobileNav);
   });
 
- //Close welcome
-  function closeWelcome() {
-  const popup = document.getElementById("welcome-popup");
-  if (popup) popup.style.visibility = "hidden";
-  document.body.style.overflow = "";
-  sessionStorage.setItem("greeted", "true");
-}
-
-  /* ── MOBILE SHOP TOGGLE ──────────────────────────── */
+  /* ── MOBILE SHOP TOGGLE ────────────────────────── */
   const mobileShopToggle   = document.getElementById("mobileShopToggle");
   const mobileCategoryList = document.getElementById("mobileCategoryList");
 
@@ -2820,35 +2775,27 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  /* ── SEARCH TOGGLE ───────────────────────────────── */
-  const searchToggleBtn = document.getElementById("searchToggle");
-  const searchBar       = document.getElementById("searchBar");
-  const searchClose     = document.getElementById("searchClose");
-  const searchInput     = document.getElementById("searchInput");
+  /* ── SEARCH TOGGLE ─────────────────────────────── */
+  const searchToggle = document.getElementById("searchToggle");
+  const searchBar    = document.getElementById("searchBar");
+  const searchInput  = document.getElementById("searchInput");
+  const searchClose  = document.getElementById("searchClose");
 
-  if (searchToggleBtn && searchBar) {
-    searchToggleBtn.addEventListener("click", () => {
+  if (searchToggle && searchBar) {
+    searchToggle.addEventListener("click", () => {
       searchBar.classList.toggle("open");
-      if (searchBar.classList.contains("open") && searchInput) {
-        searchInput.focus();
-      }
+      if (searchBar.classList.contains("open") && searchInput) searchInput.focus();
     });
   }
-
   if (searchClose && searchBar) {
-    searchClose.addEventListener("click", () => {
-      searchBar.classList.remove("open");
-    });
+    searchClose.addEventListener("click", () => searchBar.classList.remove("open"));
   }
 
-  /* ── CART ────────────────────────────────────────── */
-  const cartBtnEl   = document.getElementById("cartBtn");
+  /* ── CART ──────────────────────────────────────── */
+  const cartBtn     = document.getElementById("cartBtn");
   const cartClose   = document.getElementById("cartClose");
   const cartOverlay = document.getElementById("cartOverlay");
   const cartDrawer  = document.getElementById("cartDrawer");
-
-  const fmt = (n) => "₦" + n.toLocaleString("en-NG");
-  let cart = [];
 
   function openCart() {
     if (cartDrawer)  cartDrawer.classList.add("open");
@@ -2862,11 +2809,11 @@ document.addEventListener("DOMContentLoaded", function() {
     document.body.style.overflow = "";
   }
 
-  if (cartBtnEl)   cartBtnEl.addEventListener("click",   openCart);
+  if (cartBtn)     cartBtn.addEventListener("click",     openCart);
   if (cartClose)   cartClose.addEventListener("click",   closeCart);
   if (cartOverlay) cartOverlay.addEventListener("click", closeCart);
 
-  /* ── STICKY HEADER SHADOW ────────────────────────── */
+  /* ── STICKY HEADER SHADOW ──────────────────────── */
   const siteHeader = document.getElementById("site-header");
   if (siteHeader) {
     window.addEventListener("scroll", () => {
@@ -2875,7 +2822,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  /* ── BACK TO TOP ─────────────────────────────────── */
+  /* ── BACK TO TOP ───────────────────────────────── */
   const btt = document.getElementById("backToTop");
   if (btt) {
     window.addEventListener("scroll", () => {
@@ -2886,7 +2833,7 @@ document.addEventListener("DOMContentLoaded", function() {
     );
   }
 
-  /* ── NEWSLETTER ──────────────────────────────────── */
+  /* ── NEWSLETTER ────────────────────────────────── */
   const nlForm = document.getElementById("nlForm");
   if (nlForm) {
     nlForm.addEventListener("submit", (e) => {
@@ -2900,6 +2847,40 @@ document.addEventListener("DOMContentLoaded", function() {
       e.target.reset();
     });
   }
+
+  /* ── DARK / LIGHT MODE TOGGLE ──────────────────── */
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon   = document.getElementById("themeIcon");
+
+  // Apply saved theme on every page load
+  if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+    if (themeIcon) {
+      themeIcon.classList.remove("fa-moon");
+      themeIcon.classList.add("fa-sun");
+    }
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function() {
+      document.body.classList.toggle("light-mode");
+      const isLight = document.body.classList.contains("light-mode");
+
+      if (themeIcon) {
+        if (isLight) {
+          themeIcon.classList.remove("fa-moon");
+          themeIcon.classList.add("fa-sun");
+        } else {
+          themeIcon.classList.remove("fa-sun");
+          themeIcon.classList.add("fa-moon");
+        }
+      }
+
+      localStorage.setItem("theme", isLight ? "light" : "dark");
+    });
+  }
+
+}); // ← ONE closing brace for everything
 </script>
    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
