@@ -25,14 +25,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+# SECRET_KEY = os.environ.get("SECRET_KEY")
+# DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
+SECRET_KEY = config("SECRET_KEY")
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['illustriousapparel.com.ng', 'www.illustriousapparel.com.ng', 'illustrious-apparel.onrender.com']
+ALLOWED_HOSTS = [
+    'illustriousapparel.com.ng',
+    'www.illustriousapparel.com.ng',
+    'illustrious-apparel.onrender.com',
+    'localhost',
+    '127.0.0.1',
+]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:

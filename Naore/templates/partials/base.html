@@ -5,7 +5,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Illustrious Apparel &rarr; Wear Your Identity</title>
+
+    <!-- SEO -->
+    <title>{% block title %}Illustrious Apparel &rarr; Wear Your Identity{% endblock %}</title>
+    <meta
+      name="description"
+      content="{% block meta_description %}Illustrious Apparel offers premium clothing designed for people who want to wear their identity. Shop the latest collection online.{% endblock %}"
+    />
+    <link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}" />
+
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
+    <meta property="og:title" content="{% block og_title %}Illustrious Apparel | Wear Your Identity{% endblock %}" />
+    <meta
+      property="og:description"
+      content="{% block og_description %}Premium clothing designed for people who want to wear their identity. Shop the latest collection online.{% endblock %}"
+    />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:site_name" content="Illustrious Apparel" />
+    <meta
+      property="og:image"
+      content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/meta.jpg' %}{% endblock %}"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{% block twitter_title %}Illustrious Apparel | Wear Your Identity{% endblock %}" />
+    <meta
+      name="twitter:description"
+      content="{% block twitter_description %}Premium clothing designed for people who want to wear their identity. Shop the latest collection online.{% endblock %}"
+    />
+    <meta
+      name="twitter:image"
+      content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/ill.jpg' %}{% endblock %}"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon/logo.svg' %}" />
+
+    <!-- Fonts and icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,12 +56,11 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' fill='%23000000'/%3E%3Cpath d='M44 8 C20 8 12 22 12 40 C12 58 20 72 44' stroke='white' stroke-width='7' fill='none' stroke-linecap='round'/%3E%3Crect x='36' y='8' width='8' height='64' fill='%23D4AF37'/%3E%3C/svg%3E">
 
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
 
-    <link rel="icon" type="image/svg+xml" href="{% static 'favicon/logo.svg' %}">
-
-    <link rel="stylesheet" href="style.css" />
+    {% block extra_head %}{% endblock %}
   </head>
   <body>
     <!-- ══════════════════ ANNOUNCEMENT BAR ══════════════════ -->
