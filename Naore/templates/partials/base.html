@@ -38,7 +38,11 @@
     <meta name="twitter:image" content="{% block twitter_image %}https://illustriousapparel.com.ng{% static 'images/meta.jpg' %}{% endblock %}" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="{% static 'favicon/logo.svg' %}" />
+    <link rel="icon" href="{% static 'favicon/favicon.ico' %}" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}" />
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'favicon/android-chrome-192x192.png' %}" />
+    <link rel="apple-touch-icon" href="{% static 'favicon/apple-touch-icon.png' %}" />
 
     <!-- Fonts and icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
