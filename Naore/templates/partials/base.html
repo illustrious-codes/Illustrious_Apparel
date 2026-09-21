@@ -12,7 +12,7 @@
       name="description"
       content="{% block meta_description %}Illustrious Apparel offers premium clothing designed for people who want to wear their identity. Shop the latest collection online.{% endblock %}"
     />
-    <link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}" />
+    <link rel="canonical" href="{% block canonical %}https://illustriousapparel.com.ng{{ request.path }}{% endblock %}" />
 
     <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
     <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
@@ -21,14 +21,12 @@
       property="og:description"
       content="{% block og_description %}Premium clothing designed for people who want to wear their identity. Shop the latest collection online.{% endblock %}"
     />
-    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:url" content="https://illustriousapparel.com.ng{{ request.path }}" />
     <meta property="og:site_name" content="Illustrious Apparel" />
-    <meta
-      property="og:image"
-      content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/meta.jpg' %}{% endblock %}"
-    />
+    <meta property="og:image" content="{% block og_image %}https://illustriousapparel.com.ng{% static 'images/meta.jpg' %}{% endblock %}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Illustrious Apparel - Wear Your Identity" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -37,10 +35,7 @@
       name="twitter:description"
       content="{% block twitter_description %}Premium clothing designed for people who want to wear their identity. Shop the latest collection online.{% endblock %}"
     />
-    <meta
-      name="twitter:image"
-      content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/meta.jpg' %}{% endblock %}"
-    />
+    <meta name="twitter:image" content="{% block twitter_image %}https://illustriousapparel.com.ng{% static 'images/meta.jpg' %}{% endblock %}" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="{% static 'favicon/logo.svg' %}" />
