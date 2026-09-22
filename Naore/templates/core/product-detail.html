@@ -595,28 +595,14 @@ body {
     justify-content: center !important;
   }
 }
-    /* ══ GLOBAL SAFETY NET ══ */
+       /* ══════════════════════════════════════════════════
+       RESPONSIVE — SINGLE SOURCE OF TRUTH
+       ══════════════════════════════════════════════════ */
+
     html, body {
       overflow-x: hidden;
       max-width: 100%;
     }
-
-
-    @media (max-width: 900px) {
-      .pd-grid {
-        grid-template-columns: 1fr !important;
-        gap: 32px !important;
-      }
-    }
-    @media (max-width: 600px) {
-      section {
-        padding: 32px 16px !important;
-      }
-    }
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
-    input[type=number] { -moz-appearance: textfield; }
-
 
     section {
       overflow-x: hidden;
@@ -626,15 +612,19 @@ body {
       box-sizing: border-box;
     }
 
-    /* Prevent long words/text from forcing horizontal scroll */
     section h1,
     section p,
-    section div {
+    section div,
+    section span {
       overflow-wrap: break-word;
       word-break: break-word;
     }
 
-    /* ══ RESPONSIVE PADDING ══ */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    input[type=number] { -moz-appearance: textfield; }
+
+    /* ── Layout / grid ── */
     @media (max-width: 900px) {
       .pd-grid {
         grid-template-columns: 1fr !important;
@@ -644,36 +634,52 @@ body {
 
     @media (max-width: 600px) {
       section {
-        padding: 32px 16px !important;
+        padding: 40px 20px !important;
       }
     }
 
     @media (max-width: 420px) {
       section {
-        padding: 24px 12px !important;
+        padding: 28px 14px !important;
       }
     }
 
-    /* ══ PRICE ROW ══ */
+    @media (max-width: 340px) {
+      section {
+        padding: 20px 10px !important;
+      }
+    }
+
+    /* ── Title & price ── */
     @media (max-width: 480px) {
       .current-product-price {
         font-size: 26px !important;
       }
     }
 
-    /* ══ QTY + BUY BUTTON ROW ══ */
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
-    input[type=number] { -moz-appearance: textfield; }
+    @media (max-width: 340px) {
+      .current-product-price {
+        font-size: 22px !important;
+      }
+    }
 
+    /* ── Add to cart button ── */
     .cart-btn {
       white-space: normal !important;
       text-align: center;
-      font-size: 11px !important;
-      letter-spacing: 1.5px !important;
-      padding: 14px 10px !important;
+      font-size: 12px;
+      letter-spacing: 2px;
     }
 
+    @media (max-width: 480px) {
+      .cart-btn {
+        font-size: 11px !important;
+        letter-spacing: 1px !important;
+        padding: 14px 10px !important;
+      }
+    }
+
+    /* ── Qty + Buy row: stack on very small screens ── */
     @media (max-width: 380px) {
       .qty-cart-row {
         flex-wrap: wrap;
@@ -689,24 +695,59 @@ body {
       }
     }
 
-    /* ══ IMAGE GALLERY ══ */
-    .thumb-item {
-      width: 60px !important;
-      height: 76px !important;
+    /* ── Image gallery thumbnails: shrink ONLY on small screens ── */
+    @media (max-width: 600px) {
+      .thumb-item {
+        width: 60px !important;
+        height: 76px !important;
+      }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 400px) {
       .thumb-item {
         width: 52px !important;
         height: 66px !important;
       }
     }
 
-    /* ══ META LIST / TRUST BADGES ══ */
-    @media (max-width: 360px) {
-      section div[style*="grid-template-columns: repeat(3"] {
+    @media (max-width: 340px) {
+      .thumb-item {
+        width: 44px !important;
+        height: 56px !important;
+      }
+    }
+
+    /* ── Fix badge/wishlist overlap with story progress bar ── */
+    .discount-badge {
+      top: 34px !important;
+    }
+    .wishlist-btn {
+      top: 34px !important;
+    }
+
+    /* ── Product meta list: let long values wrap instead of overflow ── */
+    .meta-row {
+      flex-wrap: wrap;
+      row-gap: 4px;
+    }
+    .meta-row .meta-value {
+      text-align: right;
+      max-width: 60%;
+      word-break: break-word;
+    }
+
+    /* ── Trust badges: collapse earlier for safety ── */
+    @media (max-width: 420px) {
+      .trust-badges {
         grid-template-columns: 1fr !important;
         gap: 8px !important;
+      }
+    }
+
+    /* ── Rating row: shrink font on tiny screens ── */
+    @media (max-width: 340px) {
+      .rating-row span {
+        font-size: 10px !important;
       }
     }
 </style>
@@ -837,7 +878,7 @@ body {
   </div>
 
   <!-- Discount badge -->
-  <div style="
+  <div class="discount-badge" style="
     position: absolute; top: 16px; left: 16px; z-index: 2;
     background: #D4AF37; color: #0a0a0a;
     font-size: 11px; font-weight: 700;
@@ -846,7 +887,7 @@ body {
   ">-{{ p.get_percentage|floatformat:0 }}%</div>
 
   <!-- Wishlist button -->
-  <button style="
+  <button class="wishlist-btn" style="
     position: absolute; top: 16px; right: 16px; z-index: 2;
     width: 38px; height: 38px;
     background: rgba(0,0,0,.7); border: 1px solid #333;
@@ -977,7 +1018,7 @@ body {
       ">{{ p.title }}</h1>
 
       <!-- Rating row -->
-      <div style="display: flex;  align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;">
+      <div class="rating-row" style="display: flex;  align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;">
         <span style="color: #D4AF37; font-size: 13px; letter-spacing: 2px;">★★★★★</span>
         <span style="font-size: 11px; color: #666; letter-spacing: 1px;">4.9 · 128 reviews</span>
         <span style="color: #1e1e1e;">|</span>
@@ -1142,50 +1183,50 @@ body {
           list-style: none; margin: 0; padding: 0;
           display: flex; flex-direction: column; gap: 14px;
         ">
-          <li style="
+          <li class="meta-row" style="
             display: flex; justify-content: space-between;
             align-items: center; font-size: 12px;
             padding-bottom: 14px; border-bottom: 1px solid #1a1a1a;
           ">
             <span style="color:#666; letter-spacing:2px; text-transform:uppercase;">Type</span>
-            <span style="color:#ccc; font-weight:500;">{{ p.type }}</span>
+            <span class="meta-value" style="color:#ccc; font-weight:500;">{{ p.type }}</span>
           </li>
-          <li style="
+          <li class="meta-row" style="
             display: flex; justify-content: space-between;
             align-items: center; font-size: 12px;
             padding-bottom: 14px; border-bottom: 1px solid #1a1a1a;
           ">
             <span style="color:#666; letter-spacing:2px; text-transform:uppercase;">MFG Date</span>
-            <span style="color:#ccc; font-weight:500;">{{ p.mfd|date:"d M, Y" }}</span>
+            <span class="meta-value" style="color:#ccc; font-weight:500;">{{ p.mfd|date:"d M, Y" }}</span>
           </li>
-          <li style="
+          <li class="meta-row" style="
             display: flex; justify-content: space-between;
             align-items: center; font-size: 12px;
             padding-bottom: 14px; border-bottom: 1px solid #1a1a1a;
           ">
             <span style="color:#666; letter-spacing:2px; text-transform:uppercase;">Life</span>
-            <span style="color:#ccc; font-weight:500;">{{ p.life }}</span>
+            <span class="meta-value" style="color:#ccc; font-weight:500;">{{ p.life }}</span>
           </li>
-          <li style="
+          <li class="meta-row" style="
             display: flex; justify-content: space-between;
             align-items: center; font-size: 12px;
             padding-bottom: 14px; border-bottom: 1px solid #1a1a1a;
           ">
             <span style="color:#666; letter-spacing:2px; text-transform:uppercase;">SKU</span>
-            <span style="color:#ccc; font-weight:500; font-family:monospace;">{{ p.sku }}</span>
+            <span class="meta-value" style="color:#ccc; font-weight:500; font-family:monospace;">{{ p.sku }}</span>
           </li>
-          <li style="
+          <li class="meta-row" style="
             display: flex; justify-content: space-between;
             align-items: center; font-size: 12px;
           ">
             <span style="color:#666; letter-spacing:2px; text-transform:uppercase;">Stock</span>
-            <span style="color:#2ecc71; font-weight:600;">{{ p.stock_count }} available</span>
+            <span class="meta-value" style="color:#2ecc71; font-weight:600;">{{ p.stock_count }} available</span>
           </li>
         </ul>
       </div>
 
       <!-- Trust badges -->
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+      <div class="trust-badges" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
         <div style="text-align:center; padding:14px 8px; border:1px solid #1a1a1a; background:#111;">
           <i class="fa fa-truck" style="color:#D4AF37; font-size:18px; margin-bottom:6px; display:block;"></i>
           <span style="font-size:10px; color:#888; letter-spacing:1px; display:block;">Delivery</span>
@@ -1207,22 +1248,8 @@ body {
   </div>
 
   <!-- ══ RESPONSIVE STYLES ══ -->
-  <style>
-    @media (max-width: 900px) {
-      .pd-grid {
-        grid-template-columns: 1fr !important;
-        gap: 32px !important;
-      }
-    }
-    @media (max-width: 600px) {
-      section {
-        padding: 32px 16px !important;
-      }
-    }
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
-    input[type=number] { -moz-appearance: textfield; }
-  </style>
+ 
+
 
 </section>
 
