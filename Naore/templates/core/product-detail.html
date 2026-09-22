@@ -3,6 +3,7 @@
 
 <style>
 
+body, .pd-grid { overflow-x: hidden; }
 
 /*-----------------------------------*\
   #style.css
@@ -553,7 +554,18 @@ body {
 
 }
 
-
+@media (max-width: 380px) {
+  .qty-cart-row {
+    flex-wrap: wrap;
+  }
+  .qty-cart-row > a {
+    flex: 1 1 100% !important;
+  }
+  .qty-cart-row > div {
+    flex: 1 1 100% !important;
+    justify-content: center !important;
+  }
+}
 
 
 </style>
@@ -782,6 +794,7 @@ body {
   </div>
   {% endfor %}
 </div>
+
       </div>
 
     </div>
@@ -853,9 +866,10 @@ body {
       <input type="hidden" value="{{ p.pid }}" class="product-pid">
 
       <!-- ══ Quantity + Add to Cart row ══ -->
-      <div style="
+      <div class="qty-cart-row" style="
         display: flex; gap: 12px;
         align-items: stretch;
+        flex-wrap: wrap;
         margin-bottom: 16px;
       ">
 
@@ -906,11 +920,11 @@ body {
        <!-- Add to Cart -->
 
             <a href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            style="flex: 1; text-decoration: none; display: flex;"
-            onclick="sendToWhatsApp(event, 'cart')"
-          >
+              target="_blank"
+              rel="noopener noreferrer"
+              style="flex: 1 1 160px; min-width: 0; text-decoration: none; display: flex;"
+              onclick="sendToWhatsApp(event, 'cart')"
+            >
             <button class="cart-btn add-to-cart-btn" style="
               width: 100%; padding: 16px 24px;
               background: #D4AF37; border: 2px solid #D4AF37;
