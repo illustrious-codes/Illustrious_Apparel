@@ -794,14 +794,16 @@ body {
     <i class="fa fa-chevron-left"></i>
   </button>
 
+
   <div data-thumbs style="
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
+    overflow: hidden;
     padding: 0 34px 4px;
-    scrollbar-width: none;
   ">
+  <div data-thumbs-track style="
+      display: flex;
+      gap: 10px;
+      transition: transform 0.35s ease;
+    ">
     <!-- Main image thumb -->
     <div data-thumb="0" class="thumb-item active" style="
       flex-shrink: 0; width: 72px; height: 90px;
@@ -825,6 +827,7 @@ body {
     </div>
     {% endfor %}
   </div>
+</div>
 
   <button data-thumb-next aria-label="Scroll thumbnails right" style="
     position: absolute; right: 0; top: 50%; transform: translateY(-50%);
@@ -1219,40 +1222,96 @@ if (slider) {
 }
 
 
+/* ── THUMBNAIL STRIP (Story-style, paged by 4) ─────── */
+const thumbsWindow = document.querySelector("[data-thumbs]");
+const thumbsTrack   = document.querySelector("[data-thumbs-track]");
+const thumbPrev     = document.querySelector("[data-thumb-prev]");
+const thumbNext     = document.querySelector("[data-thumb-next]");
+const thumbItems    = thumbsTrack ? Array.from(thumbsTrack.children) : [];
 
-/* ── THUMBNAIL SCROLL ARROWS ───────────────────────── */
-const thumbTrack = document.querySelector("[data-thumbs]");
-const thumbPrev  = document.querySelector("[data-thumb-prev]");
-const thumbNext  = document.querySelector("[data-thumb-next]");
+if (thumbsWindow && thumbsTrack && thumbItems.length) {
+  const PAGE_SIZE = 4;
+  const ITEM_WIDTH = 72;
+  const GAP = 10;
+  const STEP = ITEM_WIDTH + GAP;
 
-if (thumbTrack && thumbPrev && thumbNext) {
-  const scrollAmount = () => thumbTrack.clientWidth * 0.8;
+  const totalItems = thumbItems.length;
+  const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+  let currentPage = 0;
 
   const updateThumbArrows = () => {
-    const maxScroll = thumbTrack.scrollWidth - thumbTrack.clientWidth;
-    const atStart = thumbTrack.scrollLeft <= 2;
-    const atEnd   = thumbTrack.scrollLeft >= maxScroll - 2;
+    thumbPrev.style.display = totalPages <= 1 ? "none" : "flex";
+    thumbNext.style.display = totalPages <= 1 ? "none" : "flex";
 
-    thumbPrev.style.display = maxScroll <= 2 ? "none" : "flex";
-    thumbNext.style.display = maxScroll <= 2 ? "none" : "flex";
+    const atStart = currentPage <= 0;
+    const atEnd   = currentPage >= totalPages - 1;
+
     thumbPrev.style.opacity = atStart ? "0.3" : "1";
     thumbPrev.style.pointerEvents = atStart ? "none" : "auto";
     thumbNext.style.opacity = atEnd ? "0.3" : "1";
     thumbNext.style.pointerEvents = atEnd ? "none" : "auto";
   };
 
-  thumbPrev.addEventListener("click", () => {
-    thumbTrack.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
-  });
-  thumbNext.addEventListener("click", () => {
-    thumbTrack.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+  const goToPage = (page) => {
+    if (page < 0 || page > totalPages - 1) return;
+    currentPage = page;
+    const offset = currentPage * PAGE_SIZE * STEP;
+    thumbsTrack.style.transform = `translateX(-${offset}px)`;
+    updateThumbArrows();
+  };
+
+  const goToPageContainingIndex = (index) => {
+    const page = Math.floor(index / PAGE_SIZE);
+    goToPage(page);
+  };
+
+  thumbPrev.addEventListener("click", () => goToPage(currentPage - 1));
+  thumbNext.addEventListener("click", () => goToPage(currentPage + 1));
+
+  // Clicking a thumbnail selects it (existing behavior hooks into this below)
+  thumbItems.forEach((thumb) => {
+    thumb.addEventListener("click", () => {
+      goToPageContainingIndex(Number(thumb.dataset.thumb));
+    });
   });
 
-  thumbTrack.addEventListener("scroll", updateThumbArrows);
-  window.addEventListener("resize", updateThumbArrows);
-  updateThumbArrows();
+  // ── Swipe support (touch) ──
+  let touchStartX = 0;
+  thumbsWindow.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  thumbsWindow.addEventListener("touchend", (e) => {
+    const touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    const threshold = 30;
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) goToPage(currentPage + 1); // swipe left → next page
+      else goToPage(currentPage - 1);          // swipe right → prev page
+    }
+  }, { passive: true });
+
+  // ── Drag-to-page support (mouse) ──
+  let isDown = false;
+  let dragStartX = 0;
+
+  thumbsWindow.addEventListener("mousedown", (e) => {
+    isDown = true;
+    dragStartX = e.pageX;
+  });
+  window.addEventListener("mouseup", (e) => {
+    if (!isDown) return;
+    isDown = false;
+    const diff = dragStartX - e.pageX;
+    const threshold = 30;
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) goToPage(currentPage + 1);
+      else goToPage(currentPage - 1);
+    }
+  });
+
+  goToPage(0);
 }
-
 
   /* ── HAMBURGER ───────────────────────────────────── */
   const hamburgerBtn   = document.getElementById("hamburgerBtn");
