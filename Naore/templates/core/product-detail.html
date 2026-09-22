@@ -266,6 +266,36 @@ body {
   max-height: 300px;
 }
 
+/* Story-style progress bar */
+.story-progress {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 3;
+  display: flex;
+  gap: 4px;
+}
+
+.story-progress .segment {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.story-progress .segment .fill {
+  height: 100%;
+  width: 0%;
+  background: #D4AF37;
+  transition: width 0.25s ease;
+}
+
+.story-progress .segment.filled .fill {
+  width: 100%;
+}
+
 .slide-btn {
   position: absolute;
   top: 50%;
@@ -669,6 +699,8 @@ body {
   aspect-ratio: 4/5;
   margin-bottom: 12px;
 ">
+
+<div class="story-progress" id="storyProgress"></div>
   <!-- ✅ Only THIS inner div gets data-slider -->
   <div data-slider style="
     display: flex;
@@ -1102,28 +1134,48 @@ body {
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-  /* ── SLIDER ──────────────────────────────────────── */
+  
+  /* ── SLIDER (Story-style) ─────────────────────────── */
 const slider  = document.querySelector("[data-slider]");
 const nextBtn = document.querySelector("[data-next]");
 const prevBtn = document.querySelector("[data-prev]");
 const thumbs  = Array.from(document.querySelectorAll("[data-thumb]"));
+const progressWrap = document.getElementById("storyProgress");
 
-if (slider && nextBtn && prevBtn) {
+if (slider) {
   let sliderPos = 0;
   const total = Array.from(slider.children).length;
 
+  // build one segment per image
+  if (progressWrap) {
+    progressWrap.innerHTML = "";
+    for (let i = 0; i < total; i++) {
+      const seg = document.createElement("div");
+      seg.className = "segment";
+      seg.innerHTML = '<div class="fill"></div>';
+      progressWrap.appendChild(seg);
+    }
+  }
+  const segments = progressWrap ? Array.from(progressWrap.children) : [];
+
   const updateSlider = () => {
     slider.style.transform = `translateX(-${sliderPos * 100}%)`;
-    nextBtn.style.display = total <= 1 ? "none" : "flex";
-    prevBtn.style.display = total <= 1 ? "none" : "flex";
-    nextBtn.classList.toggle("disabled", sliderPos >= total - 1);
-    prevBtn.classList.toggle("disabled", sliderPos <= 0);
 
-    // sync thumbnail highlight with current slide
+    if (nextBtn && prevBtn) {
+      nextBtn.style.display = total <= 1 ? "none" : "flex";
+      prevBtn.style.display = total <= 1 ? "none" : "flex";
+      nextBtn.classList.toggle("disabled", sliderPos >= total - 1);
+      prevBtn.classList.toggle("disabled", sliderPos <= 0);
+    }
+
     thumbs.forEach((t) => {
       const isActive = Number(t.dataset.thumb) === sliderPos;
       t.classList.toggle("active", isActive);
       t.style.borderColor = isActive ? "#D4AF37" : "#2a2a2a";
+    });
+
+    segments.forEach((seg, i) => {
+      seg.classList.toggle("filled", i <= sliderPos);
     });
   };
 
@@ -1133,16 +1185,39 @@ if (slider && nextBtn && prevBtn) {
     updateSlider();
   };
 
-  nextBtn.addEventListener("click", () => goTo(sliderPos + 1));
-  prevBtn.addEventListener("click", () => goTo(sliderPos - 1));
+  if (nextBtn) nextBtn.addEventListener("click", () => goTo(sliderPos + 1));
+  if (prevBtn) prevBtn.addEventListener("click", () => goTo(sliderPos - 1));
 
-  // clicking any thumbnail jumps straight to that image
   thumbs.forEach((thumb) => {
     thumb.addEventListener("click", () => goTo(Number(thumb.dataset.thumb)));
   });
 
+  // ── Swipe support (like Stories) ──
+  const sliderContainer = slider.parentElement; // the position:relative wrapper
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  sliderContainer.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  sliderContainer.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    const threshold = 40; // min px to count as a swipe
+
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        goTo(sliderPos + 1); // swiped left → next
+      } else {
+        goTo(sliderPos - 1); // swiped right → prev
+      }
+    }
+  }, { passive: true });
+
   updateSlider();
 }
+
 
 
 /* ── THUMBNAIL SCROLL ARROWS ───────────────────────── */
