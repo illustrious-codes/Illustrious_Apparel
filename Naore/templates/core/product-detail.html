@@ -1729,6 +1729,7 @@
   });
 
   /* ── WHATSAPP ────────────────────────────────────── */
+
   function sendToWhatsApp(event, type) {
     event.preventDefault();
     const qty =
@@ -1736,15 +1737,19 @@
     const title = "{{ p.title }}";
     const price = "{{ p.price }}";
     const phone = "2349057058845";
+    const productUrl = "{{ request.build_absolute_uri }}";
+
     let message = "";
     if (type === "cart") {
       message =
-        "Hello Illustrious Codes! I want to order: " +
+        "Hello Illustrious Apparel! I want to order: " +
         qty +
         " piece(s)\n\nProduct: " +
         title +
         "\nPrice: ₦" +
         price +
+        "\nLink: " +
+        productUrl +
         "\n\nPlease confirm availability.";
     } else {
       message =
@@ -1754,8 +1759,11 @@
         title +
         "\nPrice: ₦" +
         price +
+        "\nLink: " +
+        productUrl +
         "\n\nPlease send me payment details.";
     }
+
     window.open(
       "https://wa.me/" + phone + "?text=" + encodeURIComponent(message),
       "_blank"
