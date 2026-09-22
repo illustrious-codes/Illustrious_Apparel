@@ -666,19 +666,19 @@ body {
     transition: transform 0.4s ease;
   ">
     <!-- Slide 1: main image -->
-    <div style="min-width:100%; height:100%; flex-shrink:0;">
-      <img src="{{ p.image.url }}" alt="{{ p.title }}"
-           class="img-cover product-image"
-           style="width:100%; height:100%; object-fit:cover; display:block;"/>
-    </div>
+  <div style="min-width:100%; width:100%; height:100%; flex-shrink:0;">
+    <img src="{{ p.image.url }}" alt="{{ p.title }}"
+        class="img-cover product-image"
+        style="width:100%; height:100%; object-fit:cover; display:block;"/>
+  </div>
 
-    <!-- Extra image slides -->
-    {% for img in p_image %}
-    <div style="min-width:100%; height:100%; flex-shrink:0;">
-      <img src="{{ img.images.url }}" alt="Product view"
-           style="width:100%; height:100%; object-fit:cover; display:block;"/>
-    </div>
-    {% endfor %}
+  <!-- Extra image slides -->
+  {% for img in p_image %}
+  <div style="min-width:100%; width:100%; height:100%; flex-shrink:0;">
+    <img src="{{ img.images.url }}" alt="Product view"
+        style="width:100%; height:100%; object-fit:cover; display:block;"/>
+  </div>
+  {% endfor %}
   </div>
 
   <!-- Discount badge -->
@@ -752,20 +752,36 @@ body {
                style="width:100%; height:100%; object-fit:cover;"/>
         </div>
 
-        <!-- Extra image thumbs -->
-        {% for img in p_image %}
-        <div style="
-          flex-shrink: 0; width: 72px; height: 90px;
-          border: 1px solid #2a2a2a;
-          overflow: hidden; cursor: pointer;
-          transition: border-color .2s;
-        "
-        onmouseenter="this.style.borderColor='#D4AF37'"
-        onmouseleave="this.style.borderColor='#2a2a2a'">
-          <img src="{{ img.images.url }}" alt="Product view"
-               style="width:100%; height:100%; object-fit:cover;"/>
-        </div>
-        {% endfor %}
+        <!-- Thumbnail strip -->
+<div data-thumbs style="
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+">
+  <!-- Main image thumb -->
+  <div data-thumb="0" class="thumb-item active" style="
+    flex-shrink: 0; width: 72px; height: 90px;
+    border: 1.5px solid #D4AF37;
+    overflow: hidden; cursor: pointer;
+  ">
+    <img src="{{ p.image.url }}" alt="{{ p.title }}"
+         style="width:100%; height:100%; object-fit:cover;"/>
+  </div>
+
+  <!-- Extra image thumbs -->
+  {% for img in p_image %}
+  <div data-thumb="{{ forloop.counter }}" class="thumb-item" style="
+    flex-shrink: 0; width: 72px; height: 90px;
+    border: 1px solid #2a2a2a;
+    overflow: hidden; cursor: pointer;
+    transition: border-color .2s;
+  ">
+    <img src="{{ img.images.url }}" alt="Product view"
+         style="width:100%; height:100%; object-fit:cover;"/>
+  </div>
+  {% endfor %}
+</div>
       </div>
 
     </div>
@@ -1061,31 +1077,47 @@ body {
 document.addEventListener("DOMContentLoaded", function() {
 
   /* ── SLIDER ──────────────────────────────────────── */
-  const slider  = document.querySelector("[data-slider]");
-  const nextBtn = document.querySelector("[data-next]");
-  const prevBtn = document.querySelector("[data-prev]");
+const slider  = document.querySelector("[data-slider]");
+const nextBtn = document.querySelector("[data-next]");
+const prevBtn = document.querySelector("[data-prev]");
+const thumbs  = Array.from(document.querySelectorAll("[data-thumb]"));
 
-  if (slider && nextBtn && prevBtn) {
-    let sliderPos = 0;
-    const total = Array.from(slider.children).length;
+if (slider && nextBtn && prevBtn) {
+  let sliderPos = 0;
+  const total = Array.from(slider.children).length;
 
-    const updateSlider = () => {
-      slider.style.transform = `translateX(-${sliderPos * 100}%)`;
-      nextBtn.style.display = total <= 1 ? "none" : "flex";
-      prevBtn.style.display = total <= 1 ? "none" : "flex";
-      nextBtn.classList.toggle("disabled", sliderPos >= total - 1);
-      prevBtn.classList.toggle("disabled", sliderPos <= 0);
-    };
+  const updateSlider = () => {
+    slider.style.transform = `translateX(-${sliderPos * 100}%)`;
+    nextBtn.style.display = total <= 1 ? "none" : "flex";
+    prevBtn.style.display = total <= 1 ? "none" : "flex";
+    nextBtn.classList.toggle("disabled", sliderPos >= total - 1);
+    prevBtn.classList.toggle("disabled", sliderPos <= 0);
 
-    nextBtn.addEventListener("click", () => {
-      if (sliderPos < total - 1) { sliderPos++; updateSlider(); }
+    // sync thumbnail highlight with current slide
+    thumbs.forEach((t) => {
+      const isActive = Number(t.dataset.thumb) === sliderPos;
+      t.classList.toggle("active", isActive);
+      t.style.borderColor = isActive ? "#D4AF37" : "#2a2a2a";
     });
-    prevBtn.addEventListener("click", () => {
-      if (sliderPos > 0) { sliderPos--; updateSlider(); }
-    });
+  };
 
+  const goTo = (index) => {
+    if (index < 0 || index > total - 1) return;
+    sliderPos = index;
     updateSlider();
-  }
+  };
+
+  nextBtn.addEventListener("click", () => goTo(sliderPos + 1));
+  prevBtn.addEventListener("click", () => goTo(sliderPos - 1));
+
+  // clicking any thumbnail jumps straight to that image
+  thumbs.forEach((thumb) => {
+    thumb.addEventListener("click", () => goTo(Number(thumb.dataset.thumb)));
+  });
+
+  updateSlider();
+}
+
 
   /* ── HAMBURGER ───────────────────────────────────── */
   const hamburgerBtn   = document.getElementById("hamburgerBtn");
