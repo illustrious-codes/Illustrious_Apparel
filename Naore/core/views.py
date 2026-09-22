@@ -5,6 +5,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.contrib import messages
 from django.template.loader import render_to_string
+from django.shortcuts import render
+from django.templatetags.static import static
 
 from core.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages,ProductReview,wishlist, Address 
 
@@ -70,9 +72,12 @@ def product_detail_view(request, pid):
     product = Product.objects.get(pid=pid)
     p_image = product.p_images.all()
 
-    if product.image:
-        og_image_url = product.image.url  # Cloudinary URL is already absolute
-    else:
+    try:
+        if product.image:
+            og_image_url = product.image.url
+        else:
+            og_image_url = request.build_absolute_uri(static('images/meta.jpg'))
+    except Exception:
         og_image_url = request.build_absolute_uri(static('images/meta.jpg'))
 
     context = {
