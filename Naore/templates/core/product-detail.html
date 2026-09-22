@@ -1,4 +1,17 @@
-{% extends 'partials/base.html' %} {% load static %} {% block content %}
+{% extends 'partials/base.html' %} {% load static %} {% block title %}{{ p.title
+}} | Illustrious Apparel{% endblock %} {% block meta_description %}{{
+p.description|truncatewords:25 }}{% endblock %} {% block canonical
+%}https://illustriousapparel.com.ng{{ request.path }}{% endblock %} {% block
+og_type %}product{% endblock %} {% block og_title %}{{ p.title }} | Illustrious
+Apparel{% endblock %} {% block og_description %}{{
+p.description|truncatewords:25 }}{% endblock %} {% block og_image %}{{
+og_image_url }}{% endblock %} {% block twitter_title %}{{ p.title }} |
+Illustrious Apparel{% endblock %} {% block twitter_description %}{{
+p.description|truncatewords:25 }}{% endblock %} {% block twitter_image %}{{
+og_image_url }}{% endblock %} {% block extra_meta %}
+<meta property="product:price:amount" content="{{ p.price }}" />
+<meta property="product:price:currency" content="NGN" />
+{% endblock %}{% block content %}
 
 <style>
   /*-----------------------------------*\

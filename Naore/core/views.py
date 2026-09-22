@@ -68,15 +68,12 @@ def category_product_list_view(request, cid):
 
 def product_detail_view(request, pid):
     product = Product.objects.get(pid=pid)
-    # product = get_object_or_404(Product, pid=pid)
-
     p_image = product.p_images.all()
-
 
     context = {
         "p": product,
         "p_image": p_image,
-
+        "og_image_url": request.build_absolute_uri(product.image.url),
     }
     return render(request, 'core/product-detail.html', context)
 
