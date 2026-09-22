@@ -763,37 +763,68 @@ body {
                style="width:100%; height:100%; object-fit:cover;"/>
         </div>
 
-        <!-- Thumbnail strip 1 -->
-<div data-thumbs style="
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-">
-  <!-- Main image thumb -->
-  <div data-thumb="0" class="thumb-item active" style="
-    flex-shrink: 0; width: 72px; height: 90px;
-    border: 1.5px solid #D4AF37;
-    overflow: hidden; cursor: pointer;
+        <!-- Thumbnail strip with scroll arrows -->
+<div style="position: relative;">
+
+  <button data-thumb-prev aria-label="Scroll thumbnails left" style="
+    position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    width: 28px; height: 28px; z-index: 3;
+    background: rgba(0,0,0,.75); border: 1px solid #444;
+    color: #fff; font-size: 12px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s;
+  "
+  onmouseenter="this.style.background='#D4AF37';this.style.color='#0a0a0a'"
+  onmouseleave="this.style.background='rgba(0,0,0,.75)';this.style.color='#fff'">
+    <i class="fa fa-chevron-left"></i>
+  </button>
+
+  <div data-thumbs style="
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 4px;
+    scrollbar-width: none;
   ">
-    <img src="{{ p.image.url }}" alt="{{ p.title }}"
-         style="width:100%; height:100%; object-fit:cover;"/>
+    <!-- Main image thumb -->
+    <div data-thumb="0" class="thumb-item active" style="
+      flex-shrink: 0; width: 72px; height: 90px;
+      border: 1.5px solid #D4AF37;
+      overflow: hidden; cursor: pointer;
+    ">
+      <img src="{{ p.image.url }}" alt="{{ p.title }}"
+           style="width:100%; height:100%; object-fit:cover;"/>
+    </div>
+
+    <!-- Extra image thumbs -->
+    {% for img in p_image %}
+    <div data-thumb="{{ forloop.counter }}" class="thumb-item" style="
+      flex-shrink: 0; width: 72px; height: 90px;
+      border: 1px solid #2a2a2a;
+      overflow: hidden; cursor: pointer;
+      transition: border-color .2s;
+    ">
+      <img src="{{ img.images.url }}" alt="Product view"
+           style="width:100%; height:100%; object-fit:cover;"/>
+    </div>
+    {% endfor %}
   </div>
 
-  <!-- Extra image thumbs -->
-  {% for img in p_image %}
-  <div data-thumb="{{ forloop.counter }}" class="thumb-item" style="
-    flex-shrink: 0; width: 72px; height: 90px;
-    border: 1px solid #2a2a2a;
-    overflow: hidden; cursor: pointer;
-    transition: border-color .2s;
-  ">
-    <img src="{{ img.images.url }}" alt="Product view"
-         style="width:100%; height:100%; object-fit:cover;"/>
-  </div>
-  {% endfor %}
+  <button data-thumb-next aria-label="Scroll thumbnails right" style="
+    position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    width: 28px; height: 28px; z-index: 3;
+    background: rgba(0,0,0,.75); border: 1px solid #444;
+    color: #fff; font-size: 12px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s;
+  "
+  onmouseenter="this.style.background='#D4AF37';this.style.color='#0a0a0a'"
+  onmouseleave="this.style.background='rgba(0,0,0,.75)';this.style.color='#fff'">
+    <i class="fa fa-chevron-right"></i>
+  </button>
+
 </div>
-
       </div>
 
     </div>
@@ -1129,6 +1160,40 @@ if (slider && nextBtn && prevBtn) {
   });
 
   updateSlider();
+}
+
+
+/* ── THUMBNAIL SCROLL ARROWS ───────────────────────── */
+const thumbTrack = document.querySelector("[data-thumbs]");
+const thumbPrev  = document.querySelector("[data-thumb-prev]");
+const thumbNext  = document.querySelector("[data-thumb-next]");
+
+if (thumbTrack && thumbPrev && thumbNext) {
+  const scrollAmount = () => thumbTrack.clientWidth * 0.8;
+
+  const updateThumbArrows = () => {
+    const maxScroll = thumbTrack.scrollWidth - thumbTrack.clientWidth;
+    const atStart = thumbTrack.scrollLeft <= 2;
+    const atEnd   = thumbTrack.scrollLeft >= maxScroll - 2;
+
+    thumbPrev.style.display = maxScroll <= 2 ? "none" : "flex";
+    thumbNext.style.display = maxScroll <= 2 ? "none" : "flex";
+    thumbPrev.style.opacity = atStart ? "0.3" : "1";
+    thumbPrev.style.pointerEvents = atStart ? "none" : "auto";
+    thumbNext.style.opacity = atEnd ? "0.3" : "1";
+    thumbNext.style.pointerEvents = atEnd ? "none" : "auto";
+  };
+
+  thumbPrev.addEventListener("click", () => {
+    thumbTrack.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+  });
+  thumbNext.addEventListener("click", () => {
+    thumbTrack.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+  });
+
+  thumbTrack.addEventListener("scroll", updateThumbArrows);
+  window.addEventListener("resize", updateThumbArrows);
+  updateThumbArrows();
 }
 
 
