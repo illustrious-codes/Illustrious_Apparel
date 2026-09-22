@@ -70,10 +70,15 @@ def product_detail_view(request, pid):
     product = Product.objects.get(pid=pid)
     p_image = product.p_images.all()
 
+    if product.image:
+        og_image_url = product.image.url  # Cloudinary URL is already absolute
+    else:
+        og_image_url = request.build_absolute_uri(static('images/meta.jpg'))
+
     context = {
         "p": product,
         "p_image": p_image,
-        "og_image_url": request.build_absolute_uri(product.image.url),
+        "og_image_url": og_image_url,
     }
     return render(request, 'core/product-detail.html', context)
 
