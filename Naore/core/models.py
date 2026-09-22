@@ -33,7 +33,7 @@ def user_directory_path(instance, filename):
 
 class Category(models.Model):
     cid = ShortUUIDField(unique=True, length=10, max_length=20, prefix="cat", alphabet="abcdefgh12345")
-    title = models.CharField(max_length=100, default="Food")
+    title = models.CharField(max_length=100, default="")
     image = models.ImageField(upload_to="category", default="category.jpg")
 
     class Meta:
@@ -82,7 +82,7 @@ class Product(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
 
 
-    title = models.CharField(max_length=100, default="Fresh Pear")
+    title = models.CharField(max_length=100, default="")
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
     description = models.TextField(null=True, blank=True, default="This is the product")
 
@@ -91,7 +91,7 @@ class Product(models.Model):
 
     
     specifications = models.TextField(null=True, blank=True)
-    type = models.CharField(max_length=100, default="Naore", null=True, blank=True)
+    type = models.CharField(max_length=100, default="Illustrious Apparel", null=True, blank=True)
     stock_count = models.CharField(max_length=100, default="10", null=True, blank=True)
     life = models.CharField(max_length=100, default="100 Days", null=True, blank=True)
     mfd = models.DateTimeField(auto_now_add=False, null=True, blank=True)
