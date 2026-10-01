@@ -1,16 +1,24 @@
 from django.contrib import admin
-from core.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages,ProductReview,wishlist, Address 
+from core.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages,ProductReview,wishlist, Address, ProductVideo 
 
 
 
 
 class ProductImagesAdmin(admin.TabularInline):
     model = ProductImages
+    extra = 1
+
+class ProductVideoInline(admin.TabularInline):
+    model = ProductVideo
+    extra = 1
 
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [ProductImagesAdmin]
+    inlines = [ProductImagesAdmin, ProductVideoInline]
     list_display = ["user", "title", "product_image", "price", "category", "vendor", "featured", "product_status"]
 
+class ProductVideoInline(admin.TabularInline):
+    model = ProductVideo
+    extra = 1
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ["title", "category_image"]

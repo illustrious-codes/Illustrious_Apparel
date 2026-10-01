@@ -972,7 +972,20 @@
                     style="width: 100%; height: 100%; object-fit: cover"
                   />
                 </div>
-                {% endfor %}
+                {% endfor %} {% if p.p_videos.all %}
+                <div style="margin-top: 20px">
+                  {% for vid in p.p_videos.all %}
+                  <video
+                    controls
+                    preload="metadata"
+                    style="width: 100%; max-width: 480px; margin-bottom: 12px"
+                  >
+                    <source src="{{ vid.video_file.url }}" type="video/mp4" />
+                    Your browser does not support video playback.
+                  </video>
+                  {% endfor %}
+                </div>
+                {% endif %}
               </div>
             </div>
 

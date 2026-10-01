@@ -136,16 +136,16 @@ class ProductImages(models.Model):
 
 
 class ProductVideo(models.Model):
-    video_file = models.FileField(upload_to='videos/')
+    product = models.ForeignKey(Product, related_name="p_videos", on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=100, blank=True, default="")
+    video_file = models.FileField(upload_to="product-videos/")
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    
+
+    class Meta:
+        verbose_name_plural = "Product Videos"
+
     def __str__(self):
-        return self.title
-
-
-########################Cart, Order, OrderItems and Address #############
-
-
+        return self.title or f"Video for {self.product.title if self.product else 'no product'}"
 
 
 class CartOrder(models.Model):
