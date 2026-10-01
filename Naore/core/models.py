@@ -3,6 +3,7 @@ from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from userauths.models import User
+from cloudinary_storage.storage import VideoMediaCloudinaryStorage
 
 
 STATUS_CHOICE = (
@@ -138,16 +139,13 @@ class ProductImages(models.Model):
 class ProductVideo(models.Model):
     product = models.ForeignKey(Product, related_name="p_videos", on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=100, blank=True, default="")
-    video_file = models.FileField(upload_to="product-videos/")
+    video_file = models.FileField(
+        upload_to="product-videos/",
+        storage=VideoMediaCloudinaryStorage(),
+    )
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name_plural = "Product Videos"
-
-    def __str__(self):
-        return self.title or f"Video for {self.product.title if self.product else 'no product'}"
-
-
+    
 class CartOrder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=12, decimal_places=2, default="1.99")
