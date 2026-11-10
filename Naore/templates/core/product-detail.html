@@ -1808,10 +1808,18 @@
     event.preventDefault();
     const qty =
       document.getElementById("product-quantity-{{ p.id }}").value || 1;
-    const title = "{{ p.title }}";
+    const title = "{{ p.title|escapejs }}";
     const price = "{{ p.price }}";
     const phone = "2349057058845";
     const productUrl = "{{ request.build_absolute_uri }}";
+
+    if (typeof fbq === "function") {
+      fbq("track", "Contact", {
+        content_name: "{{ p.title|escapejs }}",
+        value: parseFloat("{{ p.price }}"),
+        currency: "NGN",
+      });
+    }
 
     let message = "";
     if (type === "cart") {
@@ -1843,6 +1851,14 @@
       "_blank"
     );
   }
+
+  fbq("track", "ViewContent", {
+    content_name: "{{ p.title|escapejs }}",
+    content_ids: ["{{ p.pid }}"],
+    content_type: "product",
+    value: parseFloat("{{ p.price }}"),
+    currency: "NGN",
+  });
 </script>
 
 {% endblock content %}
